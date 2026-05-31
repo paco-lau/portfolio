@@ -1,9 +1,76 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-dm-sans);
 }
 
-html {
+html,
+body {
   scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes float-reverse-subtle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(10px) rotate(-3deg); }
+}
+
+@keyframes drift-subtle {
+  0%, 100% { transform: translateX(0px) translateY(0px); }
+  33% { transform: translateX(8px) translateY(-7px); }
+  66% { transform: translateX(-6px) translateY(6px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-36px) rotate(12deg); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(36px) rotate(-12deg); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateX(0px) translateY(0px); }
+  33% { transform: translateX(24px) translateY(-20px); }
+  66% { transform: translateX(-16px) translateY(16px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.6); }
+}
+
+@keyframes word-in {
+  0% { opacity: 0; transform: translateY(24px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes curious-wiggle {
+  0%   { transform: translateY(0) rotate(0deg); }
+  20%  { transform: translateY(-6px) rotate(-4deg); }
+  40%  { transform: translateY(-3px) rotate(4deg); }
+  60%  { transform: translateY(-5px) rotate(-2deg); }
+  80%  { transform: translateY(-2px) rotate(2deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.group:hover .curious-text {
+  animation: curious-wiggle 0.5s ease-in-out;
 }

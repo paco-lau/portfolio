@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Inter } from "next/font/google";
+import { DM_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/Navbar";
+import ScrollToTop from "./components/ScrollToTop";
 
-const geist = Geist({
-  variable: "--font-geist-sans",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -23,8 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${inter.variable} h-full`}>
-      <body className="min-h-full bg-neutral-50 text-neutral-900 antialiased">
+    <html lang="en" className={`${dmSans.variable} ${cormorant.variable} h-full`}>
+      <body className="min-h-full bg-[#F5F0E8] text-[#181a18] antialiased">
+        <ScrollToTop />
+        <Navbar />
         {children}
       </body>
     </html>
