@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import titleImg from "../../assets/title-img.png";
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const FULL_TEXT = "PACO LAU";
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const FULL_TEXT = "Paco Lau";
 const CHARS_ARRAY = FULL_TEXT.split("");
 function randomChar() { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
 
@@ -122,8 +122,8 @@ export default function HeroSection() {
 
         {/* Title — anchors first, largest weight */}
         <motion.h1
-          className="font-bold uppercase leading-none select-none"
-          style={{ fontSize: "clamp(72px, 11vw, 142px)", marginTop: 0, letterSpacing: "-0.06em" }}
+          className="font-bold leading-none select-none"
+          style={{ fontSize: "clamp(4rem, 10vw, 10rem)", marginTop: 0, letterSpacing: "-0.06em" }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease }}
@@ -151,7 +151,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           transition={{ duration: 0.7, delay: 0.85, ease }}
         >
-          Designer &amp; Photographer based in Berkeley, CA
+          BASED IN BERKELEY, CA
         </motion.p>
       </div>
 

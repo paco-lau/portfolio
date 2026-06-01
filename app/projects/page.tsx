@@ -71,14 +71,13 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 type Project = typeof projects[number];
 
-function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, current, i, animate: animateOnLoad }: Project & { i: number; animate: boolean }) {
+function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, current, i }: Project & { i: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
-      {...(animateOnLoad
-        ? { animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: 0, ease } }
-        : { whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.05 }, transition: { duration: 0.7, delay: 0, ease } }
-      )}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease }}
       whileHover={{ y: -6 }}
     >
       <Link
@@ -205,7 +204,7 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease }}
         >
-          {[...pinned, ...rest].map((p, i) => <ProjectCard key={p.num} {...p} i={i} animate={true} />)}
+          {[...pinned, ...rest].map((p, i) => <ProjectCard key={p.num} {...p} i={i} />)}
         </motion.div>
 
         {base.length === 0 && (

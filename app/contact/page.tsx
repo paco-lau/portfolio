@@ -102,7 +102,7 @@ export default function ContactPage() {
     <main style={{ backgroundColor: "#F5F0E8", minHeight: "100vh" }}>
 
       {/* CREAM HEADER */}
-      <div style={{ position: "relative", padding: "128px 96px 60px" }}>
+      <div style={{ position: "relative", padding: "128px 64px 60px" }}>
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
           backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.18) 1.5px, transparent 1.5px)",
@@ -120,7 +120,7 @@ export default function ContactPage() {
 
       {/* DARK CARD */}
       <div style={{ backgroundColor: "#2a2c2a", borderRadius: "48px 48px 0 0" }}>
-        <div style={{ padding: "64px 96px 0" }}>
+        <div style={{ padding: "64px 64px 0" }}>
 
           <div style={{ marginBottom: 48 }}>
             <motion.div {...anim(0.2)} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
