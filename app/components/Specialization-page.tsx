@@ -112,6 +112,66 @@ function Shape(s: { shape: string; color: string; size?: number; w?: number; h?:
   return null;
 }
 
+function ClickWord() {
+  const [hovered, setHovered] = useState(false);
+  const letters = ["c", "l", "i", "c", "k"];
+  return (
+    <span
+      className="relative inline-block cursor-pointer"
+      style={{ marginRight: "0.25em", transform: "translateY(8px)" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Dark pill — always underneath */}
+      <span className="absolute inset-0 rounded-full bg-[#181a18]" />
+      {/* Blue pill — covers by default, wipes upward on hover to reveal dark */}
+      <span
+        className="absolute rounded-full"
+        style={{
+          inset: "-1px",
+          backgroundColor: "#A8DCF0",
+          clipPath: hovered
+            ? "inset(0 0 100% 0 round 9999px)"
+            : "inset(0 0 0% 0 round 9999px)",
+          transition: "clip-path 0.52s cubic-bezier(0.76,0,0.24,1)",
+        }}
+      />
+      {/* Letters — stagger up and fade */}
+      <span
+        className="relative z-10 px-10 flex"
+        style={{ color: hovered ? "#f5f5f0" : "#181a18", transition: "color 0.25s ease 0.1s" }}
+      >
+        {letters.map((letter, i) => (
+          <span
+            key={i}
+            style={{
+              display: "inline-block",
+              transition: `transform 0.38s ease ${i * 0.05}s, opacity 0.32s ease ${i * 0.05}s`,
+              transform: hovered ? "translateY(-120%)" : "translateY(0)",
+              opacity: hovered ? 0 : 1,
+            }}
+          >
+            {letter}
+          </span>
+        ))}
+      </span>
+      {/* "Made you look." fades in on the blue pill */}
+      <span
+        className="absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap"
+        style={{
+          color: "#f5f5f0",
+          fontSize: "30px",
+          opacity: hovered ? 1 : 0,
+          transition: hovered ? "opacity 0.3s ease 0.35s" : "opacity 0.15s ease 0s",
+          pointerEvents: "none",
+        }}
+      >
+        Made you look.
+      </span>
+    </span>
+  );
+}
+
 function ShapeItem({ s, shapeScale, shapeOpacity, floatAnim }: { s: any; shapeScale: number; shapeOpacity: number; floatAnim: string }) {
   return (
     <div style={{ opacity: shapeOpacity, transform: `scale(${shapeScale})`, transformOrigin: "center center" }}>
@@ -219,12 +279,15 @@ export default function ToyStorySection({ onProgressChange }: { onProgressChange
           {chunks.map((chunk, ci) =>
             chunk.map((word, wi) => {
               if (word === "click") {
+                return <ClickWord key={`${ci}-${wi}`} />;
+              }
+              if (word === "scroll") {
                 return (
-                  <span key={`${ci}-${wi}`} className="group relative inline-block cursor-pointer rounded-full px-10 py-0 bg-sky-200 transition-all duration-300 ease-in-out hover:bg-[#181a18]/80 hover:text-white" style={{ display: "inline-block", marginRight: "0.25em", transform: "translateY(8px)" }}>
-                    <span className="curious-text group-hover:opacity-0 transition-opacity duration-300">click</span>
-                    <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap" style={{ fontSize: "30px" }}>
-                      Are you curious?
-                    </span>
+                  <span
+                    key={`${ci}-${wi}`}
+                    style={{ display: "inline-block", marginRight: "0.25em", color: "#7EC8E3" }}
+                  >
+                    {word}
                   </span>
                 );
               }

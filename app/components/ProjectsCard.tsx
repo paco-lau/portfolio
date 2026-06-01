@@ -102,7 +102,7 @@ export default function ProjectsCard() {
                 <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
                   {pinned && (
                     <span className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
-                      Pinned
+                      Featured
                     </span>
                   )}
                   {current && (
