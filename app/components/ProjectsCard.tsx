@@ -3,19 +3,32 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Footer from "./Footer";
+
+import firefoxBanner from "../../assets/projects/mozilla-firefox/firefox-banner.png";
 
 const projects = [
   {
-    num: "01", title: "Title Title Title Title Title", sub: "Subtitle Subtitle Subtitle Subtitle",
+    num: "05", title: "Mozilla Firefox Adaptive Performance Extension", sub: "Fall 2025",
+    gradient: "linear-gradient(135deg, #A0522D 0%, #4A1A0A 100%)",
+    banner: firefoxBanner,
+    categories: ["Coded", "UI/UX", "Web"],
+    pinned: true, current: false,
+  },
+  {
+    num: "01", title: "UC Berkeley HKSA Logo Re-Design", sub: "Summer 2026",
     gradient: "linear-gradient(135deg, #2B4590 0%, #0D1B4B 100%)",
+    banner: undefined,
+    categories: ["Brand"],
+    pinned: false, current: true,
   },
   {
-    num: "02", title: "Title Title Title Title Title", sub: "Subtitle Subtitle Subtitle Subtitle",
-    gradient: "linear-gradient(135deg, #C4622D 0%, #6B2D0F 100%)",
-  },
-  {
-    num: "03", title: "Title Title Title Title Title", sub: "Subtitle Subtitle Subtitle Subtitle",
+    num: "photography", title: "Photography", sub: "Coming soon",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
+    banner: undefined,
+    categories: [],
+    pinned: false, current: false,
   },
 ];
 
@@ -36,7 +49,7 @@ export default function ProjectsCard() {
 
   return (
     <div
-      id="design"
+      id="projects"
       className="rounded-t-[48px] px-16 pt-14 pb-20"
       style={{
         backgroundColor: "#2a2c2a",
@@ -67,7 +80,7 @@ export default function ProjectsCard() {
       </h2>
 
       <div className="grid grid-cols-3 gap-8">
-        {projects.map(({ num, title, sub, gradient }, i) => (
+        {projects.map(({ num, title, sub, gradient, banner, categories, pinned, current }, i) => (
           <motion.div
             key={num}
             initial={{ opacity: 0, y: 40 }}
@@ -83,19 +96,36 @@ export default function ProjectsCard() {
             >
               {/* Image area */}
               <div className="h-72 relative" style={{ background: gradient }}>
-                <span
-                  className="absolute top-3 left-5 font-bold select-none pointer-events-none"
-                  style={{ fontSize: "72px", lineHeight: 1, color: "rgba(255,255,255,0.07)" }}
-                >
-                  {num}
-                </span>
+                {banner && <Image src={banner} alt={title} fill className="object-cover" />}
+                <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
+                <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
+                  {pinned && (
+                    <span className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
+                      Pinned
+                    </span>
+                  )}
+                  {current && (
+                    <span className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                      In Progress
+                    </span>
+                  )}
+                </div>
+                {categories.length > 0 && (
+                  <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
+                    {[...categories].sort().map(cat => (
+                      <span key={cat} className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Text row */}
               <div className="p-4 flex items-center justify-between gap-4">
                 <div>
-                  <p className="font-semibold text-white text-sm">{title}</p>
-                  <p className="text-white/40 text-xs mt-1">{sub}</p>
+                  <p className="font-semibold text-white text-base">{title}</p>
+                  <p className="text-white/40 text-sm mt-1">{sub}</p>
                 </div>
                 <span
                   className="flex-shrink-0 text-white/25 group-hover:text-white/70 transition-colors"
@@ -110,27 +140,9 @@ export default function ProjectsCard() {
       </div>
 
       {/* Footer */}
-      <footer
-        id="contact"
-        className="flex items-end justify-between font-sans"
-        style={{ backgroundColor: "#181a18", margin: "5rem -4rem -5rem", padding: "3rem 4rem" }}
-      >
-        <div className="flex flex-col gap-2">
-          <span className="text-white font-medium">Paco Lau</span>
-          <div className="flex gap-6 text-sm text-white/60">
-            <a href="#design" className="hover:text-white transition-colors">Design</a>
-            <a href="#photography" className="hover:text-white transition-colors">Photography</a>
-            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
-          </div>
-        </div>
-        <div className="flex flex-col items-end gap-2">
-          <span className="text-sm text-white/40">© {new Date().getFullYear()} Paco Lau</span>
-          <div className="flex gap-6 text-sm text-white/60">
-            <a href="mailto:pacolau@berkeley.edu" className="hover:text-white transition-colors">Email</a>
-            <a href="https://www.linkedin.com/in/pacolau/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-          </div>
-        </div>
-      </footer>
+      <div style={{ margin: "5rem -4rem -5rem" }}>
+        <Footer />
+      </div>
     </div>
   );
 }

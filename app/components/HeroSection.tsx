@@ -15,14 +15,16 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export default function HeroSection() {
 
   /* ── Scramble ── */
-  const [displayChars, setDisplayChars] = useState(() =>
-    CHARS_ARRAY.map(c => (c === " " ? " " : randomChar()))
-  );
+  // Initialise with real text so SSR and client match — scramble starts after hydration
+  const [displayChars, setDisplayChars] = useState<string[]>(() => [...CHARS_ARRAY]);
 
   useEffect(() => {
+    // Immediately switch to random chars, then resolve back to real text
+    setDisplayChars(CHARS_ARRAY.map(c => (c === " " ? " " : randomChar())));
+
     let rafId: number;
     let start: number | null = null;
-    const duration = 2200;
+    const duration = 900;
     let lastSwap = 0;
     const nonSpaceCount = CHARS_ARRAY.filter(c => c !== " ").length;
 
@@ -55,23 +57,51 @@ export default function HeroSection() {
         paddingBottom: "13vh",
         backgroundColor: "#F5F0E8",
         backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.20) 1.5px, transparent 1.5px)",
-        backgroundSize: "24px 24px",
+        backgroundSize: "36px 36px",
         zIndex: 20,
       }}
     >
-      {/* Animated gradient blobs */}
+      {/* Top-left discipline lines */}
+      <motion.div
+        className="absolute font-sans pointer-events-none"
+        style={{ left: "4.5rem", top: "10rem", zIndex: 10 }}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 0.6, y: 0 }}
+        transition={{ delay: 0.55, duration: 0.7, ease }}
+      >
+        <p style={{ fontSize: "clamp(20px, 2vw, 32px)", fontWeight: 450, letterSpacing: "0.06em", lineHeight: 1.5 }}>Brand &amp; Web Design</p>
+        <p style={{ fontSize: "clamp(20px, 2vw, 32px)", fontWeight: 450, letterSpacing: "0.06em", lineHeight: 1.5 }}>Portrait Photography</p>
+      </motion.div>
+
+      {/* 4 — Vertical side label */}
+      <motion.div
+        className="absolute pointer-events-none"
+        style={{ left: 0, top: 0, bottom: 0, width: "2.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+      >
+        <span
+          className="font-sans text-[#181a18]/35 uppercase whitespace-nowrap"
+          style={{ fontSize: "10px", letterSpacing: "0.2em", transform: "rotate(-90deg)" }}
+        >
+          Brand &amp; Photography · Berkeley CA
+        </span>
+      </motion.div>
+
+      {/* Animated gradient blobs — sky blue */}
       <motion.div
         className="absolute pointer-events-none rounded-full"
-        style={{ width: 620, height: 620, right: "1rem", top: "15%", zIndex: 1,
-          background: "radial-gradient(circle, rgba(196,98,45,0.38) 0%, rgba(196,98,45,0.12) 45%, transparent 70%)" }}
-        animate={{ x: [0, 36, -24, 0], y: [0, -48, 28, 0], scale: [1, 1.12, 0.94, 1] }}
+        style={{ width: 700, height: 700, right: "-8rem", top: "-5%", zIndex: 1,
+          background: "radial-gradient(circle, rgba(125,211,252,0.45) 0%, rgba(125,211,252,0.15) 45%, transparent 70%)" }}
+        animate={{ x: [0, 36, -24, 0], y: [0, -48, 28, 0], scale: [1, 1.08, 0.95, 1] }}
         transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute pointer-events-none rounded-full"
-        style={{ width: 380, height: 380, right: "18rem", top: "50%", zIndex: 1,
-          background: "radial-gradient(circle, rgba(201,168,76,0.32) 0%, rgba(201,168,76,0.08) 50%, transparent 70%)" }}
-        animate={{ x: [0, -28, 18, 0], y: [0, 34, -20, 0], scale: [1, 0.90, 1.10, 1] }}
+        style={{ width: 520, height: 520, right: "20rem", top: "35%", zIndex: 1,
+          background: "radial-gradient(circle, rgba(56,189,248,0.30) 0%, rgba(56,189,248,0.08) 50%, transparent 70%)" }}
+        animate={{ x: [0, -28, 18, 0], y: [0, 34, -20, 0], scale: [1, 0.92, 1.10, 1] }}
         transition={{ duration: 17, repeat: Infinity, ease: "easeInOut", delay: 4 }}
       />
 
@@ -89,24 +119,14 @@ export default function HeroSection() {
       {/* Text group */}
       <div className="relative z-10 text-[#181a18] font-sans" style={{ paddingLeft: "1.5rem" }}>
 
-        {/* Subtitle — fades up first */}
-        <motion.div
-          style={{ fontSize: "40px", lineHeight: 1.3, marginBottom: "0.05em" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease }}
-        >
-          <p>Brand &amp; Web Design</p>
-          <p>Portrait Photography</p>
-        </motion.div>
 
-        {/* Title — fades up after subtitle */}
+        {/* Title — anchors first, largest weight */}
         <motion.h1
           className="font-bold uppercase leading-none select-none"
-          style={{ fontSize: "142px", marginTop: "0.1em", letterSpacing: "-0.04em" }}
+          style={{ fontSize: "clamp(72px, 11vw, 142px)", marginTop: 0, letterSpacing: "-0.06em" }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35, ease }}
+          transition={{ duration: 0.8, delay: 0.15, ease }}
         >
           {displayChars.map((char, i) =>
             char === " "
@@ -114,7 +134,53 @@ export default function HeroSection() {
               : <span key={i} style={{ display: "inline-block" }}>{char}</span>
           )}
         </motion.h1>
+
+        {/* Tagline — third tier, arrives last */}
+        <motion.p
+          className="font-sans"
+          style={{
+            fontSize: "clamp(16px, 1.4vw, 22px)",
+            fontWeight: 400,
+            letterSpacing: "0.12em",
+            textTransform: "none",
+            marginTop: "0.55em",
+            color: "#181a18",
+            opacity: 0,
+          }}
+          animate={{ opacity: 0.5, y: 0 }}
+          initial={{ opacity: 0, y: 12 }}
+          transition={{ duration: 0.7, delay: 0.85, ease }}
+        >
+          Designer &amp; Photographer based in Berkeley, CA
+        </motion.p>
       </div>
+
+      {/* Scroll indicator — resolves the hierarchy, guides the eye down */}
+      <motion.div
+        className="absolute bottom-6 left-1/2 flex flex-col items-center gap-1.5"
+        style={{ transform: "translateX(-50%)", zIndex: 10 }}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.4, ease }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: "13px",
+            letterSpacing: "0.25em",
+            color: "#181a18",
+            opacity: 0.6,
+            textTransform: "uppercase",
+          }}
+        >
+          Scroll
+        </span>
+        <motion.div
+          style={{ width: 1, height: 36, background: "linear-gradient(to bottom, rgba(24,26,24,0.35), transparent)" }}
+          animate={{ scaleY: [1, 0.4, 1] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
     </section>
   );
 }

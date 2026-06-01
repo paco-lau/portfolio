@@ -10,7 +10,7 @@ const chunks = [
   ["Crafting", "designs"],
   ["worth", "every"],
   ["click", "&", "scroll"],
-  ["and", "capturing"],
+  ["while", "capturing"],
   ["moments", "worth"],
   ["a", "lifetime"],
 ];
@@ -33,36 +33,36 @@ const glassBubbles = [
 
 // Editorial shapes: pills, hexagons, circles, stars, squares
 const leftShapes = [
-  { shape: "hexagon", color: "#38BDF8", size: 38, top: "12%", left: "10%", dur: 3.6, delay: 0.4 },
-  { shape: "pill-h",  color: "#BAE6FD", w: 55, h: 22, top: "28%", left: "16%", dur: 4.2, delay: 0.9 },
-  { shape: "pill-v",  color: "#7DD3FC", w: 30, h: 80, top: "44%", left: "6%",  dur: 5,   delay: 1.1 },
-  { shape: "star",    color: "#7DD3FC", size: 32, top: "52%", left: "18%", dur: 3.1, delay: 1.2 },
-  { shape: "square",  color: "#BAE6FD", size: 36, top: "64%", left: "14%", dur: 6,   delay: 0   },
-  { shape: "star",    color: "#0EA5E9", size: 30, top: "82%", left: "8%",  dur: 2.5, delay: 0.3 },
+  { shape: "hexagon", color: "#7EC8E3", size: 38, top: "12%", left: "10%", dur: 3.6, delay: 0.4 },
+  { shape: "pill-h",  color: "#7EC8E3", w: 55, h: 22, top: "28%", left: "16%", dur: 4.2, delay: 0.9 },
+  { shape: "pill-v",  color: "#7EC8E3", w: 30, h: 80, top: "44%", left: "6%",  dur: 5,   delay: 1.1 },
+  { shape: "star",    color: "#7EC8E3", size: 32, top: "52%", left: "18%", dur: 3.1, delay: 1.2 },
+  { shape: "square",  color: "#7EC8E3", size: 36, top: "64%", left: "14%", dur: 6,   delay: 0   },
+  { shape: "star",    color: "#7EC8E3", size: 30, top: "82%", left: "8%",  dur: 2.5, delay: 0.3 },
 ];
 
 const rightShapes = [
-  { shape: "square",  color: "#7DD3FC", size: 42, top: "8%",  right: "10%", dur: 2.8, delay: 0.2 },
-  { shape: "pill-h",  color: "#BAE6FD", w: 72, h: 26, top: "22%", right: "8%",  dur: 3.4, delay: 0.6 },
-  { shape: "pill-v",  color: "#E0F2FE", w: 24, h: 70, top: "38%", right: "18%", dur: 4.8, delay: 1.0 },
-  { shape: "star",    color: "#38BDF8", size: 52, top: "50%", right: "12%", dur: 4.2, delay: 0.4 },
-  { shape: "star",    color: "#7DD3FC", size: 36, top: "65%", right: "10%", dur: 3.7, delay: 0.2 },
-  { shape: "hexagon", color: "#0EA5E9", size: 48, top: "84%", right: "15%", dur: 5.5, delay: 1.2 },
+  { shape: "square",  color: "#7EC8E3", size: 42, top: "8%",  right: "10%", dur: 2.8, delay: 0.2 },
+  { shape: "pill-h",  color: "#7EC8E3", w: 72, h: 26, top: "22%", right: "8%",  dur: 3.4, delay: 0.6 },
+  { shape: "pill-v",  color: "#7EC8E3", w: 24, h: 70, top: "38%", right: "18%", dur: 4.8, delay: 1.0 },
+  { shape: "star",    color: "#7EC8E3", size: 52, top: "50%", right: "12%", dur: 4.2, delay: 0.4 },
+  { shape: "star",    color: "#7EC8E3", size: 36, top: "65%", right: "10%", dur: 3.7, delay: 0.2 },
+  { shape: "hexagon", color: "#7EC8E3", size: 48, top: "84%", right: "15%", dur: 5.5, delay: 1.2 },
 ];
 
 const topShapes = [
-  { shape: "pill-h",  color: "#7DD3FC", w: 66, h: 26, top: "4%",  left: "43%", dur: 2.6, delay: 0.5 },
-  { shape: "star",    color: "#38BDF8", size: 30, top: "7%",  left: "35%", dur: 3.2, delay: 0.7 },
-  { shape: "square",  color: "#0EA5E9", size: 28, top: "5%",  left: "55%", dur: 2.8, delay: 1.1 },
-  { shape: "hexagon", color: "#BAE6FD", size: 34, top: "3%",  left: "68%", dur: 3.8, delay: 0.3 },
-  { shape: "pill-v",  color: "#7DD3FC", w: 22, h: 60, top: "2%",  left: "78%", dur: 4.0, delay: 0.2 },
+  { shape: "pill-h",  color: "#7EC8E3", w: 66, h: 26, top: "4%",  left: "43%", dur: 2.6, delay: 0.5 },
+  { shape: "star",    color: "#7EC8E3", size: 30, top: "7%",  left: "35%", dur: 3.2, delay: 0.7 },
+  { shape: "square",  color: "#7EC8E3", size: 28, top: "5%",  left: "55%", dur: 2.8, delay: 1.1 },
+  { shape: "hexagon", color: "#7EC8E3", size: 34, top: "3%",  left: "68%", dur: 3.8, delay: 0.3 },
+  { shape: "pill-v",  color: "#7EC8E3", w: 22, h: 60, top: "2%",  left: "78%", dur: 4.0, delay: 0.2 },
 ];
 
 const bottomShapes = [
-  { shape: "hexagon", color: "#BAE6FD", size: 32, top: "86%", left: "30%", dur: 3.5, delay: 0.6 },
-  { shape: "star",    color: "#7DD3FC", size: 34, top: "88%", left: "41%", dur: 2.9, delay: 0.8 },
-  { shape: "square",  color: "#38BDF8", size: 28, top: "84%", left: "56%", dur: 5.2, delay: 0.4 },
-  { shape: "pill-v",  color: "#0EA5E9", w: 22, h: 58, top: "85%", left: "70%", dur: 4.3, delay: 1.0 },
+  { shape: "hexagon", color: "#7EC8E3", size: 32, top: "86%", left: "30%", dur: 3.5, delay: 0.6 },
+  { shape: "star",    color: "#7EC8E3", size: 34, top: "88%", left: "41%", dur: 2.9, delay: 0.8 },
+  { shape: "square",  color: "#7EC8E3", size: 28, top: "84%", left: "56%", dur: 5.2, delay: 0.4 },
+  { shape: "pill-v",  color: "#7EC8E3", w: 22, h: 58, top: "85%", left: "70%", dur: 4.3, delay: 1.0 },
 ];
 
 function Hexagon({ size, color }: { size: number; color: string }) {
@@ -161,7 +161,7 @@ export default function ToyStorySection({ onProgressChange }: { onProgressChange
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: "radial-gradient(circle, rgba(24,26,24,1) 1.5px, transparent 1.5px)",
-            backgroundSize: "24px 24px",
+            backgroundSize: "36px 36px",
             opacity: Math.max(0, 0.2 - progress * 0.5),
             maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",

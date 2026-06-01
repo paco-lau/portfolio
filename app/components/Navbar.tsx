@@ -8,10 +8,10 @@ import { motion } from "framer-motion";
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const [navOpacity, setNavOpacity] = useState(isHome ? 0 : 1);
+  const [navOpacity, setNavOpacity] = useState(isHome ? 0 : 0);
 
   useEffect(() => {
-    if (!isHome) { setNavOpacity(1); return; }
+    setNavOpacity(0);
 
     const onScroll = () => {
       const currentY = window.scrollY;
@@ -22,19 +22,19 @@ export default function Navbar() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
+  }, [pathname]);
 
   const textColor = `rgb(${Math.round(24 + 231 * navOpacity)}, ${Math.round(26 + 229 * navOpacity)}, ${Math.round(24 + 231 * navOpacity)})`;
 
   const navLinks = [
-    { href: "/design",      label: "Design"      },
+    { href: "/projects",    label: "Projects"    },
     { href: "/photography", label: "Photography"  },
     { href: "/contact",     label: "Contact"      },
   ];
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-24 py-3"
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-10 py-3"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -74,8 +74,8 @@ export default function Navbar() {
               <Link href={href} className="relative group block">
                 {label}
                 <span
-                  className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
-                  style={{ backgroundColor: "currentColor" }}
+                  className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                  style={{ backgroundColor: "#7EC8E3" }}
                 />
               </Link>
             </motion.div>
