@@ -17,7 +17,7 @@ const doors = [
     id: "urban-landscape",
     label: "Urban & Landscape",
     sub: "Light & Space",
-    location: "Berkeley, CA, USA",
+    location: "Hong Kong",
     href: "/photography/urban-landscape",
     gradient: "linear-gradient(160deg, #0d1f2d 0%, #1a3a4a 40%, #2d6080 100%)",
     accent: "#7EC8E3",

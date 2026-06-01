@@ -77,13 +77,16 @@ function LinkRow({ value, href, description, icon, isLast, delay = 0 }: {
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
         <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 14 }}>{description}</span>
-        <motion.span
+        <motion.svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
           animate={{ x: hovered ? 3 : 0, y: hovered ? -3 : 0 }}
           transition={{ duration: 0.2 }}
-          style={{ color: hovered ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.25)", fontSize: 22, transition: "color 0.2s", display: "inline-block" }}
+          style={{ color: hovered ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.25)", width: 22, height: 22, transform: "rotate(-45deg)", display: "inline-block", transition: "color 0.2s" }}
         >
-          ↗
-        </motion.span>
+          <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
+        </motion.svg>
       </div>
       </div>
     </motion.a>
@@ -114,7 +117,7 @@ export default function ContactPage() {
         </motion.p>
 
         <motion.h1 {...anim(0.1)} style={{ color: "#181a18", fontWeight: 700, lineHeight: 1, letterSpacing: "-0.03em", fontSize: "clamp(3.5rem, 10vw, 9rem)", position: "relative", margin: 0 }}>
-          Get in <span style={{ color: "#7EC8E3" }}>touch</span>.
+          Get in touch.
         </motion.h1>
       </div>
 

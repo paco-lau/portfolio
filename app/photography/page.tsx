@@ -40,10 +40,10 @@ function PhotographyCTA() {
         className="mt-8"
       >
         <motion.div
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ duration: 0.2, ease }}
-          style={{ display: "inline-block" }}
+          whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(126,200,227,0.45), 0 2px 8px rgba(126,200,227,0.25)" }}
+          whileTap={{ scale: 0.97, boxShadow: "0 2px 8px rgba(126,200,227,0.2)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          style={{ display: "inline-block", borderRadius: "9999px", cursor: "pointer" }}
         >
           <Link
             href="/contact"

@@ -56,8 +56,8 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
-            className="font-[family-name:var(--font-cormorant)] italic font-light hover:opacity-70 transition-opacity"
-            style={{ fontSize: "26px" }}
+            className="font-[family-name:var(--font-dm-sans)] font-normal hover:opacity-70 transition-opacity"
+            style={{ fontSize: "20px", letterSpacing: "0.04em" }}
           >
             Paco Lau
           </Link>

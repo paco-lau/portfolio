@@ -24,10 +24,10 @@ const projects = [
     pinned: false, current: true,
   },
   {
-    num: "photography", title: "Photography", sub: "Coming soon",
+    num: "photography", title: "UC Berkeley Class of '26", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
     banner: undefined,
-    categories: [],
+    categories: ["Graduation Photography"],
     pinned: false, current: false,
   },
 ];
@@ -87,13 +87,17 @@ export default function ProjectsCard() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+          >
+          <motion.div
             whileHover={{ y: -6 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link
               href={`/work/${i + 1}`}
               className="group block rounded-2xl overflow-hidden"
-              style={{ boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}
-              style={{ backgroundColor: "#363836" }}
+              style={{ backgroundColor: "#363836", boxShadow: "0 2px 8px rgba(0,0,0,0.3)", transition: "box-shadow 0.3s ease" }}
+              onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.5)")}
+              onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.3)")}
             >
               {/* Image area */}
               <div className="h-72 relative" style={{ background: gradient }}>
@@ -128,16 +132,58 @@ export default function ProjectsCard() {
                   <p className="font-semibold text-white text-base">{title}</p>
                   <p className="text-white/40 text-sm mt-1">{sub}</p>
                 </div>
-                <span
-                  className="flex-shrink-0 text-white/25 group-hover:text-white/70 transition-colors"
-                  style={{ fontSize: "20px" }}
-                >
-                  ↗
-                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="flex-shrink-0 text-white/25 group-hover:text-white/70 transition-colors" style={{ width: "20px", height: "20px", transform: "rotate(-45deg)" }}>
+                  <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
+                </svg>
               </div>
             </Link>
           </motion.div>
+          </motion.div>
         ))}
+      </div>
+
+      {/* CTA */}
+      <div
+        className="relative mt-20 flex flex-col items-center gap-6 text-center py-20 overflow-hidden"
+        style={{ backgroundColor: "#F5F0E8", margin: "5rem -4rem -5rem" }}
+      >
+        {/* Dot grid */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.18) 1.5px, transparent 1.5px)",
+            backgroundSize: "36px 36px",
+          }}
+        />
+        <p
+          className="relative font-bold"
+          style={{ color: "#181a18", fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1.1 }}
+        >
+          Impressed?{" "}
+          <span style={{ color: "#7EC8E3" }}>Let's talk.</span>
+        </p>
+        <motion.div
+          className="relative cursor-pointer"
+          whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(126,200,227,0.45), 0 2px 8px rgba(126,200,227,0.25)" }}
+          whileTap={{ scale: 0.97, boxShadow: "0 2px 8px rgba(126,200,227,0.2)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          style={{ borderRadius: "9999px" }}
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-3 font-semibold rounded-full text-[#181a18] group"
+            style={{ backgroundColor: "#7EC8E3", padding: "14px 32px", fontSize: "0.9rem", letterSpacing: "0.05em" }}
+          >
+            Get in touch
+            <svg
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
 
       {/* Footer */}
