@@ -92,6 +92,7 @@ export default function ProjectsCard() {
             <Link
               href={`/work/${i + 1}`}
               className="group block rounded-2xl overflow-hidden"
+              style={{ boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}
               style={{ backgroundColor: "#363836" }}
             >
               {/* Image area */}

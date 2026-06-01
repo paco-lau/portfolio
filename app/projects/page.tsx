@@ -84,7 +84,9 @@ function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, cu
       <Link
         href={`/work/${num}`}
         className="group block rounded-2xl overflow-hidden"
-        style={{ backgroundColor: "#e8e3db" }}
+        style={{ backgroundColor: "#e8e3db", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "box-shadow 0.3s ease" }}
+        onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.2)")}
+        onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)")}
       >
         <div className="h-72 relative" style={{ background: gradient }}>
           {banner && <Image src={banner} alt={title} fill className="object-cover" />}
@@ -144,8 +146,8 @@ export default function ProjectsPage() {
           style={{
             backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.18) 1.5px, transparent 1.5px)",
             backgroundSize: "36px 36px",
-            maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, black 0%, black 70%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 70%, transparent 100%)",
           }}
         />
         <motion.h1
@@ -164,7 +166,7 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease }}
         >
-          Ranging from Design to Coding
+          From Designing to Coding
         </motion.p>
 
         {/* Category filters */}

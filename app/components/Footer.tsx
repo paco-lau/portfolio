@@ -18,6 +18,7 @@ export default function Footer() {
         <div className="flex gap-6 text-sm text-white/60">
           <a href="mailto:pacolau@berkeley.edu" className="hover:text-white transition-colors">Email</a>
           <a href="https://www.linkedin.com/in/pacolau/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+          <a href="https://github.com/paco-lau" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
         </div>
       </div>
     </footer>
