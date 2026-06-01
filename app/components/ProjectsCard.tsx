@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Footer from "./Footer";
 
 import firefoxBanner from "../../assets/projects/mozilla-firefox/firefox-banner.png";
+import globalBanner from "../../assets/projects/global-inheritance/globalinheritance-banner.png";
+import grad26Banner from "../../assets/photography/grad-26-banner.jpg";
 
 const projects = [
   {
@@ -17,20 +19,81 @@ const projects = [
     pinned: true, current: false,
   },
   {
-    num: "01", title: "UC Berkeley HKSA Logo Re-Design", sub: "Summer 2026",
-    gradient: "linear-gradient(135deg, #2B4590 0%, #0D1B4B 100%)",
-    banner: undefined,
-    categories: ["Brand"],
-    pinned: false, current: true,
+    num: "02", title: "Global Inheritance Brand & Website Re-Design", sub: "Spring 2026",
+    gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
+    banner: globalBanner,
+    categories: ["Brand", "UI/UX", "Web"],
+    pinned: false, current: false,
   },
   {
     num: "photography", title: "UC Berkeley Class of '26", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
-    banner: undefined,
+    banner: grad26Banner,
     categories: ["Graduation Photography"],
     pinned: false, current: false,
   },
 ];
+
+const ease = [0.22, 1, 0.36, 1];
+
+function CTASection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <div
+      ref={ref}
+      className="relative flex flex-col items-center gap-6 text-center py-20 overflow-hidden"
+      style={{ backgroundColor: "#F5F0E8", margin: "5rem -4rem -5rem" }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.18) 1.5px, transparent 1.5px)",
+          backgroundSize: "36px 36px",
+        }}
+      />
+      <motion.p
+        className="relative font-bold"
+        style={{ color: "#181a18", fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1.1 }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.1, ease }}
+      >
+        Impressed?{" "}
+        <span style={{ color: "#7EC8E3" }}>Let's talk.</span>
+      </motion.p>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.1, delay: 0.2, ease }}
+      >
+        <motion.div
+          className="relative cursor-pointer"
+          whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(126,200,227,0.45), 0 2px 8px rgba(126,200,227,0.25)" }}
+          whileTap={{ scale: 0.97, boxShadow: "0 2px 8px rgba(126,200,227,0.2)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          style={{ borderRadius: "9999px" }}
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-3 font-semibold rounded-full text-[#181a18] group"
+            style={{ backgroundColor: "#7EC8E3", padding: "14px 32px", fontSize: "0.9rem", letterSpacing: "0.05em" }}
+          >
+            Get in touch
+            <svg
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function ProjectsCard() {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -86,14 +149,14 @@ export default function ProjectsCard() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.1, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] }}
           >
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link
-              href={`/work/${i + 1}`}
+              href={num === "photography" ? "/photography/graduation" : `/work/${num}`}
               className="group block rounded-2xl overflow-hidden"
               style={{ backgroundColor: "#363836", boxShadow: "0 2px 8px rgba(0,0,0,0.3)", transition: "box-shadow 0.3s ease" }}
               onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.5)")}
@@ -143,48 +206,7 @@ export default function ProjectsCard() {
       </div>
 
       {/* CTA */}
-      <div
-        className="relative mt-20 flex flex-col items-center gap-6 text-center py-20 overflow-hidden"
-        style={{ backgroundColor: "#F5F0E8", margin: "5rem -4rem -5rem" }}
-      >
-        {/* Dot grid */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.18) 1.5px, transparent 1.5px)",
-            backgroundSize: "36px 36px",
-          }}
-        />
-        <p
-          className="relative font-bold"
-          style={{ color: "#181a18", fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1.1 }}
-        >
-          Impressed?{" "}
-          <span style={{ color: "#7EC8E3" }}>Let's talk.</span>
-        </p>
-        <motion.div
-          className="relative cursor-pointer"
-          whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(126,200,227,0.45), 0 2px 8px rgba(126,200,227,0.25)" }}
-          whileTap={{ scale: 0.97, boxShadow: "0 2px 8px rgba(126,200,227,0.2)" }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          style={{ borderRadius: "9999px" }}
-        >
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-3 font-semibold rounded-full text-[#181a18] group"
-            style={{ backgroundColor: "#7EC8E3", padding: "14px 32px", fontSize: "0.9rem", letterSpacing: "0.05em" }}
-          >
-            Get in touch
-            <svg
-              className="transition-transform duration-300 group-hover:translate-x-1"
-              width="14" height="14" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </motion.div>
-      </div>
+      <CTASection />
 
       {/* Footer */}
       <div style={{ margin: "5rem -4rem -5rem" }}>

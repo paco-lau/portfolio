@@ -24,22 +24,22 @@ const projects = [
     categories: ["Brand"], pinned: false, current: true,
   },
   {
-    num: "02", title: "UC Berkeley DataGood Merchandise & Stickers", sub: "Spring 2026",
-    gradient: "linear-gradient(135deg, #C4622D 0%, #6B2D0F 100%)",
-    banner: datagoodBanner,
-    categories: ["Merchandise"], pinned: false, current: false,
-  },
-  {
-    num: "03", title: "Global Inheritance Brand & Website Re-Design", sub: "Spring 2026",
+    num: "02", title: "Global Inheritance Brand & Website Re-Design", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
     banner: globalBanner,
     categories: ["Brand", "UI/UX", "Web"], pinned: false, current: false,
   },
   {
-    num: "04", title: "GoTourGlobal Mobile App", sub: "Spring 2026",
+    num: "03", title: "GoTourGlobal Mobile App", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #5C3D6E 0%, #2A1A3A 100%)",
     banner: gotourBanner,
     categories: ["Coded", "Mobile", "UI/UX"], pinned: false, current: false,
+  },
+  {
+    num: "04", title: "UC Berkeley DataGood Merchandise & Stickers", sub: "Spring 2026",
+    gradient: "linear-gradient(135deg, #030001 0%, #030001 100%)",
+    banner: datagoodBanner,
+    categories: ["Merchandise"], pinned: false, current: false,
   },
   {
     num: "05", title: "Mozilla Firefox Adaptive Performance Extension", sub: "Fall 2025",
@@ -88,7 +88,7 @@ function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, cu
         onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)")}
       >
         <div className="h-72 relative" style={{ background: gradient }}>
-          {banner && <Image src={banner} alt={title} fill className="object-cover" />}
+          {banner && <Image src={banner} alt={title} fill className="object-cover object-center" />}
           <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
           <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
             {pinned && (

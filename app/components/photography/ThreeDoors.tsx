@@ -110,15 +110,13 @@ export default function ThreeDoors() {
                       </svg>
                       {door.location}
                     </span>
-                    <span
-                      className="flex items-center gap-2 text-sm font-[family-name:var(--font-dm-sans)]"
+                    <svg
+                      width="52" height="52" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
                       style={{ color: door.accent }}
                     >
-                      View
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                    </span>
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
                   </div>
                 </motion.div>
               </div>

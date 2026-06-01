@@ -18,25 +18,25 @@ function PhotographyCTA() {
     <section ref={ref} className="py-24 px-16 bg-[#F5F0E8] text-center">
       <motion.p
         className="text-[#181a18]/40 text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)] mb-4"
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease }}
+        transition={{ duration: 1.1, ease }}
       >
         Work Together
       </motion.p>
       <motion.h2
         className="font-[family-name:var(--font-cormorant)] font-medium text-[#181a18]"
         style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", lineHeight: 1.05 }}
-        initial={{ opacity: 0, y: 15 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.1, ease }}
+        transition={{ duration: 1.2, delay: 0.15, ease }}
       >
         Looking for a Photographer?
       </motion.h2>
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, delay: 0.25, ease }}
+        transition={{ duration: 1.1, delay: 0.35, ease }}
         className="mt-8"
       >
         <motion.div

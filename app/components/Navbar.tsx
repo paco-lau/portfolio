@@ -53,14 +53,22 @@ export default function Navbar() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
+          <motion.div
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            style={{ display: "inline-block" }}
+          >
           <Link
             href="/"
             onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
-            className="font-[family-name:var(--font-dm-sans)] font-normal hover:opacity-70 transition-opacity"
-            style={{ fontSize: "20px", letterSpacing: "0.04em" }}
+            className="font-[family-name:var(--font-dm-sans)] font-normal transition-colors duration-200"
+            style={{ fontSize: "20px", letterSpacing: "0.04em", color: "inherit" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#7EC8E3")}
+            onMouseLeave={e => (e.currentTarget.style.color = "inherit")}
           >
             Paco Lau
           </Link>
+          </motion.div>
         </motion.div>
 
         <nav className="flex gap-16 font-sans" style={{ fontSize: "16px" }}>

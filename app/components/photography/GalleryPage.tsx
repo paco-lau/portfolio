@@ -73,17 +73,7 @@ export default function GalleryPage({ title, sub, accent, columns, titleSize }: 
             {title}
           </motion.h1>
 
-          <motion.p
-            className="font-sans text-[#181a18]/50 mt-4"
-            style={{ fontSize: "clamp(14px, 1.2vw, 18px)", letterSpacing: "0.05em" }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2, ease }}
-          >
-            {sub}
-          </motion.p>
-
-          <motion.div
+<motion.div
             className="mt-4 h-px"
             style={{ backgroundColor: "#181a18", opacity: 0.15 }}
             initial={{ scaleX: 0, originX: 0 }}
