@@ -48,7 +48,7 @@ const projects = [
     categories: ["Coded", "UI/UX", "Web"], pinned: true, current: false,
   },
   {
-    num: "06", title: "Mill Pond Research Website Re-Design", sub: "Fall 2025",
+    num: "06", title: "Mill Pond Research Brand & Website Re-Design", sub: "Fall 2025",
     gradient: "linear-gradient(135deg, #1A5276 0%, #0A2840 100%)",
     banner: millpondBanner,
     categories: ["Brand", "Coded", "Web", "UI/UX"], pinned: false, current: false,
