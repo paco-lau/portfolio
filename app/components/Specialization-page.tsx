@@ -7,12 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const chunks = [
-  ["Crafting", "designs"],
-  ["worth", "every"],
-  ["click", "&", "scroll"],
-  ["while", "capturing"],
-  ["moments", "worth"],
-  ["a", "lifetime"],
+  ["I"],
+  ["design", "things"],
+  ["people", "use,", "and"],
+  ["photograph", "the"],
+  ["moments", "they"],
+  ["remember"],
 ];
 
 // Glass bubbles — sky blue, positioned in left/right margins only
@@ -118,7 +118,7 @@ function ClickWord() {
   return (
     <span
       className="relative inline-block cursor-pointer"
-      style={{ marginRight: "0.25em", transform: "translateY(8px)" }}
+      style={{ marginRight: "0.25em", transform: "translateY(-0.3em)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -138,7 +138,7 @@ function ClickWord() {
       />
       {/* Letters — stagger up and fade */}
       <span
-        className="relative z-10 px-10 flex"
+        className="relative z-10 px-10 py-2 flex"
         style={{ color: hovered ? "#f5f5f0" : "#181a18", transition: "color 0.25s ease 0.1s" }}
       >
         {letters.map((letter, i) => (
@@ -160,13 +160,123 @@ function ClickWord() {
         className="absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap"
         style={{
           color: "#f5f5f0",
-          fontSize: "30px",
+          fontSize: "36px",
           opacity: hovered ? 1 : 0,
           transition: hovered ? "opacity 0.3s ease 0.35s" : "opacity 0.15s ease 0s",
           pointerEvents: "none",
         }}
       >
         Made you look.
+      </span>
+    </span>
+  );
+}
+
+function DesignWord() {
+  const [hovered, setHovered] = useState(false);
+  const letters = ["d","e","s","i","g","n"];
+  return (
+    <span
+      className="relative inline-block cursor-pointer"
+      style={{ marginRight: "0.4em", transform: "translateY(-0.005em)" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <span className="absolute inset-0 rounded-full bg-[#181a18]" />
+      <span
+        className="absolute rounded-full"
+        style={{
+          inset: "-1px",
+          backgroundColor: "#A8DCF0",
+          clipPath: hovered ? "inset(0 0 100% 0 round 9999px)" : "inset(0 0 0% 0 round 9999px)",
+          transition: "clip-path 0.52s cubic-bezier(0.76,0,0.24,1)",
+        }}
+      />
+      <span
+        className="relative z-10 px-10 py-2 flex"
+        style={{ color: hovered ? "#f5f5f0" : "#181a18", transition: "color 0.25s ease 0.1s" }}
+      >
+        {letters.map((letter, i) => (
+          <span
+            key={i}
+            style={{
+              display: "inline-block",
+              transition: `transform 0.38s ease ${i * 0.05}s, opacity 0.32s ease ${i * 0.05}s`,
+              transform: hovered ? "translateY(-120%)" : "translateY(0)",
+              opacity: hovered ? 0 : 1,
+            }}
+          >
+            {letter}
+          </span>
+        ))}
+      </span>
+      <span
+        className="absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap"
+        style={{
+          color: "#f5f5f0",
+          fontSize: "36px",
+          opacity: hovered ? 1 : 0,
+          transition: hovered ? "opacity 0.3s ease 0.35s" : "opacity 0.15s ease 0s",
+          pointerEvents: "none",
+        }}
+      >
+        Made you look.
+      </span>
+    </span>
+  );
+}
+
+function PhotographWord() {
+  const [hovered, setHovered] = useState(false);
+  const letters = ["p","h","o","t","o","g","r","a","p","h"];
+  return (
+    <span
+      className="relative inline-block cursor-pointer"
+      style={{ marginRight: "0.4em", marginLeft: "0.15em", transform: "translateY(-0.005em)" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Dark pill — always underneath */}
+      <span className="absolute inset-0 rounded-full bg-[#181a18]" />
+      {/* Blue pill — curtain wipes upward */}
+      <span
+        className="absolute rounded-full"
+        style={{
+          inset: "-1px",
+          backgroundColor: "#A8DCF0",
+          clipPath: hovered ? "circle(0% at 50% 50%)" : "circle(150% at 50% 50%)",
+          transition: "clip-path 0.75s cubic-bezier(0.76,0,0.24,1)",
+        }}
+      />
+      {/* Letters — shutter scatter on hover */}
+      <span className="relative z-10 px-10 py-2 flex">
+        {letters.map((letter, i) => (
+          <span
+            key={i}
+            style={{
+              display: "inline-block",
+              transition: `transform 0.6s ease ${i * 0.06}s, opacity 0.5s ease ${i * 0.06}s`,
+              transform: hovered ? `translateY(${(i % 2 === 0 ? -1 : 1) * 16}px) rotate(${(i - 5) * 5}deg)` : "translateY(0) rotate(0deg)",
+              opacity: hovered ? 0 : 1,
+              color: hovered ? "#f5f5f0" : "#181a18",
+            }}
+          >
+            {letter}
+          </span>
+        ))}
+      </span>
+      {/* "Say cheese!" fades in */}
+      <span
+        className="absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap"
+        style={{
+          color: "#f5f5f0",
+          fontSize: "36px",
+          opacity: hovered ? 1 : 0,
+          transition: hovered ? "opacity 0.4s ease 0.5s" : "opacity 0.2s ease 0s",
+          pointerEvents: "none",
+        }}
+      >
+        Say cheese!
       </span>
     </span>
   );
@@ -273,33 +383,16 @@ export default function ToyStorySection({ onProgressChange }: { onProgressChange
 
         {/* Text */}
         <p
-          className="relative z-10 text-center text-[#181a18] font-sans max-w-5xl"
-          style={{ fontSize: "85px", fontWeight: 600, lineHeight: 1.15, opacity: textOpacity, transition: "opacity 0.1s linear" }}
+          className="relative z-10 text-center text-[#181a18] font-sans"
+          style={{ fontSize: "88px", fontWeight: 600, lineHeight: 1.15, opacity: textOpacity, transition: "opacity 0.1s linear", maxWidth: "76rem" }}
         >
           {chunks.map((chunk, ci) =>
             chunk.map((word, wi) => {
-              if (word === "click") {
-                return <ClickWord key={`${ci}-${wi}`} />;
+              if (word === "design") {
+                return <DesignWord key={`${ci}-${wi}`} />;
               }
-              if (word === "scroll") {
-                return (
-                  <span
-                    key={`${ci}-${wi}`}
-                    style={{ display: "inline-block", marginRight: "0.25em", color: "#7EC8E3" }}
-                  >
-                    {word}
-                  </span>
-                );
-              }
-              if (word === "lifetime") {
-                return (
-                  <span
-                    key={`${ci}-${wi}`}
-                    style={{ display: "inline-block", marginRight: "0.25em", fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 500 }}
-                  >
-                    {word}
-                  </span>
-                );
+              if (word === "photograph") {
+                return <PhotographWord key={`${ci}-${wi}`} />;
               }
               return (
                 <span
