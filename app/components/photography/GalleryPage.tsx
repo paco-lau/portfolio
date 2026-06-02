@@ -21,24 +21,48 @@ interface GalleryPageProps {
 }
 
 function PhotoGrid({ columns, inView }: { columns: GalleryPhoto[][]; inView: boolean }) {
+  // On mobile: show 2 columns (first two columns); on md+: show all columns
+  const mobileColumns = columns.slice(0, 2);
+
   return (
-    <div className="flex gap-3">
-      {columns.map((col, ci) => (
-        <div key={ci} className="flex flex-col gap-3 flex-1">
-          {col.map((photo, pi) => (
-            <motion.div
-              key={photo.id}
-              style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden" }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1.0, delay: 0.1 + (ci * col.length + pi) * 0.07, ease }}
-            >
-              <div className="w-full h-full" style={{ background: photo.gradient }} />
-            </motion.div>
-          ))}
-        </div>
-      ))}
-    </div>
+    <>
+      {/* Mobile: 2 columns */}
+      <div className="flex md:hidden gap-3">
+        {mobileColumns.map((col, ci) => (
+          <div key={ci} className="flex flex-col gap-3 flex-1">
+            {col.map((photo, pi) => (
+              <motion.div
+                key={photo.id}
+                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden" }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1.0, delay: 0.1 + (ci * col.length + pi) * 0.07, ease }}
+              >
+                <div className="w-full h-full" style={{ background: photo.gradient }} />
+              </motion.div>
+            ))}
+          </div>
+        ))}
+      </div>
+      {/* Desktop: all columns */}
+      <div className="hidden md:flex gap-3">
+        {columns.map((col, ci) => (
+          <div key={ci} className="flex flex-col gap-3 flex-1">
+            {col.map((photo, pi) => (
+              <motion.div
+                key={photo.id}
+                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden" }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1.0, delay: 0.1 + (ci * col.length + pi) * 0.07, ease }}
+              >
+                <div className="w-full h-full" style={{ background: photo.gradient }} />
+              </motion.div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -51,7 +75,7 @@ export default function GalleryPage({ title, sub, accent, columns, titleSize }: 
   return (
     <>
       {/* Header */}
-      <section className="bg-[#F5F0E8] px-16 pt-28 pb-12 relative overflow-hidden">
+      <section className="bg-[#F5F0E8] px-4 sm:px-8 md:px-12 lg:px-16 pt-28 pb-12 relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -84,7 +108,7 @@ export default function GalleryPage({ title, sub, accent, columns, titleSize }: 
       </section>
 
       {/* Gallery grid */}
-      <section className="pt-6 pb-16 px-12 bg-[#F5F0E8]">
+      <section className="pt-6 pb-16 px-4 sm:px-8 md:px-12 bg-[#F5F0E8]">
         <div ref={gridRef} className="max-w-6xl mx-auto">
           <PhotoGrid columns={columns} inView={gridInView} />
         </div>

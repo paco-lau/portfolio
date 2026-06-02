@@ -141,7 +141,7 @@ export default function ProjectsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-[#F5F0E8] px-16 pt-28 pb-6 relative overflow-hidden">
+      <section className="bg-[#F5F0E8] px-4 sm:px-8 md:px-12 lg:px-16 pt-28 pb-6 relative overflow-hidden">
         {/* Dot grid */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -154,7 +154,7 @@ export default function ProjectsPage() {
         />
         <motion.h1
           className="font-bold text-[#181a18]"
-          style={{ fontSize: "clamp(5rem, 13vw, 13rem)", lineHeight: 1 }}
+          style={{ fontSize: "clamp(2rem, 10vw, 9rem)", lineHeight: 1 }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}
@@ -198,11 +198,11 @@ export default function ProjectsPage() {
       </section>
 
       {/* Projects grid */}
-      <div className="bg-[#F5F0E8] px-16 pt-6 pb-20" style={{ minHeight: "60vh" }}>
+      <div className="bg-[#F5F0E8] px-4 sm:px-8 md:px-12 lg:px-16 pt-6 pb-20" style={{ minHeight: "60vh" }}>
 
         <motion.div
           key={filterKey}
-          className="grid grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease }}

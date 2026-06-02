@@ -121,6 +121,7 @@ function ClickWord() {
       style={{ marginRight: "0.25em", transform: "translateY(-0.3em)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => setHovered(h => !h)}
     >
       {/* Dark pill — always underneath */}
       <span className="absolute inset-0 rounded-full bg-[#181a18]" />
@@ -160,7 +161,7 @@ function ClickWord() {
         className="absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap"
         style={{
           color: "#f5f5f0",
-          fontSize: "36px",
+          fontSize: "clamp(1rem, 2.5vw, 36px)",
           opacity: hovered ? 1 : 0,
           transition: hovered ? "opacity 0.3s ease 0.35s" : "opacity 0.15s ease 0s",
           pointerEvents: "none",
@@ -181,6 +182,7 @@ function DesignWord() {
       style={{ marginRight: "0.4em", transform: "translateY(-0.005em)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => setHovered(h => !h)}
     >
       <span className="absolute inset-0 rounded-full bg-[#181a18]" />
       <span
@@ -214,7 +216,7 @@ function DesignWord() {
         className="absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap"
         style={{
           color: "#f5f5f0",
-          fontSize: "36px",
+          fontSize: "clamp(1rem, 2.5vw, 36px)",
           opacity: hovered ? 1 : 0,
           transition: hovered ? "opacity 0.3s ease 0.35s" : "opacity 0.15s ease 0s",
           pointerEvents: "none",
@@ -235,6 +237,7 @@ function PhotographWord() {
       style={{ marginRight: "0.4em", marginLeft: "0.15em", transform: "translateY(-0.005em)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => setHovered(h => !h)}
     >
       {/* Dark pill — always underneath */}
       <span className="absolute inset-0 rounded-full bg-[#181a18]" />
@@ -270,7 +273,7 @@ function PhotographWord() {
         className="absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap"
         style={{
           color: "#f5f5f0",
-          fontSize: "36px",
+          fontSize: "clamp(1rem, 2.5vw, 36px)",
           opacity: hovered ? 1 : 0,
           transition: hovered ? "opacity 0.4s ease 0.5s" : "opacity 0.2s ease 0s",
           pointerEvents: "none",
@@ -324,7 +327,7 @@ export default function ToyStorySection({ onProgressChange }: { onProgressChange
 
   return (
     <div ref={wrapperRef} style={{ height: "200vh" }}>
-      <section className="sticky top-0 h-screen flex items-center justify-center px-32" style={{ zIndex: 10 }}>
+      <section className="sticky top-0 h-screen flex items-center justify-center px-4 sm:px-12 md:px-20 lg:px-32" style={{ zIndex: 10 }}>
 
         {/* Dot grid — fades out as page scrolls down */}
         <div
@@ -384,7 +387,7 @@ export default function ToyStorySection({ onProgressChange }: { onProgressChange
         {/* Text */}
         <p
           className="relative z-10 text-center text-[#181a18] font-sans"
-          style={{ fontSize: "88px", fontWeight: 600, lineHeight: 1.15, opacity: textOpacity, transition: "opacity 0.1s linear", maxWidth: "76rem" }}
+          style={{ fontSize: "clamp(2.2rem, 7vw, 88px)", fontWeight: 600, lineHeight: 1.15, opacity: textOpacity, transition: "opacity 0.1s linear", maxWidth: "76rem" }}
         >
           {chunks.map((chunk, ci) =>
             chunk.map((word, wi) => {

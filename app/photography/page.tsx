@@ -15,7 +15,7 @@ function PhotographyCTA() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section ref={ref} className="py-24 px-16 bg-[#F5F0E8] text-center">
+    <section ref={ref} className="py-16 md:py-24 px-4 sm:px-8 md:px-16 bg-[#F5F0E8] text-center">
       <motion.p
         className="text-[#181a18]/40 text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)] mb-4"
         initial={{ opacity: 0, y: 16 }}
@@ -78,7 +78,7 @@ export default function PhotographyPage() {
     <>
       {/* Cream header + three doors = exactly one viewport height */}
       <div className="flex flex-col" style={{ height: "100svh" }}>
-      <section className="bg-[#F5F0E8] px-16 pt-28 pb-10 relative overflow-hidden flex-shrink-0">
+      <section className="bg-[#F5F0E8] px-4 sm:px-8 md:px-16 pt-28 pb-10 relative overflow-hidden flex-shrink-0">
         {/* Dot grid */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -91,7 +91,7 @@ export default function PhotographyPage() {
         />
         <motion.h1
           className="font-bold text-[#181a18]"
-          style={{ fontSize: "clamp(5rem, 13vw, 13rem)", lineHeight: 1 }}
+          style={{ fontSize: "clamp(2rem, 10vw, 9rem)", lineHeight: 1 }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}

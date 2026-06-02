@@ -44,7 +44,7 @@ function CTASection() {
     <div
       ref={ref}
       className="relative flex flex-col items-center gap-6 text-center py-20 overflow-hidden"
-      style={{ backgroundColor: "#F5F0E8", margin: "5rem -4rem -5rem" }}
+      style={{ backgroundColor: "#F5F0E8", margin: "5rem -1rem -5rem" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -113,7 +113,7 @@ export default function ProjectsCard() {
   return (
     <div
       id="projects"
-      className="rounded-t-[48px] px-16 pt-14 pb-20"
+      className="rounded-t-[48px] px-4 sm:px-8 md:px-12 lg:px-16 pt-14 pb-20"
       style={{
         backgroundColor: "#2a2c2a",
         position: "relative",
@@ -130,7 +130,7 @@ export default function ProjectsCard() {
         <span className="relative inline-block text-sky-300">
           win
           <span
-            className="absolute left-0 bottom-0 h-[8px] rounded-full"
+            className="absolute left-0 bottom-0 h-[clamp(3px,0.8vw,8px)] rounded-full"
             style={{
               width: underlined ? "100%" : "0%",
               backgroundColor: "#7dd3fc",
@@ -142,7 +142,7 @@ export default function ProjectsCard() {
         on projects like:
       </h2>
 
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {projects.map(({ num, title, sub, gradient, banner, categories, pinned, current }, i) => (
           <motion.div
             key={num}
@@ -209,7 +209,7 @@ export default function ProjectsCard() {
       <CTASection />
 
       {/* Footer */}
-      <div style={{ margin: "5rem -4rem -5rem" }}>
+      <div style={{ margin: "5rem -1rem -5rem" }}>
         <Footer />
       </div>
     </div>

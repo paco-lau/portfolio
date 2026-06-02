@@ -52,7 +52,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="h-screen relative flex flex-col justify-end px-12 overflow-hidden"
+      className="h-screen relative flex flex-col justify-end px-4 sm:px-8 md:px-12 overflow-hidden"
       style={{
         paddingBottom: "13vh",
         backgroundColor: "#F5F0E8",
@@ -63,7 +63,7 @@ export default function HeroSection() {
     >
       {/* Top-left discipline lines */}
       <motion.div
-        className="absolute font-sans pointer-events-none"
+        className="absolute font-sans pointer-events-none hidden sm:block"
         style={{ left: "4.5rem", top: "10rem", zIndex: 10 }}
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 0.6, y: 0 }}
@@ -105,19 +105,31 @@ export default function HeroSection() {
         transition={{ duration: 17, repeat: Infinity, ease: "easeInOut", delay: 4 }}
       />
 
-      {/* Image — slides in from right */}
+      {/* Mobile-only image — centered, upper half */}
       <motion.div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none block sm:hidden"
+        style={{ top: "16%", left: 0, right: 0, display: "flex", justifyContent: "center", zIndex: 2 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.1, delay: 0.5, ease }}
+      >
+        <Image src={titleImg} alt="Paco Lau" height={600} style={{ width: "auto", height: "52vh", objectFit: "contain" }} />
+      </motion.div>
+
+      {/* Image — absolute on sm+, hidden on mobile */}
+      <motion.div
+        className="absolute pointer-events-none hidden sm:block"
         style={{ right: "4rem", top: "50%", zIndex: 2 }}
         initial={{ opacity: 0, x: 60, y: "-50%" }}
         animate={{ opacity: 1, x: 0, y: "-50%" }}
         transition={{ duration: 1.1, delay: 0.5, ease }}
       >
-        <Image src={titleImg} alt="Paco Lau" height={600} style={{ width: "auto" }} />
+        <Image src={titleImg} alt="Paco Lau" height={600} style={{ width: "auto", height: "clamp(300px, 55vh, 600px)" }} />
       </motion.div>
 
       {/* Text group */}
-      <div className="relative z-10 text-[#181a18] font-sans" style={{ paddingLeft: "1.5rem" }}>
+      <div className="relative z-10 text-[#181a18] font-sans pl-4 sm:pl-6" style={{ paddingLeft: "1.5rem" }}>
+
 
 
         {/* Title — anchors first, largest weight */}
@@ -156,9 +168,9 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll indicator — resolves the hierarchy, guides the eye down */}
+      <div className="absolute bottom-0 left-0 right-0 flex justify-center" style={{ zIndex: 10 }}>
       <motion.div
-        className="absolute bottom-6 left-1/2 flex flex-col items-center gap-1.5"
-        style={{ transform: "translateX(-50%)", zIndex: 10 }}
+        className="flex flex-col items-center gap-1.5"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.4, ease }}
@@ -181,6 +193,7 @@ export default function HeroSection() {
           transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
         />
       </motion.div>
+      </div>
     </section>
   );
 }

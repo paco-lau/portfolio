@@ -76,7 +76,7 @@ function LinkRow({ value, href, description, icon, isLast, delay = 0 }: {
         </span>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-        <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 14 }}>{description}</span>
+        <span className="hidden sm:inline" style={{ color: "rgba(255,255,255,0.3)", fontSize: 14 }}>{description}</span>
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -105,7 +105,7 @@ export default function ContactPage() {
     <main style={{ backgroundColor: "#F5F0E8", minHeight: "100vh" }}>
 
       {/* CREAM HEADER */}
-      <div style={{ position: "relative", padding: "128px 64px 60px" }}>
+      <div style={{ position: "relative" }} className="px-4 sm:px-10 md:px-16 pt-32 pb-6 md:pb-16">
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
           backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.18) 1.5px, transparent 1.5px)",
@@ -116,21 +116,21 @@ export default function ContactPage() {
           Let&apos;s connect
         </motion.p>
 
-        <motion.h1 {...anim(0.1)} style={{ color: "#181a18", fontWeight: 700, lineHeight: 1, letterSpacing: "-0.03em", fontSize: "clamp(3.5rem, 10vw, 9rem)", position: "relative", margin: 0 }}>
+        <motion.h1 {...anim(0.1)} style={{ color: "#181a18", fontWeight: 700, lineHeight: 1, letterSpacing: "-0.03em", fontSize: "clamp(2rem, 10vw, 9rem)", position: "relative", margin: 0 }}>
           Get in touch.
         </motion.h1>
       </div>
 
       {/* DARK CARD */}
       <div style={{ backgroundColor: "#2a2c2a", borderRadius: "48px 48px 0 0" }}>
-        <div style={{ padding: "64px 64px 0" }}>
+        <div className="px-6 sm:px-10 md:px-16 pt-12 md:pt-16">
 
           <div style={{ marginBottom: 48 }}>
             <motion.div {...anim(0.2)} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
               <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "#4ade80", display: "inline-block", animation: "pulse-dot 2s ease-in-out infinite", flexShrink: 0 }} />
               <span style={{ color: "rgba(255,255,255,0.75)", fontSize: 14 }}>Available for internships &amp; freelance projects</span>
             </motion.div>
-            <motion.p {...anim(0.28)} style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(1rem, 1.5vw, 1.15rem)", whiteSpace: "nowrap", margin: 0 }}>
+            <motion.p {...anim(0.28)} style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(1rem, 1.5vw, 1.15rem)", margin: 0 }}>
               I&apos;m always open to new opportunities, collaborations, or just a good conversation.
             </motion.p>
           </div>

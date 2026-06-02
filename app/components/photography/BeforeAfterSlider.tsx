@@ -38,7 +38,8 @@ function Slider() {
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden rounded-sm select-none cursor-ew-resize w-full h-full"
+      className="relative overflow-hidden rounded-sm select-none cursor-ew-resize w-full"
+      style={{ aspectRatio: "3/2" }}
       onMouseDown={() => { dragging.current = true; }}
       onMouseUp={() => { dragging.current = false; }}
       onMouseLeave={() => { dragging.current = false; }}
@@ -86,11 +87,11 @@ export default function BeforeAfterSlider() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section className="py-28" style={{ backgroundColor: "#181a18" }}>
-      <div className="max-w-6xl mx-auto px-12">
-        <div ref={ref} className="flex gap-16 items-center">
+    <section className="py-14 md:py-28" style={{ backgroundColor: "#181a18" }}>
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 md:px-12">
+        <div ref={ref} className="flex flex-col md:flex-row gap-8 md:gap-16 items-center">
           {/* Left — text */}
-          <div className="min-w-0" style={{ flex: "0 0 320px" }}>
+          <div className="min-w-0 w-full md:w-auto" style={{ flex: "0 0 auto", flexBasis: "clamp(200px, 30%, 320px)" }}>
             <motion.p
               className="text-white/30 text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)] mb-3"
               initial={{ opacity: 0, y: 10 }}
@@ -141,7 +142,7 @@ export default function BeforeAfterSlider() {
 
           {/* Right — slider */}
           <motion.div
-            className="min-w-0 flex-1"
+            className="min-w-0 flex-1 w-full md:w-auto"
             style={{ aspectRatio: "3/2" }}
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}

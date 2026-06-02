@@ -24,10 +24,10 @@ export default function SelectedWork() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section className="py-28 px-12" style={{ backgroundColor: "#F5F0E8" }}>
-      <div className="max-w-6xl mx-auto">
+    <section className="py-14 md:py-20 px-4 sm:px-8 md:px-12" style={{ backgroundColor: "#F5F0E8" }}>
+      <div className="max-w-2xl md:max-w-4xl mx-auto">
         {/* Header */}
-        <div ref={ref} className="mb-12">
+        <div ref={ref} className="mb-8 md:mb-12">
           <motion.p
             className="text-[#181a18]/40 text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)] mb-3"
             initial={{ opacity: 0, y: 10 }}
@@ -53,10 +53,10 @@ export default function SelectedWork() {
           />
         </div>
 
-        {/* Three explicit columns */}
+        {/* Mobile: 2 columns, md+: 3 columns */}
         <div className="flex gap-3">
           {columns.map((col, ci) => (
-            <div key={ci} className="flex flex-col gap-3 flex-1">
+            <div key={ci} className={`flex flex-col gap-3 flex-1${ci === 2 ? " hidden md:flex" : ""}`}>
               {col.map((photo, pi) => (
                 <motion.div
                   key={photo.id}
