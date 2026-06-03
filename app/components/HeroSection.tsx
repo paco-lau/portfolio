@@ -13,6 +13,20 @@ function randomChar() { return CHARS[Math.floor(Math.random() * CHARS.length)]; 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function HeroSection() {
+  const [heroImgHeight, setHeroImgHeight] = useState("clamp(300px, 78vh, 860px)");
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setIsTablet(w >= 768 && w < 1280);
+      if (w >= 768 && w < 1280) setHeroImgHeight("clamp(500px, 95vh, 900px)");
+      else setHeroImgHeight("clamp(300px, 78vh, 860px)");
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   /* ── Scramble ── */
   // Initialise with real text so SSR and client match — scramble starts after hydration
@@ -107,8 +121,8 @@ export default function HeroSection() {
 
       {/* Mobile-only image — centered, upper half */}
       <motion.div
-        className="absolute pointer-events-none block sm:hidden"
-        style={{ top: "16%", left: 0, right: 0, display: "flex", justifyContent: "center", zIndex: 2 }}
+        className="absolute pointer-events-none flex sm:hidden justify-center"
+        style={{ top: "16%", left: 0, right: 0, zIndex: 2 }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.1, delay: 0.5, ease }}
@@ -119,12 +133,12 @@ export default function HeroSection() {
       {/* Image — absolute on sm+, hidden on mobile */}
       <motion.div
         className="absolute pointer-events-none hidden sm:block"
-        style={{ right: "4rem", top: "50%", zIndex: 2 }}
-        initial={{ opacity: 0, x: 60, y: "-50%" }}
-        animate={{ opacity: 1, x: 0, y: "-50%" }}
+        style={{ right: "4rem", zIndex: 2, ...(isTablet ? { bottom: 0 } : { top: "50%" }) }}
+        initial={{ opacity: 0, x: 60, y: isTablet ? 0 : "-50%" }}
+        animate={{ opacity: 1, x: 0, y: isTablet ? 0 : "-50%" }}
         transition={{ duration: 1.1, delay: 0.5, ease }}
       >
-        <Image src={titleImg} alt="Paco Lau" height={600} style={{ width: "auto", height: "clamp(300px, 55vh, 600px)" }} />
+        <Image src={titleImg} alt="Paco Lau" height={860} style={{ width: "auto", height: heroImgHeight }} />
       </motion.div>
 
       {/* Text group */}
