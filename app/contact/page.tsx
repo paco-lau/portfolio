@@ -125,7 +125,7 @@ export default function ContactPage() {
           backgroundSize: "36px 36px",
         }} />
 
-        <motion.p {...anim(0)} style={{ color: "rgba(24,26,24,0.4)", fontSize: "clamp(14px, 1.2vw, 18px)", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 12, position: "relative" }}>
+        <motion.p {...anim(0)} style={{ color: "rgba(24,26,24,0.4)", fontSize: "clamp(14px, 1.2vw, 18px)", letterSpacing: "0.05em", marginBottom: 12, position: "relative" }}>
           Let&apos;s connect
         </motion.p>
 
