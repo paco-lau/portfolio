@@ -34,7 +34,7 @@ const projects = [
   },
 ];
 
-const ease = [0.22, 1, 0.36, 1];
+const ease = [0.22, 1, 0.36, 1] as const;
 
 function CTASection() {
   const ref = useRef<HTMLDivElement>(null);

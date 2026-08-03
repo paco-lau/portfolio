@@ -53,7 +53,7 @@ function LinkRow({ value, href, description, icon, isLast, delay = 0 }: {
       onHoverEnd={() => setHovered(false)}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const }}
       style={{
         display: "block",
         borderTop: "1px solid rgba(255,255,255,0.1)",
@@ -96,7 +96,7 @@ function LinkRow({ value, href, description, icon, isLast, delay = 0 }: {
 const anim = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 export default function ContactPage() {
