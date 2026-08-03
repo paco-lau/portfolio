@@ -13,8 +13,8 @@ import gradChampine from "../../../assets/photography/graduate/grad-icb-champine
 const photos = [
   { id: 1, aspect: "landscape", gradient: "linear-gradient(180deg, #0d1f2d 0%, #1a3a4a 50%, #2d6080 100%)", image: gradSaba2 },
   { id: 2, aspect: "portrait",  gradient: "linear-gradient(160deg, #1a1a14 0%, #3a3a28 60%, #5a5a3a 100%)", image: urbanZhangjiajie },
-  { id: 3, aspect: "landscape", gradient: "linear-gradient(160deg, #0a1a0a 0%, #1a3a1a 50%, #2a5a2a 100%)", image: portKylie },
-  { id: 4, aspect: "portrait",  gradient: "linear-gradient(160deg, #2a1f1a 0%, #5a3a2a 60%, #8a6050 100%)", image: gradEthanball },
+  { id: 3, aspect: "portrait",  gradient: "linear-gradient(160deg, #2a1f1a 0%, #5a3a2a 60%, #8a6050 100%)", image: gradEthanball },
+  { id: 4, aspect: "landscape", gradient: "linear-gradient(160deg, #0a1a0a 0%, #1a3a1a 50%, #2a5a2a 100%)", image: portKylie },
   { id: 5, aspect: "landscape", gradient: "linear-gradient(200deg, #1a1208 0%, #3a2a10 50%, #6a4a20 100%)", image: gradChampine },
   { id: 6, aspect: "portrait",  gradient: "linear-gradient(160deg, #1a0a1a 0%, #3a1a3a 50%, #6a306a 100%)", image: urbanTahoe },
 ];
