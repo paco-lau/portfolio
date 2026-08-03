@@ -16,6 +16,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-wrap gap-4 text-sm text-white/60 mt-4">
           <a href="mailto:pacolau@berkeley.edu" className="hover:text-white transition-colors">Email</a>
+          <a href="/RESUME-for-portfolio.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Resume</a>
           <a href="https://www.linkedin.com/in/pacolau/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
           <a href="https://github.com/paco-lau" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
         </div>
@@ -35,6 +36,7 @@ export default function Footer() {
           <span className="text-sm text-white/40">© {new Date().getFullYear()} Paco Lau</span>
           <div className="flex flex-wrap gap-6 text-sm text-white/60">
             <a href="mailto:pacolau@berkeley.edu" className="hover:text-white transition-colors">Email</a>
+            <a href="/RESUME-for-portfolio.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Resume</a>
             <a href="https://www.linkedin.com/in/pacolau/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
             <a href="https://github.com/paco-lau" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
           </div>
