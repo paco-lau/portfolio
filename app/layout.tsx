@@ -23,7 +23,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Paco Lau: Design, Code, & Photography",
+  title: "Paco Lau — Design, Code, & Photography",
   description: "Design portfolio",
 };
 
