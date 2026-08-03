@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image, { type StaticImageData } from "next/image";
 import Footer from "../Footer";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -10,6 +11,8 @@ export type GalleryPhoto = {
   id: number;
   aspect: "portrait" | "landscape";
   gradient: string;
+  image?: StaticImageData;
+  scale?: number;
 };
 
 interface GalleryPageProps {
@@ -33,12 +36,22 @@ function PhotoGrid({ columns, inView }: { columns: GalleryPhoto[][]; inView: boo
             {col.map((photo, pi) => (
               <motion.div
                 key={photo.id}
-                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden" }}
+                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden", position: "relative" }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 1.0, delay: 0.1 + (ci * col.length + pi) * 0.07, ease }}
               >
-                <div className="w-full h-full" style={{ background: photo.gradient }} />
+                {photo.image ? (
+                  <Image
+                    src={photo.image}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    style={photo.scale ? { transform: `scale(${photo.scale})` } : undefined}
+                  />
+                ) : (
+                  <div className="w-full h-full" style={{ background: photo.gradient }} />
+                )}
               </motion.div>
             ))}
           </div>
@@ -51,12 +64,22 @@ function PhotoGrid({ columns, inView }: { columns: GalleryPhoto[][]; inView: boo
             {col.map((photo, pi) => (
               <motion.div
                 key={photo.id}
-                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden" }}
+                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden", position: "relative" }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 1.0, delay: 0.1 + (ci * col.length + pi) * 0.07, ease }}
               >
-                <div className="w-full h-full" style={{ background: photo.gradient }} />
+                {photo.image ? (
+                  <Image
+                    src={photo.image}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    style={photo.scale ? { transform: `scale(${photo.scale})` } : undefined}
+                  />
+                ) : (
+                  <div className="w-full h-full" style={{ background: photo.gradient }} />
+                )}
               </motion.div>
             ))}
           </div>

@@ -43,8 +43,8 @@ function CTASection() {
   return (
     <div
       ref={ref}
-      className="relative flex flex-col items-center gap-6 text-center py-20 overflow-hidden"
-      style={{ backgroundColor: "#F5F0E8", margin: "5rem -1rem -5rem" }}
+      className="relative flex flex-col items-center gap-6 text-center py-20 overflow-hidden -mx-4 sm:-mx-8 md:-mx-12 lg:-mx-16"
+      style={{ backgroundColor: "#F5F0E8", marginTop: "5rem", marginBottom: "-5rem" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -209,7 +209,7 @@ export default function ProjectsCard() {
       <CTASection />
 
       {/* Footer */}
-      <div style={{ margin: "5rem -1rem -5rem" }}>
+      <div className="-mx-4 sm:-mx-8 md:-mx-12 lg:-mx-16" style={{ marginTop: "5rem", marginBottom: "-5rem" }}>
         <Footer />
       </div>
     </div>

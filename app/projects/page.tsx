@@ -133,7 +133,8 @@ export default function ProjectsPage() {
     setFilterKey(k => k + 1);
   };
 
-  const base = active === "All" ? projects : projects.filter(p => p.categories.includes(active));
+  const visible = projects.filter(p => !p.current);
+  const base = active === "All" ? visible : visible.filter(p => p.categories.includes(active));
   const pinned = base.filter(p => p.pinned);
   const rest = base.filter(p => !p.pinned);
   const hasFeatured = pinned.length > 0;

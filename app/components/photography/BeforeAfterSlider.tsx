@@ -2,11 +2,12 @@
 
 import { useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
+import beforeImage from "../../../assets/photography/comparison/before.jpg";
+import afterImage from "../../../assets/photography/comparison/after.jpg";
 
 const edit = {
   label: "Golden Hour Portrait",
-  beforeGradient: "linear-gradient(135deg, #6b6b5a 0%, #8a8070 50%, #a09580 100%)",
-  afterGradient: "linear-gradient(135deg, #c4783a 0%, #d4944e 40%, #e8b878 80%, #f0d0a0 100%)",
   steps: [
     "Warmth +40",
     "Highlights −30",
@@ -49,14 +50,18 @@ function Slider() {
       onTouchMove={onTouchMove}
     >
       {/* After (base) */}
-      <div className="absolute inset-0" style={{ background: edit.afterGradient }} />
+      <div className="absolute inset-0">
+        <Image src={afterImage} alt="Edited photo" fill className="object-cover" />
+      </div>
 
       {/* Before (clipped) */}
       <div
         className="absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       >
-        <div className="absolute inset-0" style={{ background: edit.beforeGradient }} />
+        <div className="absolute inset-0">
+          <Image src={beforeImage} alt="Raw, unedited photo" fill className="object-cover" />
+        </div>
       </div>
 
       {/* Divider */}
@@ -134,7 +139,7 @@ export default function BeforeAfterSlider() {
                   color: "rgba(245,240,232,0.6)",
                 }}
               >
-                Fluent in Adobe Lightroom
+                Made with Adobe Lightroom
               </span>
             </motion.div>
 

@@ -2,34 +2,38 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import urbanLandscapeMain from "../../../assets/photography/urban-landscape/urbanland-victoriaharbor-main.jpg";
+import graduateIcbMain from "../../../assets/photography/graduate/grad-icb-main.jpg";
+import portraitAndyMain from "../../../assets/photography/portrait/port-andy.jpg";
 
 const doors = [
   {
     id: "portrait",
-    label: "Portrait",
-    sub: "Faces & Stories",
+    label: "Portrait & Group",
     location: "Berkeley, CA, USA",
     href: "/photography/portrait",
     gradient: "linear-gradient(160deg, #2a1f1a 0%, #4a2e24 40%, #7a4a38 100%)",
+    image: portraitAndyMain,
     accent: "#C8957E",
   },
   {
     id: "urban-landscape",
     label: "Urban & Landscape",
-    sub: "Light & Space",
     location: "Hong Kong",
     href: "/photography/urban-landscape",
     gradient: "linear-gradient(160deg, #0d1f2d 0%, #1a3a4a 40%, #2d6080 100%)",
-    accent: "#7EC8E3",
+    image: urbanLandscapeMain,
+    accent: "#E8552E",
   },
   {
     id: "graduation",
     label: "Graduation",
-    sub: "Milestones & Moments",
     location: "Berkeley, CA, USA",
     href: "/photography/graduation",
     gradient: "linear-gradient(160deg, #1a140a 0%, #3a2a10 40%, #6a4a20 100%)",
-    accent: "#C8A97E",
+    image: graduateIcbMain,
+    accent: "#F2B134",
   },
 ];
 
@@ -65,6 +69,16 @@ export default function ThreeDoors() {
               onMouseLeave={() => setHovered(null)}
               onClick={() => { window.location.href = door.href; }}
             >
+              {door.image && (
+                <>
+                  <Image src={door.image} alt={door.label} fill className="object-cover" priority={i === 0} />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.35) 100%)" }}
+                  />
+                </>
+              )}
+
               {/* Grain texture overlay */}
               <div
                 className="absolute inset-0 pointer-events-none"
@@ -94,17 +108,9 @@ export default function ThreeDoors() {
                   transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 />
 
-                <motion.p
-                  className="text-white/50 mb-1 font-[family-name:var(--font-dm-sans)]"
-                  style={{ fontSize: "0.75rem", letterSpacing: "0.15em" }}
-                  animate={{ opacity: isHovered ? 1 : 0.5 }}
-                >
-                  {door.sub.toUpperCase()}
-                </motion.p>
-
                 <h2
-                  className="font-[family-name:var(--font-bebas)] text-white select-none whitespace-nowrap"
-                  style={{ fontSize: "clamp(2.5rem, 4vw, 5rem)", lineHeight: 0.9 }}
+                  className="font-[family-name:var(--font-cormorant)] font-medium text-white select-none whitespace-nowrap"
+                  style={{ fontSize: "clamp(2.25rem, 3.6vw, 4.5rem)", lineHeight: 0.9 }}
                 >
                   {door.label}
                 </h2>
@@ -115,7 +121,10 @@ export default function ThreeDoors() {
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className="pt-4 flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 text-white/40 font-[family-name:var(--font-dm-sans)]" style={{ fontSize: "0.7rem", letterSpacing: "0.08em" }}>
+                    <span
+                      className="flex items-center gap-1.5 font-[family-name:var(--font-dm-sans)]"
+                      style={{ fontSize: "0.7rem", letterSpacing: "0.08em", color: door.image ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.4)" }}
+                    >
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
                       </svg>
@@ -131,11 +140,6 @@ export default function ThreeDoors() {
                   </div>
                 </motion.div>
               </div>
-
-              {/* Divider line between panels */}
-              {i < doors.length - 1 && (
-                <div className="absolute top-0 right-0 bottom-0 w-px bg-white/10 pointer-events-none" />
-              )}
             </motion.div>
           );
         })}
@@ -155,6 +159,16 @@ export default function ThreeDoors() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => handleTap(door)}
             >
+              {door.image && (
+                <>
+                  <Image src={door.image} alt={door.label} fill className="object-cover" />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.35) 100%)" }}
+                  />
+                </>
+              )}
+
               {/* Grain texture */}
               <div
                 className="absolute inset-0 pointer-events-none"
@@ -181,16 +195,9 @@ export default function ThreeDoors() {
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 />
 
-                <p
-                  className="text-white/50 mb-1 font-[family-name:var(--font-dm-sans)]"
-                  style={{ fontSize: "0.65rem", letterSpacing: "0.15em" }}
-                >
-                  {door.sub.toUpperCase()}
-                </p>
-
                 <h2
-                  className="font-[family-name:var(--font-bebas)] text-white select-none"
-                  style={{ fontSize: "clamp(2rem, 8vw, 4rem)", lineHeight: 0.9 }}
+                  className="font-[family-name:var(--font-cormorant)] font-medium text-white select-none"
+                  style={{ fontSize: "clamp(2rem, 7vw, 3.75rem)", lineHeight: 0.9 }}
                 >
                   {door.label}
                 </h2>
@@ -201,20 +208,21 @@ export default function ThreeDoors() {
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className="pt-3 flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 text-white/40 font-[family-name:var(--font-dm-sans)]" style={{ fontSize: "0.65rem", letterSpacing: "0.08em" }}>
+                    <span
+                      className="flex items-center gap-1.5 font-[family-name:var(--font-dm-sans)]"
+                      style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: door.image ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.4)" }}
+                    >
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
                       </svg>
                       {door.location}
                     </span>
-                    <span className="text-white/50 font-[family-name:var(--font-dm-sans)] text-xs">Tap again to open →</span>
+                    <span className="text-white/50 font-[family-name:var(--font-dm-sans)] text-xs">
+                      Tap again to open <span style={{ color: door.accent }}>→</span>
+                    </span>
                   </div>
                 </motion.div>
               </div>
-
-              {i < doors.length - 1 && (
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10 pointer-events-none" />
-              )}
             </motion.div>
           );
         })}
