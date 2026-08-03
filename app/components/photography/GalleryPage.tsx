@@ -24,68 +24,34 @@ interface GalleryPageProps {
 }
 
 function PhotoGrid({ columns, inView }: { columns: GalleryPhoto[][]; inView: boolean }) {
-  // On mobile: show 2 columns (first two columns); on md+: show all columns
-  const mobileColumns = columns.slice(0, 2);
+  const photos = columns.flat();
 
   return (
-    <>
-      {/* Mobile: 2 columns */}
-      <div className="flex md:hidden gap-3">
-        {mobileColumns.map((col, ci) => (
-          <div key={ci} className="flex flex-col gap-3 flex-1">
-            {col.map((photo, pi) => (
-              <motion.div
-                key={photo.id}
-                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden", position: "relative" }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 1.0, delay: 0.1 + (ci * col.length + pi) * 0.07, ease }}
-              >
-                {photo.image ? (
-                  <Image
-                    src={photo.image}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    style={photo.scale ? { transform: `scale(${photo.scale})` } : undefined}
-                  />
-                ) : (
-                  <div className="w-full h-full" style={{ background: photo.gradient }} />
-                )}
-              </motion.div>
-            ))}
-          </div>
-        ))}
-      </div>
-      {/* Desktop: all columns */}
-      <div className="hidden md:flex gap-3">
-        {columns.map((col, ci) => (
-          <div key={ci} className="flex flex-col gap-3 flex-1">
-            {col.map((photo, pi) => (
-              <motion.div
-                key={photo.id}
-                style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden", position: "relative" }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 1.0, delay: 0.1 + (ci * col.length + pi) * 0.07, ease }}
-              >
-                {photo.image ? (
-                  <Image
-                    src={photo.image}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    style={photo.scale ? { transform: `scale(${photo.scale})` } : undefined}
-                  />
-                ) : (
-                  <div className="w-full h-full" style={{ background: photo.gradient }} />
-                )}
-              </motion.div>
-            ))}
-          </div>
-        ))}
-      </div>
-    </>
+    // Mobile: 2 columns, md+: 3 columns (CSS masonry via column-count) — all photos show at every breakpoint
+    <div className="columns-2 md:columns-3 gap-3">
+      {photos.map((photo, i) => (
+        <motion.div
+          key={photo.id}
+          className="mb-3 break-inside-avoid"
+          style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden", position: "relative" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.0, delay: 0.1 + i * 0.07, ease }}
+        >
+          {photo.image ? (
+            <Image
+              src={photo.image}
+              alt=""
+              fill
+              className="object-cover"
+              style={photo.scale ? { transform: `scale(${photo.scale})` } : undefined}
+            />
+          ) : (
+            <div className="w-full h-full" style={{ background: photo.gradient }} />
+          )}
+        </motion.div>
+      ))}
+    </div>
   );
 }
 
