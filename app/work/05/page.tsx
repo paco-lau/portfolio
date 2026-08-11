@@ -61,7 +61,7 @@ function PieStat({ pct, label }: { pct: number; label: string }) {
           <circle cx="60" cy="60" r={r} fill="none" stroke="#e3ddd1" strokeWidth="14" />
           <circle
             cx="60" cy="60" r={r} fill="none"
-            stroke="#7EC8E3" strokeWidth="14" strokeLinecap="round"
+            stroke="#FF7139" strokeWidth="14" strokeLinecap="round"
             strokeDasharray={`${filled} ${c}`}
           />
         </svg>
@@ -633,7 +633,7 @@ export default function FirefoxCaseStudyPage() {
 
           <FadeIn delay={0.2}>
             <p className="font-sans mt-14" style={{ fontSize: "13px", color: "rgba(24,26,24,0.45)", lineHeight: 1.8 }}>
-              A collaboration between ICB and Mozilla in Fall 2025. Project Leads: Daniel Lee, Connor McSeveney. Designers: Paco Lau, Ethan Tam, Junho Choi, Samuel Hudson, Erin Pan, Kalyani Puthenpurayil. Advised by Seeun Ahn and Tommy Nguyen.
+              A collaboration between ICB and Mozilla in Fall 2025. Project Leads: Daniel Lee, Connor McSeveney. Designers: Paco Lau, Ethan Tam, Junho Choi, Samuel Hudson, Erin Pan, Kalyani Puthenpurayil. Advised by Seeun Ahn and Tommy Nguyen. Mentored by Mike Conca, Karen Kim, and Tyler Thorne.
             </p>
           </FadeIn>
         </section>

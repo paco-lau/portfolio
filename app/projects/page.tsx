@@ -28,6 +28,7 @@ const projects = [
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
     banner: globalBanner,
     categories: ["Brand", "UI/UX", "Web"], pinned: false, current: false,
+    href: "/work/hidden",
   },
   {
     num: "03", title: "GoTourGlobal Mobile App", sub: "Spring 2026",
@@ -39,7 +40,7 @@ const projects = [
     num: "04", title: "UC Berkeley DataGood Merchandise & Stickers", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #030001 0%, #030001 100%)",
     banner: datagoodBanner,
-    categories: ["Merchandise"], pinned: false, current: false,
+    categories: ["Brand", "Merchandise"], pinned: false, current: false,
   },
   {
     num: "05", title: "Mozilla Firefox Adaptive Performance Extension", sub: "Fall 2025",
@@ -57,7 +58,7 @@ const projects = [
     num: "07", title: "Milpitas High Varsity Boys Tennis Merchandise", sub: "Spring 2025",
     gradient: "linear-gradient(135deg, #7B3F00 0%, #3A1A00 100%)",
     banner: tennisBanner,
-    categories: ["Merchandise"], pinned: false, current: false,
+    categories: ["Brand", "Merchandise"], pinned: false, current: false,
   },
   {
     num: "08", title: "Haddee Website Re-Design", sub: "Summer 2024",
@@ -71,7 +72,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 type Project = typeof projects[number];
 
-function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, current, i }: Project & { i: number }) {
+function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, current, href, i }: Project & { i: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -81,7 +82,7 @@ function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, cu
       whileHover={{ y: -6 }}
     >
       <Link
-        href={`/work/${num}`}
+        href={href ?? `/work/${num}`}
         className="group block rounded-2xl overflow-hidden"
         style={{ backgroundColor: "#e8e3db", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "box-shadow 0.3s ease" }}
         onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.2)")}
