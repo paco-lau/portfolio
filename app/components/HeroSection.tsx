@@ -83,6 +83,7 @@ export default function HeroSection() {
         animate={{ opacity: 0.6, y: 0 }}
         transition={{ delay: 0.55, duration: 0.7, ease }}
       >
+        <p style={{ fontSize: "clamp(20px, 2vw, 32px)", fontWeight: 450, letterSpacing: "0.06em", lineHeight: 1.5 }}>Data Science &amp; Visualization</p>
         <p style={{ fontSize: "clamp(20px, 2vw, 32px)", fontWeight: 450, letterSpacing: "0.06em", lineHeight: 1.5 }}>Brand &amp; Web Design</p>
         <p style={{ fontSize: "clamp(20px, 2vw, 32px)", fontWeight: 450, letterSpacing: "0.06em", lineHeight: 1.5 }}>Portrait Photography</p>
       </motion.div>

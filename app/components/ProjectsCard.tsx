@@ -156,7 +156,7 @@ export default function ProjectsCard() {
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link
-              href={num === "photography" ? "/photography/graduation" : num === "02" ? "/work/hidden" : `/work/${num}`}
+              href={num === "photography" ? "/photography/graduation" : `/work/${num}`}
               className="group block rounded-2xl overflow-hidden"
               style={{ backgroundColor: "#363836", boxShadow: "0 2px 8px rgba(0,0,0,0.3)", transition: "box-shadow 0.3s ease" }}
               onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.5)")}
