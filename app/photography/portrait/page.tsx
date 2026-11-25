@@ -31,8 +31,6 @@ export default function PortraitPage() {
   return (
     <GalleryPage
       title="Portrait & Group"
-      sub="Faces & Stories"
-      accent="#C8957E"
       columns={columns}
     />
   );

@@ -1,4 +1,36 @@
+const pages = [
+  { href: "/data", label: "Data" },
+  { href: "/projects", label: "Design" },
+  { href: "/photography", label: "Photography" },
+  { href: "/contact", label: "Contact" },
+];
+
+const elsewhere = [
+  { href: "mailto:pacolau@berkeley.edu", label: "Email" },
+  { href: "/RESUME-for-portfolio.pdf", label: "Resume", newTab: true },
+  { href: "https://www.linkedin.com/in/pacolau/", label: "LinkedIn", newTab: true },
+  { href: "https://github.com/paco-lau", label: "GitHub", newTab: true },
+];
+
+function Links({ links, className }: { links: { href: string; label: string; newTab?: boolean }[]; className: string }) {
+  return (
+    <div className={`flex flex-wrap text-sm text-white/60 ${className}`}>
+      {links.map(({ href, label, newTab }) => (
+        <a
+          key={href}
+          href={href}
+          {...(newTab && { target: "_blank", rel: "noopener noreferrer" })}
+          className="hover:text-white transition-colors"
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export default function Footer() {
+  const year = new Date().getFullYear();
   return (
     <footer
       id="contact"
@@ -8,40 +40,20 @@ export default function Footer() {
       {/* Mobile layout */}
       <div className="flex flex-col sm:hidden">
         <span className="text-white font-medium">Paco Lau</span>
-        <span className="text-sm text-white/40 mt-0.5">© {new Date().getFullYear()} Paco Lau</span>
-        <div className="flex flex-wrap gap-4 text-sm text-white/60 mt-4">
-          <a href="/data" className="hover:text-white transition-colors">Data</a>
-          <a href="/projects" className="hover:text-white transition-colors">Design</a>
-          <a href="/photography" className="hover:text-white transition-colors">Photography</a>
-          <a href="/contact" className="hover:text-white transition-colors">Contact</a>
-        </div>
-        <div className="flex flex-wrap gap-4 text-sm text-white/60 mt-4">
-          <a href="mailto:pacolau@berkeley.edu" className="hover:text-white transition-colors">Email</a>
-          <a href="/RESUME-for-portfolio.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Resume</a>
-          <a href="https://www.linkedin.com/in/pacolau/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-          <a href="https://github.com/paco-lau" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-        </div>
+        <span className="text-sm text-white/40 mt-0.5">© {year} Paco Lau</span>
+        <Links links={pages} className="gap-4 mt-4" />
+        <Links links={elsewhere} className="gap-4 mt-4" />
       </div>
 
       {/* sm+ layout */}
       <div className="hidden sm:flex sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-2">
           <span className="text-white font-medium">Paco Lau</span>
-          <div className="flex flex-wrap gap-6 text-sm text-white/60">
-            <a href="/data" className="hover:text-white transition-colors">Data</a>
-            <a href="/projects" className="hover:text-white transition-colors">Design</a>
-            <a href="/photography" className="hover:text-white transition-colors">Photography</a>
-            <a href="/contact" className="hover:text-white transition-colors">Contact</a>
-          </div>
+          <Links links={pages} className="gap-6" />
         </div>
         <div className="flex flex-col items-end gap-2">
-          <span className="text-sm text-white/40">© {new Date().getFullYear()} Paco Lau</span>
-          <div className="flex flex-wrap gap-6 text-sm text-white/60">
-            <a href="mailto:pacolau@berkeley.edu" className="hover:text-white transition-colors">Email</a>
-            <a href="/RESUME-for-portfolio.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Resume</a>
-            <a href="https://www.linkedin.com/in/pacolau/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="https://github.com/paco-lau" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-          </div>
+          <span className="text-sm text-white/40">© {year} Paco Lau</span>
+          <Links links={elsewhere} className="gap-6" />
         </div>
       </div>
     </footer>

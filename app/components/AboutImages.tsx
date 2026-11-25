@@ -3,6 +3,21 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+/* Overlapping, slightly rotated photos — shared by the desktop and mobile layouts. */
+const collage = (
+  <>
+    <div className="absolute z-0 rounded-2xl overflow-hidden" style={{ top: "6%", right: "7%", width: "38%", height: "36%", boxShadow: "0 3px 9px 2px rgba(0,0,0,0.60)", transform: "rotate(3deg)" }}>
+      <Image src="/about-me-pic-3.jpg" alt="Paco Lau" fill className="object-cover" />
+    </div>
+    <div className="absolute z-10 rounded-2xl overflow-hidden" style={{ top: 0, left: "-5%", width: "65%", height: "80%", boxShadow: "0 5px 12px 3px rgba(0,0,0,0.64)", transform: "rotate(-2deg)" }}>
+      <Image src="/about-me-pic.jpg" alt="Paco Lau" fill className="object-cover" />
+    </div>
+    <div className="absolute z-20 rounded-2xl overflow-hidden" style={{ bottom: "8%", right: 0, width: "60%", height: "40%", boxShadow: "0 6px 15px 5px rgba(0,0,0,0.68)", transform: "rotate(1.5deg)" }}>
+      <Image src="/about-me-pic-2.jpg" alt="Paco Lau" fill className="object-cover" />
+    </div>
+  </>
+);
+
 export default function AboutImages() {
   const [breakpoint, setBreakpoint] = useState<"mobile" | "tablet" | "desktop">("mobile");
 
@@ -39,15 +54,7 @@ export default function AboutImages() {
     return (
       <div className="flex-shrink-0 -mt-12" style={{ width: "48%", display: "flex", justifyContent: "center", paddingLeft: "5%" }}>
         <div className="relative" style={{ width: "100%", aspectRatio: "576 / 630" }}>
-          <div className="absolute z-0 rounded-2xl overflow-hidden" style={{ top: "6%", right: "7%", width: "38%", height: "36%", boxShadow: "0 3px 9px 2px rgba(0,0,0,0.60)", transform: "rotate(3deg)" }}>
-            <Image src="/about-me-pic-3.jpg" alt="Paco Lau" fill className="object-cover" />
-          </div>
-          <div className="absolute z-10 rounded-2xl overflow-hidden" style={{ top: 0, left: "-5%", width: "65%", height: "80%", boxShadow: "0 5px 12px 3px rgba(0,0,0,0.64)", transform: "rotate(-2deg)" }}>
-            <Image src="/about-me-pic.jpg" alt="Paco Lau" fill className="object-cover" />
-          </div>
-          <div className="absolute z-20 rounded-2xl overflow-hidden" style={{ bottom: "8%", right: 0, width: "60%", height: "40%", boxShadow: "0 6px 15px 5px rgba(0,0,0,0.68)", transform: "rotate(1.5deg)" }}>
-            <Image src="/about-me-pic-2.jpg" alt="Paco Lau" fill className="object-cover" />
-          </div>
+          {collage}
         </div>
       </div>
     );
@@ -57,15 +64,7 @@ export default function AboutImages() {
   return (
     <div className="mt-4" style={{ width: "100%", display: "flex", justifyContent: "center", paddingLeft: "5%" }}>
       <div className="relative about-images-mobile" style={{ width: "88%", aspectRatio: "576 / 630" }}>
-        <div className="absolute z-0 rounded-2xl overflow-hidden" style={{ top: "6%", right: "7%", width: "38%", height: "36%", boxShadow: "0 3px 9px 2px rgba(0,0,0,0.60)", transform: "rotate(3deg)" }}>
-          <Image src="/about-me-pic-3.jpg" alt="Paco Lau" fill className="object-cover" />
-        </div>
-        <div className="absolute z-10 rounded-2xl overflow-hidden" style={{ top: 0, left: "-5%", width: "65%", height: "80%", boxShadow: "0 5px 12px 3px rgba(0,0,0,0.64)", transform: "rotate(-2deg)" }}>
-          <Image src="/about-me-pic.jpg" alt="Paco Lau" fill className="object-cover" />
-        </div>
-        <div className="absolute z-20 rounded-2xl overflow-hidden" style={{ bottom: "8%", right: 0, width: "60%", height: "40%", boxShadow: "0 6px 15px 5px rgba(0,0,0,0.68)", transform: "rotate(1.5deg)" }}>
-          <Image src="/about-me-pic-2.jpg" alt="Paco Lau" fill className="object-cover" />
-        </div>
+        {collage}
       </div>
     </div>
   );

@@ -31,8 +31,6 @@ export default function GraduationPage() {
   return (
     <GalleryPage
       title="Graduation"
-      sub="Milestones & Moments"
-      accent="#C8A97E"
       columns={columns}
     />
   );

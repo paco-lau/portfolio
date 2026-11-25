@@ -27,8 +27,6 @@ export default function UrbanLandscapePage() {
   return (
     <GalleryPage
       title="Urban & Landscape"
-      sub="Light & Space"
-      accent="#7EC8E3"
       columns={columns}
     />
   );

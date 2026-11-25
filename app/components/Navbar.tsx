@@ -1,20 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const [navOpacity, setNavOpacity] = useState(isHome ? 0 : 0);
+  const [navOpacity, setNavOpacity] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
+  // Reset on navigation (React's "adjust state when a prop changes" pattern, no effect needed).
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (pathname !== prevPath) {
+    setPrevPath(pathname);
     setNavOpacity(0);
     setMenuOpen(false);
+  }
 
+  useEffect(() => {
     const onScroll = () => {
       const currentY = window.scrollY;
       const start = window.innerHeight * 0.1;
@@ -24,7 +28,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
+  }, []);
 
   const textColor = `rgb(${Math.round(24 + 231 * navOpacity)}, ${Math.round(26 + 229 * navOpacity)}, ${Math.round(24 + 231 * navOpacity)})`;
 

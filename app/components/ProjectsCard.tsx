@@ -6,25 +6,18 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Footer from "./Footer";
 
-import firefoxBanner from "../../assets/projects/mozilla-firefox/firefox-banner.png";
-import globalBanner from "../../assets/projects/global-inheritance/globalinheritance-banner.png";
 import grad26Banner from "../../assets/photography/grad-26-banner.jpg";
+import { projects as allProjects, DATA_CATEGORY } from "../lib/projects";
+
+// Pull the featured work from the shared list so dates and titles stay in one place.
+const featured = (num: string) => {
+  const p = allProjects.find(p => p.num === num)!;
+  return { ...p, categories: p.categories.filter(c => c !== DATA_CATEGORY) };
+};
 
 const projects = [
-  {
-    num: "05", title: "Mozilla Firefox Adaptive Performance Extension", sub: "Sep 2025 - Feb 2026",
-    gradient: "linear-gradient(135deg, #A0522D 0%, #4A1A0A 100%)",
-    banner: firefoxBanner,
-    categories: ["Coded", "UI/UX", "Web"],
-    pinned: true, current: false,
-  },
-  {
-    num: "02", title: "Global Inheritance Brand & Website Re-Design", sub: "Feb 2026 - May 2026",
-    gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
-    banner: globalBanner,
-    categories: ["Brand", "UI/UX", "Web"],
-    pinned: false, current: false,
-  },
+  featured("05"),
+  featured("02"),
   {
     num: "photography", title: "UC Berkeley Class of '26", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
@@ -61,7 +54,7 @@ function CTASection() {
         transition={{ duration: 1.1, ease }}
       >
         Impressed?{" "}
-        <span style={{ color: "#7EC8E3" }}>Let's talk.</span>
+        <span style={{ color: "#7EC8E3" }}>Let&apos;s talk.</span>
       </motion.p>
       <motion.div
         initial={{ opacity: 0, y: 16 }}

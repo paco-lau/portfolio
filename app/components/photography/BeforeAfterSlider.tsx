@@ -6,17 +6,6 @@ import Image from "next/image";
 import beforeImage from "../../../assets/photography/comparison/before.jpg";
 import afterImage from "../../../assets/photography/comparison/after.jpg";
 
-const edit = {
-  label: "Golden Hour Portrait",
-  steps: [
-    "Warmth +40",
-    "Highlights −30",
-    "Shadows +20",
-    "HSL orange shift",
-    "Clarity +10",
-  ],
-};
-
 function Slider() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState(50);

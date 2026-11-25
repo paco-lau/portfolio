@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import urbanLandscapeMain from "../../../assets/photography/urban-landscape/urbanland-victoriaharbor-main.jpg";
@@ -40,10 +42,11 @@ const doors = [
 export default function ThreeDoors() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [tapped, setTapped] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleTap = (door: typeof doors[number]) => {
     if (tapped === door.id) {
-      window.location.href = door.href;
+      router.push(door.href);
     } else {
       setTapped(door.id);
       setHovered(door.id);
@@ -67,8 +70,8 @@ export default function ThreeDoors() {
               transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
               onMouseEnter={() => setHovered(door.id)}
               onMouseLeave={() => setHovered(null)}
-              onClick={() => { window.location.href = door.href; }}
             >
+              <Link href={door.href} aria-label={door.label} className="absolute inset-0 z-10" onFocus={() => setHovered(door.id)} onBlur={() => setHovered(null)} />
               {door.image && (
                 <>
                   <Image src={door.image} alt={door.label} fill className="object-cover" priority={i === 0} />

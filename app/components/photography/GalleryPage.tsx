@@ -17,10 +17,7 @@ export type GalleryPhoto = {
 
 interface GalleryPageProps {
   title: string;
-  sub: string;
-  accent: string;
   columns: GalleryPhoto[][];
-  titleSize?: string;
 }
 
 function Photo({ photo, delay, inView }: { photo: GalleryPhoto; delay: number; inView: boolean }) {
@@ -76,7 +73,7 @@ function PhotoGrid({ columns, inView }: { columns: GalleryPhoto[][]; inView: boo
   );
 }
 
-export default function GalleryPage({ title, sub, accent, columns, titleSize }: GalleryPageProps) {
+export default function GalleryPage({ title, columns }: GalleryPageProps) {
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true });
@@ -99,7 +96,7 @@ export default function GalleryPage({ title, sub, accent, columns, titleSize }: 
 
           <motion.h1
             className="font-bold text-[#181a18]"
-            style={{ fontSize: titleSize ?? "clamp(3.5rem, 8vw, 8rem)", lineHeight: 1 }}
+            style={{ fontSize: "clamp(3.5rem, 8vw, 8rem)", lineHeight: 1 }}
             initial={{ opacity: 0, y: 30 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1, ease }}
