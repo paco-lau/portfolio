@@ -1,128 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Footer from "../components/Footer";
+import ProjectGridCard from "../components/ProjectGridCard";
+import { projects, DATA_CATEGORY } from "../lib/projects";
 
-import firefoxBanner from "../../assets/projects/mozilla-firefox/firefox-banner.png";
-import globalBanner from "../../assets/projects/global-inheritance/globalinheritance-banner.png";
-import millpondBanner from "../../assets/projects/millpond-research/millpond-banner.png";
-import haddeeBanner from "../../assets/projects/haddee/haddee-banner.png";
-import gotourBanner from "../../assets/projects/gotourglobal/gotourglobal-banner.png";
-import tennisBanner from "../../assets/projects/mhs-merch-design/mhs-tennis-banner.png";
-import datagoodBanner from "../../assets/projects/datagood-merch-design/datagood-banner.png";
-
-const CATEGORIES = ["All", "Brand", "Coded", "Data Science", "Merchandise", "Mobile", "UI/UX", "Web"];
-
-const projects = [
-  {
-    num: "01", title: "UC Berkeley HKSA Logo Re-Design", sub: "Summer 2026",
-    gradient: "linear-gradient(135deg, #2B4590 0%, #0D1B4B 100%)",
-    banner: undefined,
-    categories: ["Brand"], pinned: false, current: true,
-  },
-  {
-    num: "02", title: "Global Inheritance Brand & Website Re-Design", sub: "Spring 2026",
-    gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
-    banner: globalBanner,
-    categories: ["Brand", "UI/UX", "Web"], pinned: false, current: false,
-  },
-  {
-    num: "03", title: "GoTourGlobal Mobile App", sub: "Spring 2026",
-    gradient: "linear-gradient(135deg, #5C3D6E 0%, #2A1A3A 100%)",
-    banner: gotourBanner,
-    categories: ["Coded", "Mobile", "UI/UX"], pinned: false, current: false,
-  },
-  {
-    num: "04", title: "UC Berkeley DataGood Merchandise & Stickers", sub: "Spring 2026",
-    gradient: "linear-gradient(135deg, #030001 0%, #030001 100%)",
-    banner: datagoodBanner,
-    categories: ["Brand", "Merchandise"], pinned: false, current: false,
-  },
-  {
-    num: "05", title: "Mozilla Firefox Adaptive Performance Extension", sub: "Fall 2025",
-    gradient: "linear-gradient(135deg, #A0522D 0%, #4A1A0A 100%)",
-    banner: firefoxBanner,
-    categories: ["Coded", "Data Science", "UI/UX", "Web"], pinned: true, current: false,
-  },
-  {
-    num: "06", title: "Mill Pond Research Brand & Website Re-Design", sub: "Fall 2025",
-    gradient: "linear-gradient(135deg, #1A5276 0%, #0A2840 100%)",
-    banner: millpondBanner,
-    categories: ["Brand", "Coded", "Web", "UI/UX"], pinned: false, current: false,
-  },
-  {
-    num: "07", title: "Milpitas High Varsity Boys Tennis Merchandise", sub: "Spring 2025",
-    gradient: "linear-gradient(135deg, #7B3F00 0%, #3A1A00 100%)",
-    banner: tennisBanner,
-    categories: ["Brand", "Merchandise"], pinned: false, current: false,
-  },
-  {
-    num: "08", title: "Haddee Website Re-Design", sub: "Summer 2024",
-    gradient: "linear-gradient(135deg, #1E4D2B 0%, #0A2010 100%)",
-    banner: haddeeBanner,
-    categories: ["UI/UX", "Web"], pinned: false, current: false,
-  },
-];
+const CATEGORIES = ["All", "Brand", "Coded", "Merchandise", "Mobile", "UI/UX", "Web"];
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-type Project = typeof projects[number];
-
-function ProjectCard({ num, title, sub, gradient, banner, categories, pinned, current, i }: Project & { i: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.08 }}
-      transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease }}
-      whileHover={{ y: -6 }}
-    >
-      <Link
-        href={`/work/${num}`}
-        className="group block rounded-2xl overflow-hidden"
-        style={{ backgroundColor: "#e8e3db", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "box-shadow 0.3s ease" }}
-        onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.2)")}
-        onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)")}
-      >
-        <div className="h-72 relative" style={{ background: gradient }}>
-          {banner && <Image src={banner} alt={title} fill className="object-cover object-center" />}
-          <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
-          <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
-            {pinned && (
-              <span className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
-                Featured
-              </span>
-            )}
-            {current && (
-              <span className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
-                In Progress
-              </span>
-            )}
-          </div>
-          <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-            {[...categories].sort().map(cat => (
-              <span key={cat} className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
-                {cat}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="p-4 flex items-center justify-between gap-4">
-          <div>
-            <p className="font-semibold text-[#181a18] text-base">{title}</p>
-            <p className="text-[#181a18]/40 text-sm mt-1">{sub}</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="flex-shrink-0 text-[#181a18]/25 group-hover:text-[#181a18]/70 transition-colors" style={{ width: "20px", height: "20px", transform: "rotate(-45deg)" }}>
-            <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
-          </svg>
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
 
 export default function ProjectsPage() {
   const [active, setActive] = useState("All");
@@ -133,7 +19,8 @@ export default function ProjectsPage() {
     setFilterKey(k => k + 1);
   };
 
-  const visible = projects.filter(p => !p.current);
+  // Data-only projects live on the Data tab; cross-disciplinary ones appear in both.
+  const visible = projects.filter(p => !p.current && p.categories.some(c => c !== DATA_CATEGORY));
   const base = active === "All" ? visible : visible.filter(p => p.categories.includes(active));
   const pinned = base.filter(p => p.pinned);
   const rest = base.filter(p => !p.pinned);
@@ -160,17 +47,8 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}
         >
-          Projects
+          Design
         </motion.h1>
-        <motion.p
-          className="font-sans text-[#181a18]/50 mt-4"
-          style={{ fontSize: "clamp(14px, 1.2vw, 18px)", letterSpacing: "0.05em" }}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease }}
-        >
-          From Designing to Coding
-        </motion.p>
 
         {/* Category filters */}
         <motion.div
@@ -208,7 +86,7 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease }}
         >
-          {[...pinned, ...rest].map((p, i) => <ProjectCard key={p.num} {...p} i={i} />)}
+          {[...pinned, ...rest].map((p, i) => <ProjectGridCard key={p.num} {...p} i={i} />)}
         </motion.div>
 
         {base.length === 0 && (

@@ -29,7 +29,8 @@ export default function Navbar() {
   const textColor = `rgb(${Math.round(24 + 231 * navOpacity)}, ${Math.round(26 + 229 * navOpacity)}, ${Math.round(24 + 231 * navOpacity)})`;
 
   const navLinks = [
-    { href: "/projects",    label: "Projects"    },
+    { href: "/data",        label: "Data"        },
+    { href: "/projects",    label: "Design"      },
     { href: "/photography", label: "Photography"  },
     { href: "/contact",     label: "Contact"      },
   ];

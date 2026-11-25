@@ -10,7 +10,8 @@ export default function Footer() {
         <span className="text-white font-medium">Paco Lau</span>
         <span className="text-sm text-white/40 mt-0.5">© {new Date().getFullYear()} Paco Lau</span>
         <div className="flex flex-wrap gap-4 text-sm text-white/60 mt-4">
-          <a href="/projects" className="hover:text-white transition-colors">Projects</a>
+          <a href="/data" className="hover:text-white transition-colors">Data</a>
+          <a href="/projects" className="hover:text-white transition-colors">Design</a>
           <a href="/photography" className="hover:text-white transition-colors">Photography</a>
           <a href="/contact" className="hover:text-white transition-colors">Contact</a>
         </div>
@@ -27,7 +28,8 @@ export default function Footer() {
         <div className="flex flex-col gap-2">
           <span className="text-white font-medium">Paco Lau</span>
           <div className="flex flex-wrap gap-6 text-sm text-white/60">
-            <a href="/projects" className="hover:text-white transition-colors">Projects</a>
+            <a href="/data" className="hover:text-white transition-colors">Data</a>
+            <a href="/projects" className="hover:text-white transition-colors">Design</a>
             <a href="/photography" className="hover:text-white transition-colors">Photography</a>
             <a href="/contact" className="hover:text-white transition-colors">Contact</a>
           </div>

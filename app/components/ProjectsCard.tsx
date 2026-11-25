@@ -12,14 +12,14 @@ import grad26Banner from "../../assets/photography/grad-26-banner.jpg";
 
 const projects = [
   {
-    num: "05", title: "Mozilla Firefox Adaptive Performance Extension", sub: "Fall 2025",
+    num: "05", title: "Mozilla Firefox Adaptive Performance Extension", sub: "Sep 2025 - Feb 2026",
     gradient: "linear-gradient(135deg, #A0522D 0%, #4A1A0A 100%)",
     banner: firefoxBanner,
     categories: ["Coded", "UI/UX", "Web"],
     pinned: true, current: false,
   },
   {
-    num: "02", title: "Global Inheritance Brand & Website Re-Design", sub: "Spring 2026",
+    num: "02", title: "Global Inheritance Brand & Website Re-Design", sub: "Feb 2026 - May 2026",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
     banner: globalBanner,
     categories: ["Brand", "UI/UX", "Web"],

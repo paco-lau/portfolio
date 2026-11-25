@@ -97,14 +97,6 @@ export default function BeforeAfterSlider() {
         <div ref={ref} className="flex flex-col md:flex-row gap-8 md:gap-16 items-center">
           {/* Left — text */}
           <div className="min-w-0 w-full md:w-auto" style={{ flex: "0 0 auto", flexBasis: "clamp(200px, 30%, 320px)" }}>
-            <motion.p
-              className="text-white/30 text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)] mb-3"
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.9 }}
-            >
-              Before & After
-            </motion.p>
             <motion.h2
               className="font-[family-name:var(--font-cormorant)] font-medium text-[#F5F0E8]"
               style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)", lineHeight: 1.05 }}

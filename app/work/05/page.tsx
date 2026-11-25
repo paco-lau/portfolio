@@ -25,20 +25,6 @@ const SECTIONS = [
   { id: "final", label: "Final Deliverable" },
 ];
 
-function Kicker({ num, style }: { num: string; style?: React.CSSProperties }) {
-  return (
-    <div className="flex items-center gap-4 mb-4" style={style}>
-      <span
-        className="font-bold"
-        style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1, color: "#FF7139" }}
-      >
-        {num}
-      </span>
-      <span className="h-px w-10" style={{ backgroundColor: "rgba(24,26,24,0.2)" }} />
-    </div>
-  );
-}
-
 function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   return (
     <div
@@ -239,7 +225,7 @@ export default function FirefoxCaseStudyPage() {
               className="font-sans inline-block"
               style={{ fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700, padding: "6px 16px", borderRadius: "999px", backgroundColor: "#FF7139", color: "#181a18" }}
             >
-              Mozilla &middot; Fall 2025
+              Mozilla &middot; Sep 2025 - Feb 2026
             </span>
             <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>
               Adaptive Performance Extension
@@ -305,7 +291,6 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <Kicker num="01" />
             <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
           </FadeIn>
 
@@ -341,7 +326,6 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <Kicker num="02" />
             <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Research</h2>
           </FadeIn>
 
@@ -406,7 +390,6 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <Kicker num="03" />
             <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Design &amp; Iteration</h2>
           </FadeIn>
 
@@ -498,7 +481,6 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <Kicker num="04" />
             <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Deliverable</h2>
           </FadeIn>
 

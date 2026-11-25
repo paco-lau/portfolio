@@ -16,14 +16,6 @@ function PhotographyCTA() {
 
   return (
     <section ref={ref} className="py-16 md:py-24 px-4 sm:px-8 md:px-16 bg-[#F5F0E8] text-center">
-      <motion.p
-        className="text-[#181a18]/40 text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)] mb-4"
-        initial={{ opacity: 0, y: 16 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1.1, ease }}
-      >
-        Work Together
-      </motion.p>
       <motion.h2
         className="font-[family-name:var(--font-cormorant)] font-medium text-[#181a18]"
         style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", lineHeight: 1.05 }}
@@ -98,15 +90,6 @@ export default function PhotographyPage() {
         >
           Photography
         </motion.h1>
-        <motion.p
-          className="font-sans text-[#181a18]/50 mt-4"
-          style={{ fontSize: "clamp(14px, 1.2vw, 18px)", letterSpacing: "0.05em" }}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease }}
-        >
-          Portrait & Group · Urban & Landscape · Graduation
-        </motion.p>
       </section>
 
       <ThreeDoors />

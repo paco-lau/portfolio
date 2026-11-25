@@ -125,10 +125,6 @@ export default function ContactPage() {
           backgroundSize: "36px 36px",
         }} />
 
-        <motion.p {...anim(0)} style={{ color: "rgba(24,26,24,0.4)", fontSize: "clamp(14px, 1.2vw, 18px)", letterSpacing: "0.05em", marginBottom: 12, position: "relative" }}>
-          Let&apos;s connect
-        </motion.p>
-
         <motion.h1 {...anim(0.1)} style={{ color: "#181a18", fontWeight: 700, lineHeight: 1, letterSpacing: "-0.03em", fontSize: "clamp(2rem, 10vw, 9rem)", position: "relative", margin: 0 }}>
           Get in touch.
         </motion.h1>

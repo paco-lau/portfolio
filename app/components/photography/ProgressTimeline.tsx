@@ -114,14 +114,6 @@ export default function ProgressTimeline() {
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div ref={titleRef} className="mb-20">
-          <motion.p
-            className="text-[#181a18]/40 text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)] mb-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            The journey
-          </motion.p>
           <motion.h2
             className="font-[family-name:var(--font-cormorant)] font-medium text-[#181a18]"
             style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", lineHeight: 1.05 }}
