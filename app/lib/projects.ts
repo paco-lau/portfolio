@@ -11,7 +11,7 @@ import datagoodBanner from "../../assets/projects/design/datagood-merch-design/d
 
 export const projects = [
   {
-    num: "10", title: "Replate Dashboard Design", sub: "Sep 2026 - Current",
+    num: "10", title: "Replate Dashboard Design", sub: "Sep 2026 - Dec 2026",
     gradient: "linear-gradient(135deg, #3D4A2A 0%, #161C0E 100%)",
     banner: replateBanner,
     categories: ["Brand", "Lead", "UI/UX", "Web"], pinned: false, current: false,
@@ -23,7 +23,7 @@ export const projects = [
     categories: ["Data Science", "Machine Learning", "Modeling & Simulation", "Research"], pinned: false, current: false,
   },
   {
-    num: "09", title: "Zipline Split Risk Model & Simulator", sub: "Sep 2026 - Current",
+    num: "09", title: "Zipline Split Risk Model & Simulator", sub: "Sep 2026 - Dec 2026",
     gradient: "linear-gradient(135deg, #1F3A4D 0%, #0B1620 100%)",
     banner: ziplineBanner,
     categories: ["Data Science", "Modeling & Simulation", "Product"], pinned: false, current: false,
