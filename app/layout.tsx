@@ -23,8 +23,8 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Paco Lau — Design, Code, & Photography",
-  description: "Design portfolio",
+  title: "Paco Lau",
+  description: "Paco Lau is a UC Berkeley Data Science & Economics student working across data science, design and photography.",
 };
 
 export default function RootLayout({
