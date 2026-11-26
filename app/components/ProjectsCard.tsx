@@ -7,17 +7,18 @@ import Image from "next/image";
 import Footer from "./Footer";
 
 import grad26Banner from "../../assets/photography/grad-26-banner.jpg";
-import { projects as allProjects, DATA_CATEGORY } from "../lib/projects";
+import { projects as allProjects, DATA_FILTERS, DESIGN_CATEGORIES } from "../lib/projects";
 
-// Pull the featured work from the shared list so dates and titles stay in one place.
-const featured = (num: string) => {
+// The projects pinned on the Data and Design pages, pulled from the shared list so dates
+// and titles stay in one place; tags limited to the page each one is pinned on.
+const featured = (num: string, tags: string[]) => {
   const p = allProjects.find(p => p.num === num)!;
-  return { ...p, categories: p.categories.filter(c => c !== DATA_CATEGORY) };
+  return { ...p, pinned: true, categories: p.categories.filter(c => tags.includes(c)) };
 };
 
 const projects = [
-  featured("05"),
-  featured("02"),
+  featured("05", DESIGN_CATEGORIES),
+  featured("12", DATA_FILTERS),
   {
     num: "photography", title: "UC Berkeley Class of '26", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
@@ -116,12 +117,12 @@ export default function ProjectsCard() {
     >
       <h2
         ref={headingRef}
-        className="font-bold text-white mb-10"
-        style={{ fontSize: "clamp(3rem, 9vw, 9rem)", lineHeight: 1 }}
+        className="font-bold text-white mb-10 whitespace-nowrap"
+        style={{ fontSize: "clamp(1.25rem, 6.8vw, 9rem)", lineHeight: 1 }}
       >
-        I help clients{" "}
+        Some of my recent{" "}
         <span className="relative inline-block text-sky-300">
-          win
+          wins
           <span
             className="absolute left-0 bottom-0 h-[clamp(3px,0.8vw,8px)] rounded-full"
             style={{
@@ -131,8 +132,8 @@ export default function ProjectsCard() {
               transitionDelay: "0.2s",
             }}
           />
-        </span>{" "}
-        on projects like:
+        </span>
+        :
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

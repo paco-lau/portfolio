@@ -9,15 +9,18 @@ import type { Project } from "../lib/projects";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 /** Title + category filters + project grid, shared by the Design and Data pages. */
-export default function WorkIndex({ title, items, categories, emptyText }: {
+export default function WorkIndex({ title, items, categories, emptyText, pinned }: {
   title: string;
   items: Project[];
+  /** num of the project to show first, with the Featured badge, on this page */
+  pinned: string;
   categories: string[];
   emptyText: string;
 }) {
   const [active, setActive] = useState("All");
 
-  const base = active === "All" ? items : items.filter(p => p.categories.includes(active));
+  const pagePinned = items.map(p => ({ ...p, pinned: p.num === pinned }));
+  const base = active === "All" ? pagePinned : pagePinned.filter(p => p.categories.includes(active));
   const sorted = [...base.filter(p => p.pinned), ...base.filter(p => !p.pinned)];
 
   return (
@@ -80,7 +83,10 @@ export default function WorkIndex({ title, items, categories, emptyText }: {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease }}
         >
-          {sorted.map((p, i) => <ProjectGridCard key={p.num} {...p} i={i} />)}
+          {sorted.map((p, i) => (
+            // Only show tags that belong to this page.
+            <ProjectGridCard key={p.num} {...p} categories={p.categories.filter(c => categories.includes(c))} i={i} />
+          ))}
         </motion.div>
 
         {base.length === 0 && (

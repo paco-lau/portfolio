@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { projects, DATA_CATEGORY } from "../../lib/projects";
+import { projects, DESIGN_CATEGORIES } from "../../lib/projects";
 
 export default async function WorkPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   // Data-only projects are listed on the Data tab, so send people back there.
   const project = projects.find(p => p.num === id);
-  const dataOnly = !!project && project.categories.every(c => c === DATA_CATEGORY);
+  const dataOnly = !!project && !project.categories.some(c => DESIGN_CATEGORIES.includes(c));
   const back = dataOnly ? { href: "/data", label: "Data" } : { href: "/projects", label: "Projects" };
 
   return (

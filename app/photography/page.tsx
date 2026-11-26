@@ -70,7 +70,7 @@ export default function PhotographyPage() {
     <>
       {/* Cream header + three doors = exactly one viewport height */}
       <div className="flex flex-col" style={{ height: "100svh" }}>
-      <section className="bg-[#F5F0E8] px-4 sm:px-8 md:px-16 pt-28 pb-10 relative overflow-hidden flex-shrink-0">
+      <section className="bg-[#F5F0E8] px-4 sm:px-8 md:px-16 pt-32 pb-16 relative overflow-hidden flex-shrink-0">
         {/* Dot grid */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -83,7 +83,8 @@ export default function PhotographyPage() {
         />
         <motion.h1
           className="font-bold text-[#181a18]"
-          style={{ fontSize: "clamp(2rem, 10vw, 9rem)", lineHeight: 1 }}
+          // marginBottom offsets the empty space above the capitals so the gaps above and below look equal
+          style={{ fontSize: "clamp(2rem, 10vw, 9rem)", lineHeight: 1, marginBottom: "0.18em" }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}

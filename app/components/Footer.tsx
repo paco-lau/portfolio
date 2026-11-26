@@ -1,4 +1,5 @@
 const pages = [
+  { href: "/about", label: "About" },
   { href: "/data", label: "Data" },
   { href: "/projects", label: "Design" },
   { href: "/photography", label: "Photography" },

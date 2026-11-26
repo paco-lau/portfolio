@@ -4,20 +4,20 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
-import { Card, Carousel, FadeIn, SectionRail, ease } from "../CaseStudy";
+import { Card, Carousel, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
 
-import globalBanner from "../../../assets/projects/global-inheritance/globalinheritance-banner.png";
-import wireframeCoachella from "../../../assets/projects/global-inheritance/wireframe-coachella.png";
-import wireframeCallToArtists from "../../../assets/projects/global-inheritance/wireframe-call-to-artists.png";
-import wireframePrograms from "../../../assets/projects/global-inheritance/wireframe-programs.png";
-import wireframeAbout from "../../../assets/projects/global-inheritance/wireframe-about.png";
-import finalLanding from "../../../assets/projects/global-inheritance/final-landing.png";
-import finalAbout from "../../../assets/projects/global-inheritance/final-about.png";
-import finalProgram from "../../../assets/projects/global-inheritance/final-program.png";
-import finalNews from "../../../assets/projects/global-inheritance/final-news.png";
-import finalDonate from "../../../assets/projects/global-inheritance/final-donate.png";
-import finalGetInvolved from "../../../assets/projects/global-inheritance/final-get-involved.png";
-import finalCallToArtists from "../../../assets/projects/global-inheritance/final-call-to-artists.png";
+import globalBanner from "../../../assets/projects/design/global-inheritance/globalinheritance-banner.png";
+import wireframeCoachella from "../../../assets/projects/design/global-inheritance/wireframe-coachella.png";
+import wireframeCallToArtists from "../../../assets/projects/design/global-inheritance/wireframe-call-to-artists.png";
+import wireframePrograms from "../../../assets/projects/design/global-inheritance/wireframe-programs.png";
+import wireframeAbout from "../../../assets/projects/design/global-inheritance/wireframe-about.png";
+import finalLanding from "../../../assets/projects/design/global-inheritance/final-landing.png";
+import finalAbout from "../../../assets/projects/design/global-inheritance/final-about.png";
+import finalProgram from "../../../assets/projects/design/global-inheritance/final-program.png";
+import finalNews from "../../../assets/projects/design/global-inheritance/final-news.png";
+import finalDonate from "../../../assets/projects/design/global-inheritance/final-donate.png";
+import finalGetInvolved from "../../../assets/projects/design/global-inheritance/final-get-involved.png";
+import finalCallToArtists from "../../../assets/projects/design/global-inheritance/final-call-to-artists.png";
 
 const ACCENT = "#2F8FC7";
 
@@ -48,6 +48,7 @@ export default function GlobalInheritanceCaseStudyPage() {
             <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>
               Brand &amp; Website Re-Design
             </h1>
+            <HeroMeta role="Website UI/UX Designer" team="6 designers · Invention Corps of Berkeley" />
           </motion.div>
 
           <div className="relative">

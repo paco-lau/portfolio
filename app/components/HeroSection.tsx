@@ -22,13 +22,13 @@ export default function HeroSection() {
 
   return (
     <section
-      className="h-screen relative flex flex-col justify-end px-4 sm:px-8 md:px-12 overflow-hidden"
+      className="h-screen sticky top-0 flex flex-col justify-end px-4 sm:px-8 md:px-12 overflow-hidden"
       style={{
         paddingBottom: "13vh",
         backgroundColor: "#F5F0E8",
         backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.20) 1.5px, transparent 1.5px)",
         backgroundSize: "36px 36px",
-        zIndex: 20,
+        zIndex: 1, // stays pinned so Recent Works (z 10) slides over it
       }}
     >
       {/* Top-left discipline lines */}
@@ -91,25 +91,6 @@ export default function HeroSection() {
         >
           BASED IN BERKELEY, CA
         </p>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center" style={{ zIndex: 10 }}>
-        <div className="flex flex-col items-center gap-1.5">
-          <span
-            style={{
-              fontFamily: "var(--font-dm-sans)",
-              fontSize: "13px",
-              letterSpacing: "0.25em",
-              color: "#181a18",
-              opacity: 0.6,
-              textTransform: "uppercase",
-            }}
-          >
-            Scroll
-          </span>
-          <div style={{ width: 1, height: 36, background: "linear-gradient(to bottom, rgba(24,26,24,0.35), transparent)" }} />
-        </div>
       </div>
     </section>
   );

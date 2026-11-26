@@ -23,6 +23,18 @@ export function Card({ children, style }: { children: React.ReactNode; style?: R
   );
 }
 
+/** Role / Team lines under a case study's hero title. */
+export function HeroMeta({ role, team }: { role: string; team: string }) {
+  return (
+    <dl className="font-sans grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 mt-8 text-[#181a18]">
+      <dt className="text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50 pt-0.5">Role</dt>
+      <dd>{role}</dd>
+      <dt className="text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50 pt-0.5">Team</dt>
+      <dd>{team}</dd>
+    </dl>
+  );
+}
+
 export function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
     <motion.div

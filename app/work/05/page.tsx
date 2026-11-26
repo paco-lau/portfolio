@@ -4,18 +4,18 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
-import { Card, Carousel, FadeIn, SectionRail, ease } from "../CaseStudy";
+import { Card, Carousel, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
 
-import firefoxBanner from "../../../assets/projects/mozilla-firefox/firefox-banner.png";
-import finalPopup from "../../../assets/projects/mozilla-firefox/final-deliverable.png";
-import suggestedActions from "../../../assets/projects/mozilla-firefox/suggested-actions.png";
-import settingsPrototype from "../../../assets/projects/mozilla-firefox/setting.png";
-import wireframe1 from "../../../assets/projects/mozilla-firefox/wireframe-1.png";
-import wireframe2 from "../../../assets/projects/mozilla-firefox/wireframe-2.png";
-import wireframe3 from "../../../assets/projects/mozilla-firefox/wireframe-3.png";
-import wireframe4 from "../../../assets/projects/mozilla-firefox/wireframe-4.png";
-import dataAudit from "../../../assets/projects/mozilla-firefox/data.png";
-import moreDataAudit from "../../../assets/projects/mozilla-firefox/more-data.png";
+import firefoxBanner from "../../../assets/projects/both/mozilla-firefox/firefox-banner.png";
+import finalPopup from "../../../assets/projects/both/mozilla-firefox/final-deliverable.png";
+import suggestedActions from "../../../assets/projects/both/mozilla-firefox/suggested-actions.png";
+import settingsPrototype from "../../../assets/projects/both/mozilla-firefox/setting.png";
+import wireframe1 from "../../../assets/projects/both/mozilla-firefox/wireframe-1.png";
+import wireframe2 from "../../../assets/projects/both/mozilla-firefox/wireframe-2.png";
+import wireframe3 from "../../../assets/projects/both/mozilla-firefox/wireframe-3.png";
+import wireframe4 from "../../../assets/projects/both/mozilla-firefox/wireframe-4.png";
+import dataAudit from "../../../assets/projects/both/mozilla-firefox/data.png";
+import moreDataAudit from "../../../assets/projects/both/mozilla-firefox/more-data.png";
 
 
 function PieStat({ pct, label }: { pct: number; label: string }) {
@@ -69,6 +69,7 @@ export default function FirefoxCaseStudyPage() {
             <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>
               Adaptive Performance Extension
             </h1>
+            <HeroMeta role="Software Extension Designer & Back-End Engineer" team="6 designers · Invention Corps of Berkeley" />
           </motion.div>
 
           <div className="relative">
