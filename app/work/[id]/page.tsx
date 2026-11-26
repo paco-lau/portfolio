@@ -7,7 +7,7 @@ export default async function WorkPage({ params }: { params: Promise<{ id: strin
   // Data-only projects are listed on the Data tab, so send people back there.
   const project = projects.find(p => p.num === id);
   const dataOnly = !!project && !project.categories.some(c => DESIGN_CATEGORIES.includes(c));
-  const back = dataOnly ? { href: "/data", label: "Data" } : { href: "/projects", label: "Projects" };
+  const back = dataOnly ? { href: "/data", label: "Data" } : { href: "/design", label: "Design" };
 
   return (
     <main className="min-h-screen bg-[#F5F0E8] flex flex-col items-center justify-center px-12 text-center">

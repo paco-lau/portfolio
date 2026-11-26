@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { Project } from "../lib/projects";
+import Arrow from "./Arrow";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -51,9 +52,7 @@ export default function ProjectGridCard({ num, title, sub, gradient, banner, cat
             <p className="font-semibold text-[#181a18] text-base">{title}</p>
             <p className="text-[#181a18]/40 text-sm mt-1">{sub}</p>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="flex-shrink-0 text-[#181a18]/25 group-hover:text-[#181a18]/70 transition-colors" style={{ width: "20px", height: "20px", transform: "rotate(-45deg)" }}>
-            <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
-          </svg>
+          <Arrow head size={28} className="relative right-1 text-[#181a18]/25 group-hover:text-[#181a18]/70" />
         </div>
       </Link>
     </motion.div>

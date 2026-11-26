@@ -12,7 +12,7 @@ const roles: Entry[] = [
   { title: "Milpitas Unified (MUSD)", role: "Office Intern", sub: "Jun 2024 - Aug 2024" },
 ];
 
-// Experience header (company) and subheader (what you did), by project num.
+// Projects header (company) and subheader (what you did), by project num.
 // Projects without an entry fall back to their title.
 const experience: Record<string, [company: string, what: string]> = {
   "10": ["Replate", "Donor Dashboard Design"],
@@ -25,8 +25,10 @@ const experience: Record<string, [company: string, what: string]> = {
   "06": ["Mill Pond Research", "Brand & Website Redesign"],
 };
 
+// Résumé order: ongoing first, then most recent end date, then most recent start.
 const startOf = (sub: string) => Date.parse(`1 ${sub.split(" - ")[0]}`);
-const newestFirst = (a: Entry, b: Entry) => startOf(b.sub) - startOf(a.sub);
+const endOf = (sub: string) => sub.endsWith("Current") ? Infinity : Date.parse(`1 ${sub.split(" - ").at(-1)}`);
+const newestFirst = (a: Entry, b: Entry) => (endOf(b.sub) - endOf(a.sub)) || (startOf(b.sub) - startOf(a.sub));
 
 // DataGood lives under Campus Involvement; tennis merch is left off.
 const history: Entry[] = projects
@@ -43,14 +45,12 @@ const campus: Entry[] = [
 ];
 
 const skills = [
-  { group: "Languages & Tools", items: ["Python", "R", "SQL", "Java", "Bash", "Git", "Jupyter", "Excel"] },
+  { group: "Languages & Tools", items: ["Python", "R", "SQL", "Java", "Git", "Excel"] },
   { group: "Python Libraries", items: ["Pandas", "Polars", "NumPy", "Matplotlib", "Seaborn", "statsmodels", "scikit-learn", "PyTorch"] },
-  { group: "Data Engineering", items: ["Snowflake", "dbt", "Airflow", "AWS", "Data Pipelines"] },
-  { group: "Analytics & BI", items: ["Tableau", "Power BI", "A/B Testing", "Data Analytics & Visualization"] },
-  { group: "Methods", items: ["Machine Learning", "Statistical Modeling & Regression", "Feature Engineering", "Time-Series Analysis", "Anomaly & Outlier Detection", "Probability", "Linear Algebra", "Monte Carlo Optimization", "Financial Modeling & Valuation"] },
-  { group: "Design", items: ["Figma", "Wireframing & Prototyping", "User Research", "Usability Testing", "Visual & Brand Design", "Design Systems", "Adobe Creative Suite"] },
-  { group: "Web", items: ["HTML/CSS", "JavaScript", "React"] },
-  { group: "Product & Teamwork", items: ["Project Leadership", "Product Roadmapping", "Cross-Functional Teamwork", "Notion", "PowerPoint"] },
+  { group: "Data Platforms & BI", items: ["Snowflake", "dbt", "Airflow", "AWS", "Tableau", "Power BI"] },
+  { group: "Methods", items: ["Machine Learning", "Statistical Modeling & Regression", "Feature Engineering", "Time-Series Analysis", "Anomaly & Outlier Detection", "A/B Testing", "Probability", "Linear Algebra", "Monte Carlo Simulation", "Financial Modeling & Valuation"] },
+  { group: "Design & Web", items: ["Figma", "Wireframing & Prototyping", "User Research", "Usability Testing", "Visual & Brand Design", "Design Systems", "Adobe Creative Suite", "HTML/CSS", "JavaScript", "React"] },
+  { group: "Product & Leadership", items: ["Project Leadership", "Product Roadmapping", "Cross-Functional Teamwork"] },
   { group: "Spoken Languages", items: ["English (Native)", "Cantonese (Native)", "Mandarin (Native)"] },
 ];
 
@@ -59,19 +59,26 @@ const keySkills = new Set(["Python", "SQL", "R", "Excel", "Pandas", "scikit-lear
 
 const pad = "px-6 sm:px-12 md:px-16 lg:px-24";
 // Headings trail off into a thin rule: "Skills ——————"
-const rule = "flex items-center gap-4 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/15";
-const heading = `${rule} font-bold text-[#181a18] text-4xl md:text-6xl mb-8`;
-const label = `${rule} font-bold text-[#181a18] text-3xl md:text-4xl mb-3`;
+const rule = "flex items-center gap-4 after:content-[''] after:flex-1 after:h-px";
+const heading = `${rule} after:bg-white/15 font-bold text-white text-4xl md:text-6xl mb-8`;
+const label = `${rule} after:bg-white/15 font-bold text-white text-3xl md:text-4xl mb-3`;
+const dots = { backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.18) 1.5px, transparent 1.5px)", backgroundSize: "36px 36px" };
 
-const entryTitle = "block text-xl md:text-2xl font-medium leading-tight text-[#181a18]";
+const entryTitle = "block text-xl md:text-2xl font-medium leading-tight text-white";
 
-/** Stacked entry: company, what you did, then dates. */
+/** Stacked entry: company, what you did, then dates. Current roles get a blue dot. */
 function Row({ title, role, sub, href }: Entry) {
+  const current = sub.endsWith("Current");
   const body = (
     <>
-      <span className={`${entryTitle} group-hover:text-[#2A82A8] transition-colors`}>{title}</span>
-      {role && <span className="block text-[#181a18]/60 mt-0.5">{role}</span>}
-      {sub && <span className="block text-sm text-[#181a18]/45 mt-0.5">{sub}</span>}
+      <span className={`${entryTitle} group-hover:text-[#7EC8E3] transition-colors`}>{title}</span>
+      {role && <span className="block text-white/60 mt-0.5">{role}</span>}
+      {sub && (
+        <span className={`block text-sm mt-0.5 ${current ? "text-[#7EC8E3]" : "text-white/45"}`}>
+          {current && <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#7EC8E3] mr-2 align-middle" />}
+          {sub}
+        </span>
+      )}
     </>
   );
   const cls = "block py-2";
@@ -81,23 +88,25 @@ function Row({ title, role, sub, href }: Entry) {
 export default function AboutPage() {
   return (
     <>
-      <section className={`about-section ${pad} pt-28 pb-16 bg-[#F5F0E8]`}>
+      <section className={`about-section ${pad} pt-28 pb-16 bg-[#F5F0E8]`} style={dots}>
         <AboutMe />
       </section>
 
-      <section className={`${pad} pb-20 bg-[#F5F0E8] grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-12`}>
+      <div className="bg-[#F5F0E8]">
+      <div className="bg-[#2a2c2a] rounded-t-[48px]">
+      <section className={`${pad} pt-16 pb-20 grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-12`}>
         <div>
           <h2 className={label}>Education</h2>
           <div className="py-2">
             <p className={entryTitle}>University of California, Berkeley</p>
-            <p className="text-[#181a18]/60 mt-0.5">B.A. Data Science</p>
-            <p className="text-[#181a18]/60">B.A. Economics</p>
-            <p className="text-sm text-[#181a18]/45 mt-0.5">Expected May 2028</p>
+            <p className="text-white/60 mt-0.5">B.A. Data Science</p>
+            <p className="text-white/60">B.A. Economics</p>
+            <p className="text-sm text-white/45 mt-0.5">Expected May 2028</p>
           </div>
           <div className="py-2">
             <p className={entryTitle}>The Chinese University of Hong Kong (CUHK)</p>
-            <p className="text-[#181a18]/60 mt-0.5">Summer Study Abroad</p>
-            <p className="text-sm text-[#181a18]/45 mt-0.5">Jun 2026 - Jul 2026</p>
+            <p className="text-white/60 mt-0.5">Summer Study Abroad</p>
+            <p className="text-sm text-white/45 mt-0.5">Jun 2026 - Jul 2026</p>
           </div>
 
           <h2 className={`${label} mt-10`}>Employment</h2>
@@ -105,7 +114,7 @@ export default function AboutPage() {
         </div>
 
         <div>
-          <h2 className={label}>Experience</h2>
+          <h2 className={label}>Projects</h2>
           <ul>{history.map(e => <Row key={e.title} {...e} />)}</ul>
         </div>
 
@@ -115,21 +124,23 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={`${pad} pb-24 bg-[#F5F0E8]`}>
+      <section className={`${pad} pb-24`}>
         <h2 className={heading}>Skills</h2>
         <div className="flex flex-col">
           {skills.map(({ group, items }) => (
             <div key={group} className="flex flex-col sm:flex-row gap-3 sm:gap-0 py-3 sm:py-0">
-              <h3 className="font-sans text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50 sm:w-56 shrink-0 whitespace-nowrap sm:pt-5 sm:pb-3 sm:pr-6 sm:border-r border-[#181a18]/15">{group}</h3>
+              <h3 className="font-sans text-xs uppercase tracking-[0.15em] font-medium text-white/50 sm:w-56 shrink-0 whitespace-nowrap sm:pt-5 sm:pb-3 sm:pr-6 sm:border-r border-white/15">{group}</h3>
               <ul className="flex flex-wrap gap-2 sm:py-3 sm:pl-6">
                 {items.map(s => (
-                  <li key={s} className={`text-sm text-[#181a18] px-3.5 py-1.5 rounded-full border ${keySkills.has(s) ? "bg-[#7EC8E3] border-[#7EC8E3] font-medium" : "border-[#181a18]/20"}`}>{s}</li>
+                  <li key={s} className={`text-sm px-3.5 py-1.5 rounded-full border ${keySkills.has(s) ? "bg-[#7EC8E3] border-[#7EC8E3] text-[#181a18] font-medium" : "border-white/20 text-white/85"}`}>{s}</li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
       </section>
+      </div>
+      </div>
 
       <Footer />
     </>

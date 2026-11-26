@@ -8,6 +8,8 @@ import Footer from "./Footer";
 
 import grad26Banner from "../../assets/photography/grad-26-banner.jpg";
 import { projects as allProjects, DATA_FILTERS, DESIGN_CATEGORIES } from "../lib/projects";
+import Arrow from "./Arrow";
+import CtaButton from "./CtaButton";
 
 // The projects pinned on the Data and Design pages, pulled from the shared list so dates
 // and titles stay in one place; tags limited to the page each one is pinned on.
@@ -62,28 +64,7 @@ function CTASection() {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1.1, delay: 0.2, ease }}
       >
-        <motion.div
-          className="relative cursor-pointer"
-          whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(126,200,227,0.45), 0 2px 8px rgba(126,200,227,0.25)" }}
-          whileTap={{ scale: 0.97, boxShadow: "0 2px 8px rgba(126,200,227,0.2)" }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          style={{ borderRadius: "9999px" }}
-        >
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-3 font-semibold rounded-full text-[#181a18] group"
-            style={{ backgroundColor: "#7EC8E3", padding: "14px 32px", fontSize: "0.9rem", letterSpacing: "0.05em" }}
-          >
-            Get in touch
-            <svg
-              className="transition-transform duration-300 group-hover:translate-x-1"
-              width="14" height="14" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </motion.div>
+        <CtaButton href="/contact">Get in touch</CtaButton>
       </motion.div>
     </div>
   );
@@ -189,9 +170,7 @@ export default function ProjectsCard() {
                   <p className="font-semibold text-white text-base">{title}</p>
                   <p className="text-white/40 text-sm mt-1">{sub}</p>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="flex-shrink-0 text-white/25 group-hover:text-white/70 transition-colors" style={{ width: "20px", height: "20px", transform: "rotate(-45deg)" }}>
-                  <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
-                </svg>
+                <Arrow head size={28} className="relative right-1 text-white/25 group-hover:text-white/70" />
               </div>
             </Link>
           </motion.div>

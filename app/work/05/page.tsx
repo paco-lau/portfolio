@@ -94,33 +94,6 @@ export default function FirefoxCaseStudyPage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-0 right-0 flex justify-center" style={{ zIndex: 10 }}>
-          <motion.div
-            className="flex flex-col items-center gap-1.5"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.4, ease }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-dm-sans)",
-                fontSize: "13px",
-                letterSpacing: "0.25em",
-                color: "#181a18",
-                opacity: 0.6,
-                textTransform: "uppercase",
-              }}
-            >
-              Scroll
-            </span>
-            <motion.div
-              style={{ width: 1, height: 36, background: "linear-gradient(to bottom, rgba(24,26,24,0.35), transparent)" }}
-              animate={{ scaleY: [1, 0.4, 1] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
-        </div>
       </section>
 
       <div className="bg-[#F5F0E8]">
@@ -444,12 +417,14 @@ export default function FirefoxCaseStudyPage() {
               style={{ aspectRatio: "1728 / 1117", maxWidth: "90%", overflowY: "auto", overflowX: "hidden" }}
             >
               {Array.from({ length: 49 }, (_, i) => (
-                <img
+                <Image
                   key={i}
-                  src={`/projects/mozilla-firefox/slides/slide-${String(i + 1).padStart(2, "0")}.png`}
+                  src={`/projects/mozilla-firefox/slides/slide-${String(i + 1).padStart(2, "0")}.webp`}
                   alt={`Mozilla Adaptive Performance presentation, slide ${i + 1}`}
+                  width={1920}
+                  height={1241}
+                  sizes="(min-width: 1024px) 80vw, 95vw"
                   className="w-full h-auto block"
-                  loading="lazy"
                 />
               ))}
             </div>

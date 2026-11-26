@@ -7,6 +7,7 @@ import { useRef } from "react";
 import ThreeDoors from "../components/photography/ThreeDoors";
 import SelectedWork from "../components/photography/SelectedWork";
 import BeforeAfterSlider from "../components/photography/BeforeAfterSlider";
+import Arrow from "../components/Arrow";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -51,13 +52,7 @@ function PhotographyCTA() {
             }}
           >
             Book a Session
-            <svg
-              className="transition-transform duration-300 group-hover:translate-x-1"
-              width="14" height="14" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <Arrow />
           </Link>
         </motion.div>
       </motion.div>

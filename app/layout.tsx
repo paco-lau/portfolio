@@ -23,8 +23,10 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.pacolau.com"),
   title: "Paco Lau",
   description: "Paco Lau is a UC Berkeley Data Science & Economics student working across data science, design and photography.",
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

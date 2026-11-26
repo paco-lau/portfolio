@@ -1,4 +1,5 @@
 import AboutImages from "./AboutImages";
+import CtaButton from "./CtaButton";
 
 /** "Hi, I'm Paco" intro + photo collage for /about. */
 export default function AboutMe() {
@@ -11,19 +12,21 @@ export default function AboutMe() {
           {/* Accent bar */}
           <div className="about-accent-bar" style={{ width: "100%", maxWidth: "42rem", height: "3px", backgroundColor: "#181a18", borderRadius: "999px", marginTop: 0, marginBottom: "2rem" }} />
           <p className="about-text text-[#181a18] leading-relaxed" style={{ maxWidth: "650px" }}>
-            I&apos;m born &amp; raised in Hong Kong, went to high school in the Bay Area, and now studying Data Science &amp; Economics at UC Berkeley. I&apos;m drawn to the overlap between how things work and how they look. I build <span style={{ color: "#2A82A8" }}>websites</span>, find patterns in <span style={{ color: "#2A82A8" }}>data</span>, shoot <span style={{ color: "#2A82A8" }}>photos</span>, and think a lot about <span style={{ color: "#2A82A8" }}>design</span>.
+            I was born &amp; raised in Hong Kong, went to high school in the Bay Area, and am now studying Data Science &amp; Economics at UC Berkeley. I&apos;m drawn to the overlap between how things work and how they look. I build <span style={{ color: "#2A82A8" }}>websites</span>, find patterns in <span style={{ color: "#2A82A8" }}>data</span>, shoot <span style={{ color: "#2A82A8" }}>photos</span>, and think a lot about <span style={{ color: "#2A82A8" }}>design</span>.
           </p>
-          {/* Mobile: merged paragraph */}
+          <p className="about-text text-[#181a18] leading-relaxed mt-4" style={{ maxWidth: "650px" }}>
+            I like taking a messy problem, finding what the data is actually saying, and turning it into something people can use.
+          </p>
+          {/* Mobile: shorter version */}
           <p className="about-text md:hidden text-[#181a18] leading-relaxed mt-4" style={{ maxWidth: "650px" }}>
-            On campus I&apos;m a EECS student assistant and active in Invention Corps and DataGood. Outside of that — tennis, Pokémon cards, and food. Reach out if any of that resonates!
-          </p>
-          {/* iPad+: two separate paragraphs */}
-          <p className="hidden md:block text-[#181a18] leading-relaxed mt-4 about-text" style={{ maxWidth: "650px" }}>
-            On campus, I work as a student assistant in the EECS department and stay active through the clubs on campus, such as Invention Corps of Berkeley, a human-centered design organization, and DataGood, a data science in social good organization.
+            Outside of class: tennis, Pokémon cards, and food. Reach out if any of that resonates!
           </p>
           <p className="hidden md:block text-[#181a18] leading-relaxed mt-4 about-text" style={{ maxWidth: "650px" }}>
             Beyond academics, I play tennis, collect Pokémon cards, and eat my way through Berkeley&apos;s restaurant scene. If you&apos;re working on something at the intersection of data, design, or social impact, or just want to grab coffee, reach out!
           </p>
+          <div className="mt-6">
+            <CtaButton href="/RESUME-for-portfolio.pdf" newTab>View Resume</CtaButton>
+          </div>
         </div>
         <AboutImages />
       </div>
