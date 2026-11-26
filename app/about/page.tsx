@@ -58,8 +58,10 @@ const skills = [
 const keySkills = new Set(["Python", "SQL", "R", "Excel", "Pandas", "scikit-learn", "Machine Learning", "Statistical Modeling & Regression", "Figma", "React"]);
 
 const pad = "px-6 sm:px-12 md:px-16 lg:px-24";
-const heading = "font-bold text-[#181a18] text-4xl md:text-6xl mb-8";
-const label = "font-bold text-[#181a18] text-3xl md:text-4xl mb-3";
+// Headings trail off into a thin rule: "Skills ——————"
+const rule = "flex items-center gap-4 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/15";
+const heading = `${rule} font-bold text-[#181a18] text-4xl md:text-6xl mb-8`;
+const label = `${rule} font-bold text-[#181a18] text-3xl md:text-4xl mb-3`;
 
 const entryTitle = "block text-xl md:text-2xl font-medium leading-tight text-[#181a18]";
 
@@ -82,8 +84,6 @@ export default function AboutPage() {
       <section className={`about-section ${pad} pt-28 pb-16 bg-[#F5F0E8]`}>
         <AboutMe />
       </section>
-
-      <div className={`${pad} bg-[#F5F0E8]`}><hr className="border-[#181a18]/15 mb-12" /></div>
 
       <section className={`${pad} pb-20 bg-[#F5F0E8] grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-12`}>
         <div>
@@ -114,8 +114,6 @@ export default function AboutPage() {
           <ul>{[...campus].sort(newestFirst).map(e => <Row key={e.title} {...e} />)}</ul>
         </div>
       </section>
-
-      <div className={`${pad} bg-[#F5F0E8]`}><hr className="border-[#181a18]/15 mb-12" /></div>
 
       <section className={`${pad} pb-24 bg-[#F5F0E8]`}>
         <h2 className={heading}>Skills</h2>
