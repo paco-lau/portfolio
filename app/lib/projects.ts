@@ -47,7 +47,7 @@ export const projects = [
     categories: ["Coded", "Mobile", "UI/UX"], pinned: false, current: false,
   },
   {
-    num: "04", title: "UC Berkeley DataGood VP of Marketing", sub: "Jan 2026 - Current",
+    num: "04", title: "UC Berkeley DataGood VP of Marketing", sub: "Feb 2026 - Current",
     gradient: "linear-gradient(135deg, #030001 0%, #030001 100%)",
     banner: datagoodBanner,
     categories: ["Brand", "Marketing", "Merchandise"], pinned: false, current: false,
