@@ -3,8 +3,8 @@
 import Image, { type StaticImageData } from "next/image";
 import { useEffect, useState, type RefObject } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import CtaButton from "../components/CtaButton";
+import ProjectGridCard from "../components/ProjectGridCard";
+import { projects, type Project } from "../lib/projects";
 
 // Building blocks shared by the case-study pages under app/work/.
 
@@ -14,7 +14,7 @@ export const SECTIONS = [
   { id: "role", label: "My Role" },
   { id: "research", label: "Research" },
   { id: "design", label: "Design & Iteration" },
-  { id: "final", label: "Final Deliverable" },
+  { id: "final", label: "Final\nProduct" },
 ];
 
 export function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
@@ -26,13 +26,15 @@ export function Card({ children, style }: { children: React.ReactNode; style?: R
 }
 
 /** Role / Team lines under a case study's hero title. */
-export function HeroMeta({ role, team }: { role: string; team: string }) {
+export function HeroMeta({ role, team }: { role: string; team: string | string[] }) {
+  // each label is one value line tall (h-6 = 16px × 1.5), so it centres on the first line;
+  // row spacing is padding, not gap, so the divider line between the columns stays unbroken
   return (
-    <dl className="font-sans grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 mt-8 text-[#181a18]">
-      <dt className="text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50 pt-0.5">Role</dt>
-      <dd>{role}</dd>
-      <dt className="text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50 pt-0.5">Team</dt>
-      <dd>{team}</dd>
+    <dl className="font-sans grid grid-cols-[auto_1fr] items-start gap-x-6 mt-8 text-[#181a18]">
+      <dt className="h-6 my-1 flex items-center text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50">Role</dt>
+      <dd className="border-l border-[#181a18]/20 pl-6 py-1">{role}</dd>
+      <dt className="h-6 my-1 flex items-center text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50">Team</dt>
+      <dd className="border-l border-[#181a18]/20 pl-6 py-1">{[team].flat().map(t => <span key={t} className="block">{t}</span>)}</dd>
     </dl>
   );
 }
@@ -93,26 +95,26 @@ export function Carousel({ items, aspectRatio, accent }: { items: { src: StaticI
   );
 }
 
-/** Closing call to action, so a case study ends on a next step instead of the footer. */
-export function CaseStudyEnd() {
+/** "Check out my other projects": the 3 projects sharing the most tags with this one. */
+export function CaseStudyEnd({ num }: { num: string }) {
+  const tags = projects.find(p => p.num === num)?.categories ?? [];
+  const shared = (p: Project) => p.categories.filter(c => tags.includes(c)).length;
+  // sort is stable, so ties keep the list's newest-first order
+  const similar = projects.filter(p => p.num !== num).sort((a, b) => shared(b) - shared(a)).slice(0, 3);
   return (
-    <section className="bg-[#F5F0E8] flex flex-col items-center gap-6 text-center py-20 px-4">
-      <p className="font-bold text-[#181a18]" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1.1 }}>
-        Like what you see? <span style={{ color: "#7EC8E3" }}>Let&apos;s talk.</span>
-      </p>
-      <div className="flex flex-wrap items-center justify-center gap-6">
-        <CtaButton href="/contact">Get in touch</CtaButton>
-        <Link href="/design" className="font-semibold text-[#181a18]/60 hover:text-[#181a18] transition-colors" style={{ fontSize: "0.9rem", letterSpacing: "0.05em" }}>
-          More design work
-        </Link>
+    <section className="bg-[#F5F0E8] pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 pt-10 pb-20">
+      <h2 className="font-bold mb-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Check out my other projects:</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {similar.map((p, i) => <ProjectGridCard key={p.num} {...p} i={i} />)}
       </div>
     </section>
   );
 }
 
 /** Fixed scroll-spy rail: highlights the section in view and hides over the footer. */
-export function SectionRail({ accent, sectionRefs, footerWrapRef }: {
+export function SectionRail({ accent, sectionRefs, footerWrapRef, sections = SECTIONS }: {
   accent: string;
+  sections?: { id: string; label: string }[];
   sectionRefs: RefObject<(HTMLElement | null)[]>;
   footerWrapRef: RefObject<HTMLDivElement | null>;
 }) {
@@ -161,9 +163,9 @@ export function SectionRail({ accent, sectionRefs, footerWrapRef }: {
           {/* progress fill: the track fills up to the current section */}
           <div
             className="absolute left-1/2 -translate-x-1/2 transition-[height] duration-500"
-            style={{ top: 14, width: 5, height: `calc((100% - 28px) * ${active / (SECTIONS.length - 1)})`, backgroundColor: accent }}
+            style={{ top: 14, width: 5, height: `calc((100% - 28px) * ${active / (sections.length - 1)})`, backgroundColor: accent }}
           />
-          {SECTIONS.map((s, i) => (
+          {sections.map((s, i) => (
             <button
               key={s.id}
               onClick={() => scrollTo(s.id)}
@@ -188,6 +190,7 @@ export function SectionRail({ accent, sectionRefs, footerWrapRef }: {
                   boxShadow: overFooter ? "0 8px 24px rgba(0,0,0,0.3)" : "none",
                   width: "max-content",
                   maxWidth: "140px",
+                  whiteSpace: "pre-line", // honours the \n in "Final\nProduct"
                   textAlign: "right",
                   lineHeight: 1.3,
                 }}

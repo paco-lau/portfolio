@@ -48,7 +48,7 @@ export default function GlobalInheritanceCaseStudyPage() {
             <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>
               Brand &amp; Website Re-Design
             </h1>
-            <HeroMeta role="Website UI/UX Designer" team="6 designers · Invention Corps of Berkeley" />
+            <HeroMeta role="Website UI/UX Designer" team={["1 Mentor", "1 Lead", "2 Advisors", "5 Designers"]} />
           </motion.div>
 
           <div className="relative">
@@ -352,7 +352,7 @@ export default function GlobalInheritanceCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Deliverable</h2>
+            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Product</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -427,7 +427,7 @@ export default function GlobalInheritanceCaseStudyPage() {
         </section>
       </div>
 
-      <CaseStudyEnd />
+      <CaseStudyEnd num="02" />
 
       <div ref={footerWrapRef}>
         <Footer />
