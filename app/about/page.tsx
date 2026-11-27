@@ -44,6 +44,14 @@ const campus: Entry[] = [
   { title: "Hong Kong Student Association", role: "Media & Marketing Head; prev. Intern", sub: "Feb 2026 - Current" },
 ];
 
+// Courses grouped by subject, so each kind of recruiter finds theirs fast.
+const coursework: [subject: string, courses: [code: string, name: string][]][] = [
+  ["Data & Statistics", [["Data C100", "Principles & Techniques of Data Science"], ["Stat 134", "Concepts of Probability"]]],
+  ["Computer Science", [["CS 61A", "Structure & Interpretation of Computer Programs"], ["CS 61B", "Data Structures"]]],
+  ["Mathematics", [["Math 54", "Linear Algebra & Differential Equations"], ["Math 53", "Multivariable Calculus"]]],
+  ["Economics & Business", [["Econ 140", "Econometrics"], ["Econ 101A", "Microeconomics (Quantitative)"], ["Econ 101B", "Macroeconomics (Quantitative)"], ["UGBA 10X", "Foundations of Business"]]],
+];
+
 const skills = [
   { group: "Languages & Tools", items: ["Python", "R", "SQL", "Java", "Git", "Excel"] },
   { group: "Python Libraries", items: ["Pandas", "Polars", "NumPy", "Matplotlib", "Seaborn", "statsmodels", "scikit-learn", "PyTorch"] },
@@ -102,6 +110,7 @@ export default function AboutPage() {
             <p className="text-white/60 mt-0.5">B.A. Data Science</p>
             <p className="text-white/60">B.A. Economics</p>
             <p className="text-sm text-white/45 mt-0.5">Expected May 2028</p>
+            <a href="#coursework" className="block text-sm text-[#7EC8E3] hover:text-white transition-colors mt-1.5">See relevant coursework below &darr;</a>
           </div>
           <div className="py-2">
             <p className={entryTitle}>The Chinese University of Hong Kong (CUHK)</p>
@@ -124,7 +133,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={`${pad} pb-24`}>
+      <section className={`${pad} pb-16`}>
         <h2 className={heading}>Skills</h2>
         <div className="flex flex-col">
           {skills.map(({ group, items }) => (
@@ -134,6 +143,20 @@ export default function AboutPage() {
                 {items.map(s => (
                   <li key={s} className={`text-sm px-3.5 py-1.5 rounded-full border ${keySkills.has(s) ? "bg-[#7EC8E3] border-[#7EC8E3] text-[#181a18] font-medium" : "border-white/20 text-white/85"}`}>{s}</li>
                 ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="coursework" className={`${pad} pb-24 scroll-mt-24`}>
+        <h2 className={heading}>Coursework</h2>
+        <div className="flex flex-col">
+          {coursework.map(([subject, courses]) => (
+            <div key={subject} className="flex flex-col sm:flex-row gap-3 sm:gap-0 py-3 sm:py-0">
+              <h3 className="font-sans text-sm font-medium text-white/50 sm:w-56 shrink-0 whitespace-nowrap sm:pt-4 sm:pb-3 sm:pr-6 sm:border-r border-white/15">{subject}</h3>
+              <ul className="sm:py-3 sm:pl-6 space-y-1 text-white/60">
+                {courses.map(([code, name]) => <li key={code}><span className="text-white">{code}</span>&ensp;{name}</li>)}
               </ul>
             </div>
           ))}
