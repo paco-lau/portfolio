@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import harbour from "../../assets/photography/urban-landscape/urbanland-victoriaharbor-main.jpg";
 import tokyo from "../../assets/photography/urban-landscape/urbanland-tokyoskytree.jpg";
@@ -21,6 +21,10 @@ const INTERVAL = 3000;
 const CUT = "calc(17vh + 12.5vw)";
 const PHOTO_LEFT = "4.4vw";
 
+// Letters near the mouse thin from the base weight toward PEAK (DM Sans is variable, 100-1000).
+const NAME = "Paco Lau";
+const BASE = 800, PEAK = 200;
+
 const nameStyle: React.CSSProperties = {
   position: "absolute", left: "3vw", top: "17vh", fontSize: "24vw",
   lineHeight: 0.8, letterSpacing: "-0.065em", fontWeight: 800, whiteSpace: "nowrap",
@@ -33,6 +37,49 @@ export default function HeroSection() {
   const [animate, setAnimate] = useState(true);
   const current = slides[i % slides.length];
   const [visible, setVisible] = useState(true);
+  // Each letter is drawn in both name layers; [dark, cream] spans per letter
+  const letters = useRef<HTMLSpanElement[][]>(NAME.split("").map(() => []));
+
+  useEffect(() => {
+    if (!matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let centers: number[][] = [];
+    const weight = NAME.split("").map(() => BASE), target = [...weight];
+    let mouse: number[] | null = null, frame = 0;
+    // Measured at rest; the hero is pinned, so viewport positions hold while scrolling
+    const measure = () => {
+      centers = letters.current.map(([el]) => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+    };
+    const tick = () => {
+      const reach = window.innerWidth * 0.3;
+      let moving = false;
+      weight.forEach((w, k) => {
+        const d = mouse ? Math.hypot(mouse[0] - centers[k][0], mouse[1] - centers[k][1]) : Infinity;
+        target[k] = BASE + (PEAK - BASE) * Math.max(0, 1 - d / reach) ** 2;
+        weight[k] += (target[k] - w) * 0.15;
+        if (Math.abs(target[k] - weight[k]) > 0.5) moving = true;
+        letters.current[k].forEach(el => { el.style.fontWeight = String(Math.round(weight[k])); });
+      });
+      frame = moving ? requestAnimationFrame(tick) : 0;
+    };
+    const kick = () => { if (!frame) frame = requestAnimationFrame(tick); };
+    // Ignored once Recent Works covers the hero
+    const onMove = (e: PointerEvent) => { mouse = window.scrollY < window.innerHeight ? [e.clientX, e.clientY] : null; kick(); };
+    const onLeave = () => { mouse = null; kick(); };
+    document.fonts.ready.then(measure);
+    window.addEventListener("resize", measure);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onLeave);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
+  const name = (layer: number) => NAME.split("").map((c, k) => (
+    <span key={k} ref={el => { if (el) letters.current[k][layer] = el; }}>{c}</span>
+  ));
 
   // Pause while the tab is hidden or Recent Works has scrolled fully over the pinned hero
   // (it stays "in the viewport" while covered, so scroll position is the real signal).
@@ -104,10 +151,10 @@ export default function HeroSection() {
 
       {/* Name drawn twice: dark above the cut, cream where it enters the photo */}
       <div className="absolute inset-0 pointer-events-none" style={{ clipPath: `inset(0 0 calc(100% - ${CUT}) 0)` }}>
-        <h1 className="font-sans text-[#181a18] select-none" style={nameStyle}>Paco Lau</h1>
+        <h1 className="font-sans text-[#181a18] select-none" style={nameStyle} aria-label={NAME}>{name(0)}</h1>
       </div>
       <div className="absolute inset-0 pointer-events-none" style={{ clipPath: `inset(${CUT} 0 0 ${PHOTO_LEFT})` }} aria-hidden="true">
-        <p className="font-sans text-[#F5F0E8] select-none" style={nameStyle}>Paco Lau</p>
+        <p className="font-sans text-[#F5F0E8] select-none" style={nameStyle}>{name(1)}</p>
       </div>
     </section>
   );
