@@ -62,9 +62,9 @@ export default function FirefoxCaseStudyPage() {
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
             <span
               className="font-sans inline-block"
-              style={{ fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700, padding: "6px 16px", borderRadius: "999px", backgroundColor: "#FF7139", color: "#181a18" }}
+              style={{ fontSize: "14px", fontWeight: 600, padding: "6px 16px", borderRadius: "999px", backgroundColor: "#FF7139", color: "#181a18" }}
             >
-              Mozilla &middot; Sep 2025 - Feb 2026
+              Mozilla&ensp;|&ensp;Sep 2025 - Feb 2026
             </span>
             <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>
               Adaptive Performance Extension
@@ -104,7 +104,7 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
           </FadeIn>
 
           <FadeIn>
@@ -139,7 +139,7 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Research</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Research</h2>
           </FadeIn>
 
           {/* Methods */}
@@ -203,7 +203,7 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Design &amp; Iteration</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Design &amp; Iteration</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-10">
@@ -296,7 +296,7 @@ export default function FirefoxCaseStudyPage() {
           className="pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12"
         >
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Product</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Product</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -396,11 +396,11 @@ export default function FirefoxCaseStudyPage() {
                 <Card style={{ height: "100%" }}>
                   <p className="font-sans" style={{ fontSize: "17px", fontWeight: 700, color: "#FF7139" }}>{b.t}</p>
                   <p className="font-sans mb-4" style={{ fontSize: "12px", color: "rgba(24,26,24,0.45)" }}>{b.sub}</p>
-                  <p className="font-sans mb-1" style={{ fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(24,26,24,0.45)" }}>Priorities</p>
+                  <p className="font-sans mb-1" style={{ fontSize: "13px", fontWeight: 600, color: "rgba(24,26,24,0.45)" }}>Priorities</p>
                   <ul className="space-y-1 mb-4">
                     {b.p.map(l => <li key={l} className="font-sans" style={{ fontSize: "13px", color: "rgba(24,26,24,0.6)", lineHeight: 1.5 }}>{l}</li>)}
                   </ul>
-                  <p className="font-sans mb-1" style={{ fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(24,26,24,0.45)" }}>Suggested Actions</p>
+                  <p className="font-sans mb-1" style={{ fontSize: "13px", fontWeight: 600, color: "rgba(24,26,24,0.45)" }}>Suggested Actions</p>
                   <ul className="space-y-1">
                     {b.a.map(l => <li key={l} className="font-sans" style={{ fontSize: "13px", color: "rgba(24,26,24,0.6)", lineHeight: 1.5 }}>{l}</li>)}
                   </ul>

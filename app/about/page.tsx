@@ -129,7 +129,7 @@ export default function AboutPage() {
         <div className="flex flex-col">
           {skills.map(({ group, items }) => (
             <div key={group} className="flex flex-col sm:flex-row gap-3 sm:gap-0 py-3 sm:py-0">
-              <h3 className="font-sans text-xs uppercase tracking-[0.15em] font-medium text-white/50 sm:w-56 shrink-0 whitespace-nowrap sm:pt-5 sm:pb-3 sm:pr-6 sm:border-r border-white/15">{group}</h3>
+              <h3 className="font-sans text-sm font-medium text-white/50 sm:w-56 shrink-0 whitespace-nowrap sm:pt-5 sm:pb-3 sm:pr-6 sm:border-r border-white/15">{group}</h3>
               <ul className="flex flex-wrap gap-2 sm:py-3 sm:pl-6">
                 {items.map(s => (
                   <li key={s} className={`text-sm px-3.5 py-1.5 rounded-full border ${keySkills.has(s) ? "bg-[#7EC8E3] border-[#7EC8E3] text-[#181a18] font-medium" : "border-white/20 text-white/85"}`}>{s}</li>

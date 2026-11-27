@@ -21,7 +21,7 @@ export default async function WorkPage({ params }: { params: Promise<{ id: strin
   return (
     <>
       <CaseStudyHero
-        badge={`${header.company} · ${project.sub}`}
+        badge={`${header.company}\u2002|\u2002${project.sub}`}
         title={header.title}
         role={header.role}
         team={header.team}

@@ -14,7 +14,7 @@ const pad = "pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10
 const body: React.CSSProperties = { fontSize: "clamp(14px, 1.3vw, 17px)", color: "rgba(24,26,24,0.6)", lineHeight: 1.7 };
 const cardTitle: React.CSSProperties = { fontSize: "17px", fontWeight: 700, color: ACCENT };
 const small: React.CSSProperties = { fontSize: "14px", color: "rgba(24,26,24,0.6)", lineHeight: 1.6 };
-const label: React.CSSProperties = { fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(24,26,24,0.45)" };
+const label: React.CSSProperties = { fontSize: "13px", fontWeight: 600, color: "rgba(24,26,24,0.45)" };
 const h3: React.CSSProperties = { fontSize: "clamp(1.5rem, 2.5vw, 2rem)" };
 
 /** One slide from the deck, shown as a figure. */
@@ -58,7 +58,7 @@ export default function GoTourGlobalCaseStudyPage() {
       <SectionRail accent={ACCENT} sectionRefs={sectionRefs} footerWrapRef={footerWrapRef} />
 
       <CaseStudyHero
-        badge="GoTourGlobal · Feb 2026 - May 2026"
+        badge={"GoTourGlobal\u2002|\u2002Feb 2026 - May 2026"}
         title="Mobile App"
         role="UX Engineer"
         team={["1 Project Manager", "4 UX Designers", "1 UX Engineer"]}
@@ -71,7 +71,7 @@ export default function GoTourGlobalCaseStudyPage() {
         {/* ---------------- MY ROLE ---------------- */}
         <section id="role" ref={el => { sectionRefs.current[0] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
           </FadeIn>
 
           <FadeIn>
@@ -102,7 +102,7 @@ export default function GoTourGlobalCaseStudyPage() {
         {/* ---------------- RESEARCH ---------------- */}
         <section id="research" ref={el => { sectionRefs.current[1] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Research</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Research</h2>
           </FadeIn>
 
           <FadeIn>
@@ -178,7 +178,7 @@ export default function GoTourGlobalCaseStudyPage() {
         {/* ---------------- DESIGN & ITERATION ---------------- */}
         <section id="design" ref={el => { sectionRefs.current[2] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Design &amp; Iteration</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Design &amp; Iteration</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
@@ -206,7 +206,7 @@ export default function GoTourGlobalCaseStudyPage() {
         {/* ---------------- FINAL PRODUCT ---------------- */}
         <section id="final" ref={el => { sectionRefs.current[3] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Product</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Product</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">

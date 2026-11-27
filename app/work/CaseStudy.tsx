@@ -31,10 +31,10 @@ export function HeroMeta({ role, team }: { role: string; team?: string | string[
   // row spacing is padding, not gap, so the divider line between the columns stays unbroken
   return (
     <dl className="font-sans grid grid-cols-[auto_1fr] items-start gap-x-6 mt-8 text-[#181a18]">
-      <dt className="h-6 my-1 flex items-center text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50">Role</dt>
+      <dt className="h-6 my-1 flex items-center text-sm font-medium text-[#181a18]/50">Role</dt>
       <dd className="border-l border-[#181a18]/20 pl-6 py-1">{role}</dd>
       {team && <>
-        <dt className="h-6 my-1 flex items-center text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50">Team</dt>
+        <dt className="h-6 my-1 flex items-center text-sm font-medium text-[#181a18]/50">Team</dt>
         <dd className="border-l border-[#181a18]/20 pl-6 py-1">{[team].flat().map(t => <span key={t} className="block">{t}</span>)}</dd>
       </>}
     </dl>
@@ -59,7 +59,7 @@ export function CaseStudyHero({ badge, title, role, team, banner, accent, badgeT
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
           <span
             className="font-sans inline-block"
-            style={{ fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700, padding: "6px 16px", borderRadius: "999px", backgroundColor: accent, color: badgeText }}
+            style={{ fontSize: "14px", fontWeight: 600, padding: "6px 16px", borderRadius: "999px", backgroundColor: accent, color: badgeText }}
           >
             {badge}
           </span>
@@ -158,7 +158,7 @@ export function CaseStudyEnd({ num }: { num: string }) {
   const similar = projects.filter(p => p.num !== num).sort((a, b) => shared(b) - shared(a)).slice(0, 3);
   return (
     <section className="bg-[#F5F0E8] pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 pt-10 pb-20">
-      <h2 className="font-bold mb-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Check out my other projects:</h2>
+      <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Check out my other projects:</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {similar.map((p, i) => <ProjectGridCard key={p.num} {...p} categories={p.categories.filter(c => pageTags.includes(c))} i={i} />)}
       </div>
@@ -228,16 +228,14 @@ export function SectionRail({ accent, sectionRefs, footerWrapRef, sections = SEC
               aria-label={`Go to ${s.label}`}
             >
               <span
-                className="absolute right-full mr-4 font-sans transition-all duration-300"
+                className="absolute right-full mr-4 font-sans transition-all duration-300 hover:!opacity-100"
                 style={{
                   // the other sections stay readable as a small, dimmed table of contents
-                  // (hidden over the footer, where each label becomes a dark pill)
-                  fontSize: active === i ? "13px" : "11px",
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  fontWeight: active === i ? 800 : 600,
+                  // (hidden over the footer, where each label becomes a dark pill); hovering one brightens it
+                  fontSize: active === i ? "15px" : "13px",
+                  fontWeight: active === i ? 700 : 500,
                   color: overFooter ? "#F5F0E8" : "#181a18",
-                  opacity: active === i ? 1 : overFooter ? 0 : 0.4,
+                  opacity: active === i ? 1 : overFooter ? 0 : 0.45,
                   pointerEvents: active === i || !overFooter ? "auto" : "none",
                   textShadow: overFooter ? "none" : "0 1px 12px rgba(245,240,232,0.9), 0 1px 3px rgba(245,240,232,0.9)",
                   backgroundColor: overFooter ? "#181a18" : "transparent",

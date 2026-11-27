@@ -60,7 +60,7 @@ export default function WorkIndex({ title, items, categories, emptyText, pinned 
               onClick={() => setActive(cat)}
               className="font-sans cursor-pointer transition-all duration-200"
               style={{
-                fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 500,
+                fontSize: "14px", fontWeight: 500,
                 padding: "7px 18px", borderRadius: "999px",
                 border: active === cat ? "1px solid #7EC8E3" : "1px solid rgba(24,26,24,0.2)",
                 backgroundColor: active === cat ? "#7EC8E3" : "transparent",

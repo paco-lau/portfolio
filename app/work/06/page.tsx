@@ -51,9 +51,9 @@ export default function MillPondCaseStudyPage() {
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
             <span
               className="font-sans inline-block"
-              style={{ fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700, padding: "6px 16px", borderRadius: "999px", backgroundColor: ACCENT, color: "#F5F0E8" }}
+              style={{ fontSize: "14px", fontWeight: 600, padding: "6px 16px", borderRadius: "999px", backgroundColor: ACCENT, color: "#F5F0E8" }}
             >
-              Mill Pond Research &middot; Sep 2025 - Dec 2025
+              Mill Pond Research&ensp;|&ensp;Sep 2025 - Dec 2025
             </span>
             <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>
               Brand &amp; Website Re-Design
@@ -88,7 +88,7 @@ export default function MillPondCaseStudyPage() {
         {/* ---------------- MY ROLE ---------------- */}
         <section id="role" ref={el => { sectionRefs.current[0] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
           </FadeIn>
 
           <FadeIn>
@@ -137,7 +137,7 @@ export default function MillPondCaseStudyPage() {
         {/* ---------------- RESEARCH ---------------- */}
         <section id="research" ref={el => { sectionRefs.current[1] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Research</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Research</h2>
           </FadeIn>
 
           <FadeIn>
@@ -186,7 +186,7 @@ export default function MillPondCaseStudyPage() {
         {/* ---------------- DESIGN & ITERATION ---------------- */}
         <section id="design" ref={el => { sectionRefs.current[2] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Design &amp; Iteration</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Design &amp; Iteration</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
@@ -223,7 +223,7 @@ export default function MillPondCaseStudyPage() {
         {/* ---------------- FINAL PRODUCT ---------------- */}
         <section id="final" ref={el => { sectionRefs.current[3] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Product</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Final Product</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-10">

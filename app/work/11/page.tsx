@@ -59,7 +59,7 @@ export default function HealthcareFraudCaseStudyPage() {
       <SectionRail accent={ACCENT} sectionRefs={sectionRefs} footerWrapRef={footerWrapRef} sections={SECTIONS} />
 
       <CaseStudyHero
-        badge="Healthcare Fraud Detection · Feb 2026 - May 2026"
+        badge={"Healthcare Fraud Detection\u2002|\u2002Feb 2026 - May 2026"}
         title="Medicare Claims Risk Modeling"
         role="Data Science Researcher"
         team={["2 Leads", "4 Data Science Researchers"]}
@@ -71,7 +71,7 @@ export default function HealthcareFraudCaseStudyPage() {
         {/* ---------------- MY ROLE ---------------- */}
         <section id="role" ref={el => { sectionRefs.current[0] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
           </FadeIn>
 
           <FadeIn>
@@ -102,7 +102,7 @@ export default function HealthcareFraudCaseStudyPage() {
         {/* ---------------- DATA ---------------- */}
         <section id="data" ref={el => { sectionRefs.current[1] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Data</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Data</h2>
           </FadeIn>
 
           <FadeIn>
@@ -131,7 +131,7 @@ export default function HealthcareFraudCaseStudyPage() {
         {/* ---------------- FRAUD SIGNALS ---------------- */}
         <section id="signals" ref={el => { sectionRefs.current[2] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Fraud Signals</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Fraud Signals</h2>
           </FadeIn>
 
           <FadeIn>
@@ -195,7 +195,7 @@ export default function HealthcareFraudCaseStudyPage() {
         {/* ---------------- RESULTS ---------------- */}
         <section id="results" ref={el => { sectionRefs.current[3] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Results</h2>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Results</h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
@@ -210,7 +210,7 @@ export default function HealthcareFraudCaseStudyPage() {
             <FadeIn delay={0.08}>
               <Card>
                 <div className="font-sans grid grid-cols-[1fr_auto_auto] gap-x-6 gap-y-3 items-center" style={{ fontSize: "14px" }}>
-                  <span style={{ color: "rgba(24,26,24,0.45)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase" }}>Median, per provider</span>
+                  <span style={{ color: "rgba(24,26,24,0.45)", fontSize: "13px", fontWeight: 600 }}>Median, per provider</span>
                   <span className="text-right font-semibold" style={{ color: ACCENT }}>Fraud</span>
                   <span className="text-right font-semibold" style={{ color: "rgba(24,26,24,0.5)" }}>Not fraud</span>
                   {compare.map(r => (

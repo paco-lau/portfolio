@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
-import { Card, CaseStudyEnd, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
+import { Card, CaseStudyEnd, CaseStudyHero, FadeIn, SectionRail } from "../CaseStudy";
 
 import sslBanner from "../../../assets/projects/data-science/ssl-aurora/ssl-banner.png";
 import sslPoster from "../../../assets/projects/data-science/ssl-aurora/ssl-poster.webp";
@@ -12,24 +11,81 @@ import sslPoster from "../../../assets/projects/data-science/ssl-aurora/ssl-post
 const ACCENT = "#091F40"; // the SSL navy from the banner
 
 const SECTIONS = [
-  { id: "role", label: "My Role" },
-  { id: "data", label: "Data" },
-  { id: "pipeline", label: "Pipeline" },
+  { id: "overview", label: "Overview" },
+  { id: "approach", label: "Approach" },
   { id: "results", label: "Results" },
+  { id: "poster", label: "Poster" },
 ];
 
 const pad = "pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12";
-const body: React.CSSProperties = { fontSize: "clamp(14px, 1.3vw, 17px)", color: "rgba(24,26,24,0.6)", lineHeight: 1.7 };
+const h2: React.CSSProperties = { fontSize: "clamp(2rem, 5vw, 4rem)" };
+const lead: React.CSSProperties = { fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)", lineHeight: 1.45, color: "#181a18", maxWidth: "70ch" }; // long enough for two lines, short enough to read comfortably
 const cardTitle: React.CSSProperties = { fontSize: "17px", fontWeight: 700, color: ACCENT };
-const small: React.CSSProperties = { fontSize: "14px", color: "rgba(24,26,24,0.6)", lineHeight: 1.6 };
+const small: React.CSSProperties = { fontSize: "15px", color: "rgba(24,26,24,0.65)", lineHeight: 1.6 };
 
-/** Big number with a short caption, in a card. */
-function Stat({ value, label }: { value: string; label: string }) {
+/** Two-or-more bar comparison; the first bar is the highlighted one. */
+function MiniBars({ bars, max, flush = false }: { bars: { label: string; value: number; text: string }[]; max: number; flush?: boolean }) {
   return (
-    <Card style={{ height: "100%" }}>
-      <p className="font-bold" style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", lineHeight: 1, color: "#181a18" }}>{value}</p>
-      <p className="font-sans mt-3" style={small}>{label}</p>
-    </Card>
+    <ul className={`space-y-2.5 ${flush ? "" : "mt-5"}`}>
+      {bars.map((b, i) => (
+        <li key={b.label}>
+          <div className="font-sans flex justify-between mb-1" style={{ fontSize: "13px", color: "rgba(24,26,24,0.6)" }}>
+            <span>{b.label}</span><span className="font-semibold" style={{ color: "#181a18" }}>{b.text}</span>
+          </div>
+          <div className="h-2 rounded-full" style={{ backgroundColor: "#d9d3c8" }}>
+            <div className="h-2 rounded-full" style={{ width: `${(b.value / max) * 100}%`, backgroundColor: i === 0 ? ACCENT : "#B7B2A8" }} />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** 10×10 grid: `filled` of 100 squares in `on`, the rest in `off`. */
+function Waffle({ filled, label, on = ACCENT, off = "#d9d3c8" }: { filled: number; label: string; on?: string; off?: string }) {
+  return (
+    <div className="grid grid-cols-10 gap-1.5 w-full max-w-[300px] shrink-0" role="img" aria-label={label}>
+      {Array.from({ length: 100 }, (_, i) => (
+        <span key={i} className="aspect-square rounded-[3px]" style={{ backgroundColor: i < filled ? on : off }} />
+      ))}
+    </div>
+  );
+}
+
+/** Right-pointing arrow used to show flow. */
+function FlowArrow({ color = ACCENT }: { color?: string }) {
+  return (
+    <svg width="28" height="14" viewBox="0 0 28 14" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M1 7h25M20 1l6 6-6 6" />
+    </svg>
+  );
+}
+
+/** Key phrase: bold ink with an accent underline, so a skimmer catches it. */
+function Key({ children }: { children: React.ReactNode }) {
+  return <strong className="underline underline-offset-4 decoration-2" style={{ color: "#181a18", textDecorationColor: ACCENT }}>{children}</strong>;
+}
+
+/** Title on the left, content on the right of a divider line, like the hero's Role/Team block. */
+function Labeled({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-[140px_1fr] md:items-baseline gap-x-6 gap-y-4">
+      <p className="font-sans" style={{ ...cardTitle, fontSize: "22px" }}>{title}</p>
+      <div className="md:border-l md:pl-6" style={{ borderColor: "rgba(24,26,24,0.2)" }}>{children}</div>
+    </div>
+  );
+}
+
+/** Numbered list with plain accent numbers. */
+function Numbered({ items, size = 16 }: { items: React.ReactNode[]; size?: number }) {
+  return (
+    <ol className="space-y-3">
+      {items.map((t, i) => (
+        <li key={i} className="font-sans flex gap-3" style={{ ...small, fontSize: `${size}px` }}>
+          <span className="font-semibold shrink-0 w-5" style={{ color: ACCENT }}>{i + 1}.</span><span>{t}</span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -37,7 +93,7 @@ const results = [
   { model: "Smoothing", f1: 0.48 },
   { model: "Single photo", f1: 0.47 },
   { model: "GRU with history", f1: 0.42 },
-  { model: "GRU, no history (control)", f1: 0.40 },
+  { model: "GRU without history", f1: 0.40 },
   { model: "Chance", f1: 0.17 },
 ];
 
@@ -49,247 +105,199 @@ export default function SSLCaseStudyPage() {
     <>
       <SectionRail accent={ACCENT} sectionRefs={sectionRefs} footerWrapRef={footerWrapRef} sections={SECTIONS} />
 
-      {/* Hero */}
-      <section
-        className="relative w-full h-screen flex items-center overflow-hidden"
-        style={{
-          backgroundColor: "#F5F0E8",
-          backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.20) 1.5px, transparent 1.5px)",
-          backgroundSize: "36px 36px",
-        }}
-      >
-        <div className="relative w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
-            <span
-              className="font-sans inline-block"
-              style={{ fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700, padding: "6px 16px", borderRadius: "999px", backgroundColor: ACCENT, color: "#F5F0E8" }}
-            >
-              Space Sciences Lab &middot; Sep 2026 - Current
-            </span>
-            <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>
-              Auroral Image Classification
-            </h1>
-            <HeroMeta role="Data Science Researcher, Temporal Models" team={["1 Mentor", "1 Senior Data Science Researcher", "7 Data Science Researchers"]} />
-          </motion.div>
-
-          <div className="relative">
-            <motion.div
-              className="absolute pointer-events-none rounded-full"
-              style={{
-                width: 1040, height: 680, left: "50%", top: "50%", marginLeft: -520, marginTop: -340, zIndex: 0,
-                background: `radial-gradient(ellipse, ${ACCENT}59 0%, ${ACCENT}1a 45%, transparent 70%)`,
-              }}
-              animate={{ scale: [1, 1.08, 0.95, 1] }}
-              transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="relative rounded-2xl overflow-hidden shadow-2xl"
-              style={{ zIndex: 1 }}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease }}
-            >
-              <Image src={sslBanner} alt="Space Sciences Laboratory auroral image classification" priority className="w-full h-auto" />
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <CaseStudyHero
+        badge={"Space Sciences Lab | Sep 2026 - Current"}
+        title="Auroral Image Classification"
+        role="Data Science Researcher, Temporal Models"
+        team={["1 Mentor", "1 Senior Data Science Researcher", "7 Data Science Researchers"]}
+        banner={sslBanner}
+        accent={ACCENT}
+      />
 
       <div className="bg-[#F5F0E8]">
-        {/* ---------------- MY ROLE ---------------- */}
-        <section id="role" ref={el => { sectionRefs.current[0] = el; }} className={pad}>
+        {/* ---------------- OVERVIEW ---------------- */}
+        <section id="overview" ref={el => { sectionRefs.current[0] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>My Role</h2>
-          </FadeIn>
-
-          <FadeIn>
-            <p className="font-sans" style={body}>
-              The Antarctic Geophysical Observatory (AGO) has been photographing the night sky for about 30 years, and almost none of those images are labeled. A classifier that could reliably say what&rsquo;s in each frame would let researchers follow the aurora across whole solar cycles, not just a few nights someone had time to go through by hand.
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Overview</h2>
+            <p className="font-sans mb-10" style={lead}>
+              The Antarctic Geophysical Observatory (AGO) has 30 years of mostly unlabeled sky photos. I tested whether a model labels aurora better when it also sees the 30&ndash;60 minutes before each photo.
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mt-6">
-            <FadeIn>
-              <p className="font-sans" style={body}>
-                This semester I joined the Data Discovery aurora project at UC Berkeley&rsquo;s Space Sciences Laboratory, in the temporal-models group. Our question was simple: <strong className="font-bold">if a model also sees the sky photos from the last half hour, does it label the current one any better?</strong>
-              </p>
+          {/* Hierarchy: the key finding gets the big card; the two proof points support it */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            {/* [&>div]:h-full lets the fade wrapper, and so the card, fill both rows */}
+            <div className="lg:col-span-2 lg:row-span-2 [&>div]:h-full">
+              <FadeIn>
+                <Card style={{ height: "100%", backgroundColor: ACCENT, color: "#F5F0E8", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "2rem" }}>
+                  <p className="font-sans" style={{ ...cardTitle, fontSize: "26px", color: "rgba(245,240,232,0.7)" }}>Key Finding</p>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-8">
+                    <div className="flex-1">
+                      <p className="font-bold" style={{ fontSize: "clamp(5rem, 12vw, 10rem)", lineHeight: 1, color: "#F5F0E8" }}>21%</p>
+                      <p className="font-sans mt-4" style={{ ...small, color: "#F5F0E8", fontSize: "20px", lineHeight: 1.45 }}>
+                        label agreement between two label sets for the same 500 photos (Cohen&rsquo;s &kappa; = 0.01, chance level)
+                      </p>
+                    </div>
+                    <Waffle on="#F5F0E8" off="rgba(245,240,232,0.15)" filled={21} label="21 of 100 squares filled: 21% of photos got the same label from both label sets" />
+                  </div>
+                  <div className="flex items-start gap-3 pt-6" style={{ borderTop: "1px solid rgba(245,240,232,0.2)" }}>
+                    <span className="mt-1.5 shrink-0"><FlowArrow color="#F5F0E8" /></span>
+                    <p className="font-sans" style={{ ...small, fontSize: "17px", color: "rgba(245,240,232,0.8)" }}>
+                      <strong style={{ color: "#F5F0E8" }}>Why it matters:</strong> no model score means much until the labels are reliable. This shifted the team&rsquo;s next step from new models to one shared labeling rule.
+                    </p>
+                  </div>
+                </Card>
+              </FadeIn>
+            </div>
+            <FadeIn delay={0.06}>
+              <Card style={{ height: "100%" }}>
+                <p className="font-bold" style={{ fontSize: "2.25rem", lineHeight: 1, color: "#181a18" }}>81%</p>
+                <p className="font-sans mt-2" style={small}>Reproduced the published OATH benchmark, giving the team a trusted baseline</p>
+                <MiniBars max={100} bars={[{ label: "My replication", value: 81, text: "81%" }, { label: "Published paper", value: 82, text: "~82%" }]} />
+              </Card>
             </FadeIn>
-            <FadeIn delay={0.08}>
-              <Card>
-                <p className="font-sans mb-4" style={cardTitle}>What I Worked On</p>
-                <ul className="space-y-2">
-                  {["Exploring the raw AGO data", "Replicating the OATH benchmark", "Building the temporal-model pipeline", "Analysis and the poster's results"].map(r => (
-                    <li key={r} className="font-sans" style={{ fontSize: "14px", color: "rgba(24,26,24,0.65)" }}>{r}</li>
-                  ))}
-                </ul>
+            <FadeIn delay={0.12}>
+              <Card style={{ height: "100%" }}>
+                <p className="font-bold" style={{ fontSize: "2.25rem", lineHeight: 1, color: "#181a18" }}>0.998</p>
+                <p className="font-sans mt-2" style={small}>F1 on planted test data, so the pipeline detects a real effect when one exists</p>
+                <MiniBars max={1} bars={[{ label: "GRU with history", value: 0.998, text: "0.998" }, { label: "Control", value: 0.26, text: "0.26" }]} />
               </Card>
             </FadeIn>
           </div>
-        </section>
-
-        {/* ---------------- THE DATA ---------------- */}
-        <section id="data" ref={el => { sectionRefs.current[1] = el; }} className={pad}>
-          <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>The Data</h2>
-          </FadeIn>
 
           <FadeIn>
-            <p className="font-sans mb-8" style={body}>
-              Before training anything, I wanted to see what the images actually looked like. I loaded one full day of AGO camera data and built contact sheets and sequence views in Python (astropy, NumPy), so we could catch bad frames before they ever reached a model.
-            </p>
-          </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-            {[
-              { value: "1,354", label: "frames in one day, each 580 × 752 pixels" },
-              { value: "64 s", label: "between frames, and never a gap over 70 seconds" },
-              { value: "2", label: "circular camera fields side by side in every frame" },
-            ].map((s, i) => (
-              <FadeIn key={s.value} delay={i * 0.08}><Stat {...s} /></FadeIn>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <FadeIn>
-              <h3 className="font-bold mb-4" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>Starting From a Known Result</h3>
-              <p className="font-sans" style={body}>
-                Next I reproduced the OATH benchmark (Clausen &amp; Nickisch, 2018): 5,824 labeled THEMIS images in 6 classes, sorted by a Ridge classifier on the paper&rsquo;s archived Inception-v4 features. I got 81% accuracy on 1,165 held-out images. The paper reports about 82%. That was close enough to give the team a baseline we could trust.
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.08}>
-              <h3 className="font-bold mb-4" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>Planning Our Own Dataset</h3>
-              <p className="font-sans" style={body}>
-                For AGO, the team planned about 5,000 images from 50 dates, roughly 14 minutes apart, in 4 classes. We split by date, so no night shows up in both training and testing. Otherwise a model can score well just by remembering what a particular night looked like.
-              </p>
-            </FadeIn>
-          </div>
-        </section>
-
-        {/* ---------------- THE PIPELINE ---------------- */}
-        <section id="pipeline" ref={el => { sectionRefs.current[2] = el; }} className={pad}>
-          <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>The Pipeline</h2>
-          </FadeIn>
-
-          <FadeIn>
-            <p className="font-sans mb-8" style={body}>
-              Two earlier notebooks each did part of the job. I merged them into one Colab pipeline, so every model gets tested on exactly the same target images.
-            </p>
-          </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            {[
-              { t: "Crop & embed", d: "Crop one camera field, turn it into features with a frozen DINOv2 model, and cache them." },
-              { t: "Build a window", d: "For each target image, collect earlier frames from the same night (0, 30 or 60 minutes back) along with the time gaps." },
-              { t: "Compare 4 models", d: "Single photo, smoothing, a GRU with no history as the control, and a GRU with history." },
-              { t: "Score fairly", d: "Macro-F1, so rare labels count as much as common ones, plus a paired bootstrap to check if a gap is real." },
-            ].map((s, i) => (
-              <FadeIn key={s.t} delay={i * 0.05}>
-                <Card style={{ height: "100%" }}>
-                  <p className="font-sans mb-2" style={{ fontSize: "12px", color: "rgba(24,26,24,0.4)" }}>{String(i + 1).padStart(2, "0")}</p>
-                  <p className="font-semibold mb-2" style={{ fontSize: "15px" }}>{s.t}</p>
-                  <p className="font-sans" style={small}>{s.d}</p>
-                </Card>
-              </FadeIn>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <FadeIn>
-              <h3 className="font-bold mb-4" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>Testing the Test</h3>
-              <p className="font-sans" style={body}>
-                I didn&rsquo;t want to trust the pipeline on real data until I knew it worked, so I ran it on made-up data first. With random labels, every model stayed at chance, which meant nothing was leaking between training and testing. Then I made the labels actually depend on earlier images. The GRU with history picked that up almost perfectly, while the control couldn&rsquo;t. So if earlier photos really help, this setup will show it.
-              </p>
-            </FadeIn>
-            <div className="grid grid-cols-2 gap-4">
-              <FadeIn><Stat value="0.998" label="GRU with history, when labels depend on the past" /></FadeIn>
-              <FadeIn delay={0.08}><Stat value="0.26" label="the same GRU without history (control)" /></FadeIn>
+            <div className="mt-12">
+              <Labeled title="What I Did">
+                <Numbered size={19} items={[
+                  <><Key>Replicated the OATH benchmark</Key> to give the team a trusted baseline</>,
+                  <>Built the <Key>Colab pipeline</Key> that compares <Key>four models</Key> on identical images</>,
+                  <><Key>Validated it on synthetic data</Key> before running it on real photos</>,
+                ]} />
+              </Labeled>
             </div>
+          </FadeIn>
+        </section>
+
+        {/* ---------------- APPROACH ---------------- */}
+        <section id="approach" ref={el => { sectionRefs.current[1] = el; }} className={pad}>
+          <FadeIn>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Approach</h2>
+            <p className="font-sans mb-10" style={lead}>One pipeline, four models, and the same target images for every model.</p>
+          </FadeIn>
+
+          {/* Steps flow left to right; arrows sit between cards on wide screens.
+              Compare is the featured (navy) step: the no-history control is what makes the test fair. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1.35fr_auto_1fr] gap-4 lg:gap-3 items-stretch mb-6">
+            {[
+              { t: "Embed", d: <>Crop one camera field and turn it into features with a frozen DINOv2 model.</> },
+              { t: "Add history", d: <>Attach frames from the previous 0, 30 or 60 min of the same night, with the time gaps.</> },
+              { t: "Compare", featured: true, d: <>Four models on the same photos. The GRU without history is a control, so any gain comes from the history, not the model.</> },
+              { t: "Score", d: <>Macro-F1 so rare labels count equally, and a paired bootstrap to test if a gap is real.</> },
+            ].flatMap((s, i) => [
+              ...(i > 0 ? [<span key={`a${i}`} className="hidden lg:flex items-center"><FlowArrow /></span>] : []),
+              <div key={s.t} className="[&>div]:h-full">
+                <FadeIn delay={i * 0.05}>
+                  <Card style={{ height: "100%", ...(s.featured && { backgroundColor: ACCENT }) }}>
+                    <p className="font-bold mb-3" style={{ fontSize: "22px", color: s.featured ? "#F5F0E8" : "#181a18" }}>{s.t}</p>
+                    <p className="font-sans" style={{ ...small, fontSize: "17px", color: s.featured ? "rgba(245,240,232,0.8)" : small.color }}>{s.d}</p>
+                  </Card>
+                </FadeIn>
+              </div>,
+            ])}
           </div>
+
+          {/* A footnote to the steps, not a step: no card */}
+          <FadeIn>
+            <p className="font-sans mt-8" style={{ ...small, fontSize: "17px" }}>
+              <span className="font-semibold" style={{ color: ACCENT }}>Fairness check:</span> with random labels, every model scored at chance, so no model could cheat by seeing test data during training.
+            </p>
+          </FadeIn>
         </section>
 
         {/* ---------------- RESULTS ---------------- */}
-        <section id="results" ref={el => { sectionRefs.current[3] = el; }} className={pad}>
+        <section id="results" ref={el => { sectionRefs.current[2] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Results</h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
-            <FadeIn>
-              <p className="font-sans mb-4" style={body}>
-                The first real run used 500 labeled AGO images from 5 dates. The simple models came out on top. The GRU with history did beat its control by 1.8 points, but the 95% confidence interval runs from &minus;0.7 to +6.7, so that gap could just be noise. On this sample, I can&rsquo;t say earlier images help.
-              </p>
-              <p className="font-sans" style={body}>
-                The models are fine on clear cases. Where they struggle is photos with external light, and the &ldquo;unsure&rdquo; class, which makes up half the data.
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.08}>
-              <Card>
-                <p className="font-sans mb-5" style={cardTitle}>Macro-F1 on 500 AGO images</p>
-                <ul className="space-y-4">
-                  {results.map(r => (
-                    <li key={r.model}>
-                      <div className="font-sans flex justify-between mb-1.5" style={{ fontSize: "14px", color: "rgba(24,26,24,0.65)" }}>
-                        <span>{r.model}</span>
-                        <span className="font-semibold" style={{ color: "#181a18" }}>{r.f1.toFixed(2)}</span>
-                      </div>
-                      {/* bar length is out of 0.5 so the differences are visible */}
-                      <div className="h-2 rounded-full" style={{ backgroundColor: "#d9d3c8" }}>
-                        <div className="h-2 rounded-full" style={{ width: `${(r.f1 / 0.5) * 100}%`, backgroundColor: r.model === "Chance" ? "#B7B2A8" : ACCENT }} />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            </FadeIn>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
-            <FadeIn>
-              <h3 className="font-bold mb-4" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>The Bigger Problem: Labels</h3>
-              <p className="font-sans" style={body}>
-                We had two label sets for the same 500 images, one from a person and one generated by AI. They barely agreed, and most of the disagreement was over &ldquo;unsure.&rdquo; I used the human labels as ground truth, but until the team agrees on one labeling rule, it&rsquo;s hard to read too much into any model&rsquo;s score.
-              </p>
-            </FadeIn>
-            <div className="grid grid-cols-2 gap-4">
-              <FadeIn><Stat value="21%" label="of photos got the same label from both label sets" /></FadeIn>
-              <FadeIn delay={0.08}><Stat value="κ 0.01" label="Cohen's kappa, which is chance-level agreement" /></FadeIn>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            <FadeIn>
-              <Card style={{ height: "100%" }}>
-                <p className="font-sans mb-3" style={cardTitle}>Takeaway</p>
-                <p className="font-sans" style={small}>
-                  The replication worked and the temporal pipeline is ready to go. On this first small sample, earlier images don&rsquo;t clearly help, and label quality is what&rsquo;s really holding the results back.
-                </p>
-              </Card>
-            </FadeIn>
-            <FadeIn delay={0.08}>
-              <Card style={{ height: "100%" }}>
-                <p className="font-sans mb-3" style={cardTitle}>Next Steps</p>
-                <ul className="space-y-1.5">
-                  {[
-                    "Agree on labeling rules and the 4 classes",
-                    "Rerun on the full ~5,000 images, split by date",
-                    "Compare DINOv2 with DINOv3 and THEMIS SimCLR features",
-                    "Try GRU-D, which is built for missing images",
-                  ].map(l => (
-                    <li key={l} className="font-sans" style={small}>{l}</li>
-                  ))}
-                </ul>
-              </Card>
-            </FadeIn>
-          </div>
-
-          <FadeIn>
-            <p className="font-sans" style={body}>
-              Along the way I put together the combined Colab notebook, the results text for our poster, and an 18-slide presentation with speaker notes.
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Results</h2>
+            <p className="font-sans mb-10" style={lead}>
+              On 500 photos from 5 nights, earlier photos did not clearly help. Label quality, not the model, was the main limit.
             </p>
           </FadeIn>
 
-          {/* Poster */}
+          {/* Hierarchy: the answer to the research question is the featured (navy) card */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="[&>div]:h-full">
+              <FadeIn>
+                <Card style={{ height: "100%", backgroundColor: ACCENT, color: "#F5F0E8", display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+                  <p className="font-sans" style={{ ...cardTitle, fontSize: "26px", color: "rgba(245,240,232,0.7)" }}>Main Result</p>
+                  {/* same number-left, text-right header as the 0.48 card, so both rows line up */}
+                  <div className="flex items-center gap-6">
+                    <p className="font-bold shrink-0" style={{ fontSize: "clamp(4rem, 9vw, 7rem)", lineHeight: 1 }}>+1.8</p>
+                    <p className="font-sans" style={{ fontSize: "20px", lineHeight: 1.45 }}>points of macro-F1 from adding history, which is not significant</p>
+                  </div>
+                  {/* 95% CI drawn on a -2..+8 scale; the bar crossing the zero line is the point */}
+                  <div role="img" aria-label="95% confidence interval from -0.7 to +6.7, estimate +1.8, crossing zero">
+                    <div className="relative h-8">
+                      <span className="absolute top-0 bottom-0 w-px" style={{ left: "20%", backgroundColor: "rgba(245,240,232,0.5)" }} />
+                      <span className="absolute top-1/2 -translate-y-1/2 h-1.5 rounded-full" style={{ left: "13%", width: "74%", backgroundColor: "rgba(245,240,232,0.35)" }} />
+                      <span className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full" style={{ left: "38%", backgroundColor: "#F5F0E8" }} />
+                    </div>
+                    <div className="relative h-5 font-sans" style={{ fontSize: "13px", color: "rgba(245,240,232,0.7)" }}>
+                      <span className="absolute -translate-x-1/2" style={{ left: "13%" }}>&minus;0.7</span>
+                      <span className="absolute -translate-x-1/2" style={{ left: "20%" }}>0</span>
+                      <span className="absolute -translate-x-1/2" style={{ left: "38%" }}>+1.8</span>
+                      <span className="absolute -translate-x-1/2" style={{ left: "87%" }}>+6.7</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 pt-6" style={{ borderTop: "1px solid rgba(245,240,232,0.2)" }}>
+                    <span className="mt-1.5 shrink-0"><FlowArrow color="#F5F0E8" /></span>
+                    <p className="font-sans" style={{ fontSize: "17px", lineHeight: 1.6, color: "rgba(245,240,232,0.8)" }}>
+                      The 95% interval includes zero, so on this sample earlier photos don&rsquo;t clearly help.
+                    </p>
+                  </div>
+                </Card>
+              </FadeIn>
+            </div>
+            <FadeIn delay={0.06}>
+              {/* a step smaller than +1.8, so the main result stays dominant and the cards end level */}
+              <Card style={{ height: "100%", display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+                <p className="font-sans" style={{ ...cardTitle, fontSize: "26px" }}>Model Scores</p>
+                <div className="flex items-center gap-6">
+                  <p className="font-bold shrink-0" style={{ fontSize: "clamp(3.5rem, 7vw, 5.5rem)", lineHeight: 1, color: "#181a18" }}>0.48</p>
+                  <p className="font-sans" style={{ ...small, fontSize: "20px", lineHeight: 1.45 }}>Best macro-F1, from simple smoothing. Chance is 0.17.</p>
+                </div>
+                <MiniBars flush max={0.5} bars={results.map(r => ({ label: r.model, value: r.f1, text: r.f1.toFixed(2) }))} />
+              </Card>
+            </FadeIn>
+          </div>
+
+          <div className="space-y-10 mt-12">
+            <FadeIn>
+              <Labeled title="Limitations">
+              <Numbered size={17} items={[
+                "Small sample: 500 photos from 5 nights",
+                "Half the photos are labeled \u201cunsure,\u201d where most errors land, along with photos that have external light",
+                "Unreliable labels (\u03ba = 0.01) make every score noisy",
+                "Only one feature model, DINOv2, was tested",
+              ]} />
+              </Labeled>
+            </FadeIn>
+            <FadeIn delay={0.06}>
+              <Labeled title="Next Steps">
+              <Numbered size={17} items={[
+                "Agree on one labeling rule and 4 classes",
+                "Rerun on the full ~5,000 images, split by night",
+                "Compare DINOv2 with DINOv3 and THEMIS SimCLR features",
+                "Try GRU-D, which handles missing frames",
+              ]} />
+              </Labeled>
+            </FadeIn>
+          </div>
+        </section>
+
+        {/* ---------------- POSTER ---------------- */}
+        <section id="poster" ref={el => { sectionRefs.current[3] = el; }} className={pad}>
           <FadeIn>
-            <p className="font-sans mb-6 mt-14" style={body}>Research Poster</p>
+            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Poster</h2>
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src={sslPoster}
@@ -300,9 +308,9 @@ export default function SSLCaseStudyPage() {
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.15}>
-            <p className="font-sans mt-14" style={{ fontSize: "13px", color: "rgba(24,26,24,0.45)", lineHeight: 1.8 }}>
-              Part of Berkeley Data Discovery at the Space Sciences Laboratory, Fall 2026. Team: Paco Lau, Sumedh Borkar, Nandini Prasad, Harry Wang, Brayden Yang, Winston Lin. Supervised by Yen-Jung Wu.
+          <FadeIn delay={0.1}>
+            <p className="font-sans mt-10" style={{ fontSize: "13px", color: "rgba(24,26,24,0.45)", lineHeight: 1.8 }}>
+              Berkeley Data Discovery at the Space Sciences Laboratory, Fall 2026. Team: Paco Lau, Sumedh Borkar, Nandini Prasad, Harry Wang, Brayden Yang, Winston Lin, Nicholas Pedersen, Omar Aslai. Supervised by Yen-Jung Wu.
             </p>
           </FadeIn>
         </section>

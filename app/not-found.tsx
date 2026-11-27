@@ -12,7 +12,7 @@ export default function NotFound() {
       <Link
         href="/"
         className="font-sans mt-10 transition-opacity hover:opacity-75"
-        style={{ fontSize: "13px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 600, padding: "14px 32px", borderRadius: "999px", backgroundColor: "#181a18", color: "#F5F0E8" }}
+        style={{ fontSize: "15px", fontWeight: 600, padding: "14px 32px", borderRadius: "999px", backgroundColor: "#181a18", color: "#F5F0E8" }}
       >
         ← Back Home
       </Link>

@@ -110,9 +110,9 @@ export default function BeforeAfterSlider() {
               transition={{ duration: 0.9, delay: 0.3 }}
             >
               <span
-                className="inline-block font-[family-name:var(--font-dm-sans)] text-white/60 tracking-widest uppercase"
+                className="inline-block font-[family-name:var(--font-dm-sans)] text-white/60"
                 style={{
-                  fontSize: "0.65rem",
+                  fontSize: "0.8rem",
                   padding: "5px 14px",
                   borderRadius: "999px",
                   border: "1px solid rgba(245,240,232,0.2)",

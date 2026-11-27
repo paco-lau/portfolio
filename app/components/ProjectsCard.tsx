@@ -130,10 +130,10 @@ export default function ProjectsCard() {
             whileHover={{ y: -6 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* radius 22 = badge pill radius (~10) + its 12px inset, so the corners nest */}
+            {/* radius 24 = badge pill radius (~12) + its 12px inset, so the corners nest */}
             <Link
               href={num === "photography" ? "/photography/graduation" : `/work/${num}`}
-              className="group block rounded-[22px] overflow-hidden"
+              className="group block rounded-[24px] overflow-hidden"
               style={{ backgroundColor: "#363836", boxShadow: "0 2px 8px rgba(0,0,0,0.3)", transition: "box-shadow 0.3s ease" }}
               onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.5)")}
               onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.3)")}
@@ -144,12 +144,12 @@ export default function ProjectsCard() {
                 <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
                 <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
                   {pinned && (
-                    <span className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
+                    <span className="font-sans" style={{ fontSize: "12px", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
                       Featured
                     </span>
                   )}
                   {current && (
-                    <span className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                    <span className="font-sans" style={{ fontSize: "12px", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
                       In Progress
                     </span>
                   )}
@@ -157,7 +157,7 @@ export default function ProjectsCard() {
                 {categories.length > 0 && (
                   <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
                     {[...categories].sort().map(cat => (
-                      <span key={cat} className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                      <span key={cat} className="font-sans" style={{ fontSize: "12px", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
                         {cat}
                       </span>
                     ))}
