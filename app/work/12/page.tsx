@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import Footer from "../../components/Footer";
-import { Card, CaseStudyEnd, CaseStudyHero, FadeIn, SectionRail } from "../CaseStudy";
+import { Card, CaseStudyEnd, CaseStudyHero, FadeIn, FlowArrow, Key as KeyBase, Labeled as LabeledBase, MiniBars as MiniBarsBase, Numbered as NumberedBase, SectionRail, SectionTitle, Waffle, lead, pad, small } from "../CaseStudy";
 
 import sslBanner from "../../../assets/projects/data-science/ssl-aurora/ssl-banner.png";
 import sslPoster from "../../../assets/projects/data-science/ssl-aurora/ssl-poster.webp";
@@ -17,77 +17,12 @@ const SECTIONS = [
   { id: "poster", label: "Poster" },
 ];
 
-const pad = "pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12";
-const h2: React.CSSProperties = { fontSize: "clamp(2rem, 5vw, 4rem)" };
-const lead: React.CSSProperties = { fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)", lineHeight: 1.45, color: "#181a18", maxWidth: "70ch" }; // long enough for two lines, short enough to read comfortably
 const cardTitle: React.CSSProperties = { fontSize: "17px", fontWeight: 700, color: ACCENT };
-const small: React.CSSProperties = { fontSize: "15px", color: "rgba(24,26,24,0.65)", lineHeight: 1.6 };
 
-/** Two-or-more bar comparison; the first bar is the highlighted one. */
-function MiniBars({ bars, max, flush = false }: { bars: { label: string; value: number; text: string }[]; max: number; flush?: boolean }) {
-  return (
-    <ul className={`space-y-2.5 ${flush ? "" : "mt-5"}`}>
-      {bars.map((b, i) => (
-        <li key={b.label}>
-          <div className="font-sans flex justify-between mb-1" style={{ fontSize: "13px", color: "rgba(24,26,24,0.6)" }}>
-            <span>{b.label}</span><span className="font-semibold" style={{ color: "#181a18" }}>{b.text}</span>
-          </div>
-          <div className="h-2 rounded-full" style={{ backgroundColor: "#d9d3c8" }}>
-            <div className="h-2 rounded-full" style={{ width: `${(b.value / max) * 100}%`, backgroundColor: i === 0 ? ACCENT : "#B7B2A8" }} />
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/** 10×10 grid: `filled` of 100 squares in `on`, the rest in `off`. */
-function Waffle({ filled, label, on = ACCENT, off = "#d9d3c8" }: { filled: number; label: string; on?: string; off?: string }) {
-  return (
-    <div className="grid grid-cols-10 gap-1.5 w-full max-w-[300px] shrink-0" role="img" aria-label={label}>
-      {Array.from({ length: 100 }, (_, i) => (
-        <span key={i} className="aspect-square rounded-[3px]" style={{ backgroundColor: i < filled ? on : off }} />
-      ))}
-    </div>
-  );
-}
-
-/** Right-pointing arrow used to show flow. */
-function FlowArrow({ color = ACCENT }: { color?: string }) {
-  return (
-    <svg width="28" height="14" viewBox="0 0 28 14" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M1 7h25M20 1l6 6-6 6" />
-    </svg>
-  );
-}
-
-/** Key phrase: bold ink with an accent underline, so a skimmer catches it. */
-function Key({ children }: { children: React.ReactNode }) {
-  return <strong className="underline underline-offset-4 decoration-2" style={{ color: "#181a18", textDecorationColor: ACCENT }}>{children}</strong>;
-}
-
-/** Title on the left, content on the right of a divider line, like the hero's Role/Team block. */
-function Labeled({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-[140px_1fr] md:items-baseline gap-x-6 gap-y-4">
-      <p className="font-sans" style={{ ...cardTitle, fontSize: "22px" }}>{title}</p>
-      <div className="md:border-l md:pl-6" style={{ borderColor: "rgba(24,26,24,0.2)" }}>{children}</div>
-    </div>
-  );
-}
-
-/** Numbered list with plain accent numbers. */
-function Numbered({ items, size = 16 }: { items: React.ReactNode[]; size?: number }) {
-  return (
-    <ol className="space-y-3">
-      {items.map((t, i) => (
-        <li key={i} className="font-sans flex gap-3" style={{ ...small, fontSize: `${size}px` }}>
-          <span className="font-semibold shrink-0 w-5" style={{ color: ACCENT }}>{i + 1}.</span><span>{t}</span>
-        </li>
-      ))}
-    </ol>
-  );
-}
+const Key = (p: { children: React.ReactNode }) => <KeyBase accent={ACCENT} {...p} />;
+const Labeled = (p: { title: string; children: React.ReactNode }) => <LabeledBase accent={ACCENT} {...p} />;
+const Numbered = (p: { items: React.ReactNode[]; size?: number }) => <NumberedBase accent={ACCENT} {...p} />;
+const MiniBars = (p: { bars: { label: string; value: number; text: string }[]; max: number; flush?: boolean }) => <MiniBarsBase accent={ACCENT} {...p} />;
 
 const results = [
   { model: "Smoothing", f1: 0.48 },
@@ -118,7 +53,26 @@ export default function SSLCaseStudyPage() {
         {/* ---------------- OVERVIEW ---------------- */}
         <section id="overview" ref={el => { sectionRefs.current[0] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Overview</h2>
+            <SectionTitle>Overview</SectionTitle>
+          </FadeIn>
+
+          {/* Context first: who the lab is and where I fit, in the hero's label | text format */}
+          <FadeIn>
+            <div className="space-y-8 mb-10">
+              <Labeled title="What is the Space Sciences Lab (SSL)?">
+                <p className="font-sans" style={{ ...small, fontSize: "17px" }}>
+                  UC Berkeley&rsquo;s research lab for space physics. It helps run NASA&rsquo;s THEMIS mission, whose ground cameras photograph the aurora. I joined through Berkeley Data Discovery, which pairs students with research teams.
+                </p>
+              </Labeled>
+              <Labeled title="My Role">
+                <p className="font-sans" style={{ ...small, fontSize: "17px" }}>
+                  One of 8 student researchers, in the temporal-models group. Our group asked whether earlier sky photos help label the current one, and I built the pipeline we used to test it.
+                </p>
+              </Labeled>
+            </div>
+          </FadeIn>
+
+          <FadeIn>
             <p className="font-sans mb-10" style={lead}>
               The Antarctic Geophysical Observatory (AGO) has 30 years of mostly unlabeled sky photos. I tested whether a model labels aurora better when it also sees the 30&ndash;60 minutes before each photo.
             </p>
@@ -181,7 +135,7 @@ export default function SSLCaseStudyPage() {
         {/* ---------------- APPROACH ---------------- */}
         <section id="approach" ref={el => { sectionRefs.current[1] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Approach</h2>
+            <SectionTitle>Approach</SectionTitle>
             <p className="font-sans mb-10" style={lead}>One pipeline, four models, and the same target images for every model.</p>
           </FadeIn>
 
@@ -194,7 +148,7 @@ export default function SSLCaseStudyPage() {
               { t: "Compare", featured: true, d: <>Four models on the same photos. The GRU without history is a control, so any gain comes from the history, not the model.</> },
               { t: "Score", d: <>Macro-F1 so rare labels count equally, and a paired bootstrap to test if a gap is real.</> },
             ].flatMap((s, i) => [
-              ...(i > 0 ? [<span key={`a${i}`} className="hidden lg:flex items-center"><FlowArrow /></span>] : []),
+              ...(i > 0 ? [<span key={`a${i}`} className="hidden lg:flex items-center"><FlowArrow color={ACCENT} /></span>] : []),
               <div key={s.t} className="[&>div]:h-full">
                 <FadeIn delay={i * 0.05}>
                   <Card style={{ height: "100%", ...(s.featured && { backgroundColor: ACCENT }) }}>
@@ -217,7 +171,7 @@ export default function SSLCaseStudyPage() {
         {/* ---------------- RESULTS ---------------- */}
         <section id="results" ref={el => { sectionRefs.current[2] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Results</h2>
+            <SectionTitle>Results</SectionTitle>
             <p className="font-sans mb-10" style={lead}>
               On 500 photos from 5 nights, earlier photos did not clearly help. Label quality, not the model, was the main limit.
             </p>
@@ -297,7 +251,7 @@ export default function SSLCaseStudyPage() {
         {/* ---------------- POSTER ---------------- */}
         <section id="poster" ref={el => { sectionRefs.current[3] = el; }} className={pad}>
           <FadeIn>
-            <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={h2}>Poster</h2>
+            <SectionTitle>Poster</SectionTitle>
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src={sslPoster}

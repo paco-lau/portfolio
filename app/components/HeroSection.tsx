@@ -94,6 +94,14 @@ export default function HeroSection() {
         </div>
       </div>
 
+      {/* Who I am, in the gap between the navbar and the top of the name */}
+      <p
+        className="absolute font-sans text-[#181a18]/75"
+        style={{ left: "3.4vw", right: "3vw", top: "calc(17vh - 2.6rem)", fontSize: "clamp(15px, 1.3vw, 20px)", lineHeight: 1.3 }}
+      >
+        Data Science &amp; Economics at UC Berkeley. I design products and find patterns in data.
+      </p>
+
       {/* Name drawn twice: dark above the cut, cream where it enters the photo */}
       <div className="absolute inset-0 pointer-events-none" style={{ clipPath: `inset(0 0 calc(100% - ${CUT}) 0)` }}>
         <h1 className="font-sans text-[#181a18] select-none" style={nameStyle}>Paco Lau</h1>

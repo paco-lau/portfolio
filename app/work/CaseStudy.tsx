@@ -92,6 +92,88 @@ export function CaseStudyHero({ badge, title, role, team, banner, accent, badgeT
   );
 }
 
+// ---- Page building blocks: section layout, type, charts and lists. `accent` is the page's color. ----
+
+export const pad = "pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 py-10 md:py-12";
+// long enough for two lines, short enough to read comfortably
+export const lead: React.CSSProperties = { fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)", lineHeight: 1.45, color: "#181a18", maxWidth: "70ch" };
+export const small: React.CSSProperties = { fontSize: "15px", color: "rgba(24,26,24,0.65)", lineHeight: 1.6 };
+
+/** Section heading with a hairline running to the right edge. */
+export function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+      {children}
+    </h2>
+  );
+}
+
+/** Bar comparison; the first bar is the highlighted one. `flush` drops the top margin inside a gapped card. */
+export function MiniBars({ bars, max, accent, flush = false }: { bars: { label: string; value: number; text: string }[]; max: number; accent: string; flush?: boolean }) {
+  return (
+    <ul className={`space-y-2.5 ${flush ? "" : "mt-5"}`}>
+      {bars.map((b, i) => (
+        <li key={b.label}>
+          <div className="font-sans flex justify-between mb-1" style={{ fontSize: "13px", color: "rgba(24,26,24,0.6)" }}>
+            <span>{b.label}</span><span className="font-semibold" style={{ color: "#181a18" }}>{b.text}</span>
+          </div>
+          <div className="h-2 rounded-full" style={{ backgroundColor: "#d9d3c8" }}>
+            <div className="h-2 rounded-full" style={{ width: `${(b.value / max) * 100}%`, backgroundColor: i === 0 ? accent : "#B7B2A8" }} />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** 10×10 grid: `filled` of 100 squares in `on`, the rest in `off`. */
+export function Waffle({ filled, label, on, off }: { filled: number; label: string; on: string; off: string }) {
+  return (
+    <div className="grid grid-cols-10 gap-1.5 w-full max-w-[300px] shrink-0" role="img" aria-label={label}>
+      {Array.from({ length: 100 }, (_, i) => (
+        <span key={i} className="aspect-square rounded-[3px]" style={{ backgroundColor: i < filled ? on : off }} />
+      ))}
+    </div>
+  );
+}
+
+/** Right-pointing arrow used to show flow. */
+export function FlowArrow({ color }: { color: string }) {
+  return (
+    <svg width="28" height="14" viewBox="0 0 28 14" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M1 7h25M20 1l6 6-6 6" />
+    </svg>
+  );
+}
+
+/** Key phrase: bold ink with an accent underline, so a skimmer catches it. */
+export function Key({ children, accent }: { children: React.ReactNode; accent: string }) {
+  return <strong className="underline underline-offset-4 decoration-2" style={{ color: "#181a18", textDecorationColor: accent }}>{children}</strong>;
+}
+
+/** Title on the left, content on the right of a divider line, like the hero's Role/Team block. */
+export function Labeled({ title, accent, children, titleWidth = 230 }: { title: string; accent: string; children: React.ReactNode; titleWidth?: number }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-[var(--title-w)_1fr] md:items-baseline gap-x-6 gap-y-4" style={{ "--title-w": `${titleWidth}px` } as React.CSSProperties}>
+      <p className="font-sans font-bold" style={{ fontSize: "22px", color: accent }}>{title}</p>
+      <div className="md:border-l md:pl-6" style={{ borderColor: "rgba(24,26,24,0.2)" }}>{children}</div>
+    </div>
+  );
+}
+
+/** Numbered list with plain accent numbers. */
+export function Numbered({ items, accent, size = 16 }: { items: React.ReactNode[]; accent: string; size?: number }) {
+  return (
+    <ol className="space-y-3">
+      {items.map((t, i) => (
+        <li key={i} className="font-sans flex gap-3" style={{ ...small, fontSize: `${size}px` }}>
+          <span className="font-semibold shrink-0 w-5" style={{ color: accent }}>{i + 1}.</span><span>{t}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 export function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
     <motion.div
@@ -105,13 +187,24 @@ export function FadeIn({ children, delay = 0 }: { children: React.ReactNode; del
   );
 }
 
-export function Carousel({ items, aspectRatio, accent }: { items: { src: StaticImageData | string; alt: string }[]; aspectRatio: string; accent: string }) {
+export function Carousel({ items, aspectRatio, accent, autoPlay }: {
+  items: { src: StaticImageData | string; alt: string }[]; aspectRatio: string; accent: string;
+  /** ms between slides; pauses on hover and for reduced-motion users */
+  autoPlay?: number;
+}) {
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
   const total = items.length;
   const go = (i: number) => setIndex((i + total) % total);
 
+  useEffect(() => {
+    if (!autoPlay || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setTimeout(() => setIndex(i => (i + 1) % total), autoPlay);
+    return () => clearTimeout(t);
+  }, [index, autoPlay, paused, total]);
+
   return (
-    <div>
+    <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio, backgroundColor: "#F5F0E8" }}>
         <Image src={items[index].src} alt={items[index].alt} fill style={{ objectFit: "contain" }} />
       </div>
