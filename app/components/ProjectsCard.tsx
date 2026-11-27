@@ -18,17 +18,17 @@ const featured = (num: string, tags: string[]) => {
   return { ...p, pinned: true, categories: p.categories.filter(c => tags.includes(c)) };
 };
 
-// One pick per discipline, each with its case study's headline result and a path to the rest.
+// One pick per discipline, each with a path to the rest of that discipline.
 const projects = [
-  { ...featured("05", DESIGN_CATEGORIES), discipline: "Design", result: "Benchmarks showed 9\u201321\u00d7 slowdowns on low-end laptops", more: { href: "/design", label: "See all design work" } },
-  { ...featured("12", DATA_FILTERS), discipline: "Data", result: "Found that the labels, not the model, were the bottleneck", more: { href: "/data", label: "See all data work" } },
+  { ...featured("12", DATA_FILTERS), discipline: "Data", more: { href: "/data", label: "See all data work" } },
+  { ...featured("05", DESIGN_CATEGORIES), discipline: "Design", more: { href: "/design", label: "See all design work" } },
   {
     num: "photography", title: "UC Berkeley Class of '26", sub: "Spring 2026",
     gradient: "linear-gradient(135deg, #2A4A3A 0%, #0F1F18 100%)",
     banner: grad26Banner,
     categories: ["Graduation Photography"],
     pinned: false, current: false,
-    discipline: "Photography", result: "Graduation portraits for the Spring 2026 class", more: { href: "/photography", label: "See all photography" },
+    discipline: "Photography", more: { href: "/photography", label: "See all photography" },
   },
 ];
 
@@ -120,7 +120,7 @@ export default function ProjectsCard() {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {projects.map(({ num, title, sub, gradient, banner, categories, current, discipline, result, more }, i) => (
+        {projects.map(({ num, title, sub, gradient, banner, categories, current, discipline, more }, i) => (
           <motion.div
             key={num}
             initial={{ opacity: 0, y: 40 }}
@@ -146,7 +146,7 @@ export default function ProjectsCard() {
                 <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
                 <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
                   <span className="font-sans" style={{ fontSize: "12px", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
-                    {discipline}
+                    Featured in {discipline}
                   </span>
                   {current && (
                     <span className="font-sans" style={{ fontSize: "12px", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
@@ -169,14 +169,13 @@ export default function ProjectsCard() {
               <div className="p-4 flex items-center justify-between gap-4">
                 <div>
                   <p className="font-semibold text-white text-base">{title}</p>
-                  <p className="text-white/75 text-sm mt-1.5 leading-snug">{result}</p>
-                  <p className="text-white/40 text-xs mt-1.5">{sub}</p>
+                  <p className="text-white/50 text-sm mt-1">{sub}</p>
                 </div>
                 <Arrow head size={28} className="relative right-1 text-white/25 group-hover:text-white/70" />
               </div>
             </Link>
           </motion.div>
-          <Link href={more.href} className="group inline-flex items-center gap-2 mt-4 ml-1 text-sm text-[#7EC8E3] hover:text-white transition-colors">
+          <Link href={more.href} className="group flex w-fit ml-auto mr-1 items-center gap-2 mt-4 text-sm text-[#7EC8E3] hover:text-white transition-colors">
             {more.label} <Arrow />
           </Link>
           </motion.div>
