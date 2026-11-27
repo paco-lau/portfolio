@@ -149,7 +149,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="coursework" className={`${pad} pb-24 scroll-mt-24`}>
+      <section id="coursework" className={`${pad} pb-24`}>
         <h2 className={heading}>Coursework</h2>
         <div className="flex flex-col">
           {coursework.map(([subject, courses]) => (

@@ -11,6 +11,11 @@ body {
   scrollbar-gutter: stable;
 }
 
+/* Jumps to a section (rail buttons, #anchors) stop below the fixed navbar */
+html {
+  scroll-padding-top: 60px;
+}
+
 .about-heading {
   font-size: clamp(2.5rem, 7vw, 7rem);
 }
