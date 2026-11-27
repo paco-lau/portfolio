@@ -55,7 +55,7 @@ const skills = [
 ];
 
 // Core skills, highlighted like the active filter pill.
-const keySkills = new Set(["Python", "SQL", "R", "Excel", "Pandas", "scikit-learn", "Machine Learning", "Statistical Modeling & Regression", "Figma", "React"]);
+const keySkills = new Set(["Python", "SQL", "R", "Excel", "Pandas", "scikit-learn", "Machine Learning", "Statistical Modeling & Regression", "Probability", "A/B Testing", "Figma", "React"]);
 
 const pad = "px-6 sm:px-12 md:px-16 lg:px-24";
 // Headings trail off into a thin rule: "Skills ——————"
