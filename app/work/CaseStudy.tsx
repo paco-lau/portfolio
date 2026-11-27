@@ -3,6 +3,8 @@
 import Image, { type StaticImageData } from "next/image";
 import { useEffect, useState, type RefObject } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import CtaButton from "../components/CtaButton";
 
 // Building blocks shared by the case-study pages under app/work/.
 
@@ -91,6 +93,23 @@ export function Carousel({ items, aspectRatio, accent }: { items: { src: StaticI
   );
 }
 
+/** Closing call to action, so a case study ends on a next step instead of the footer. */
+export function CaseStudyEnd() {
+  return (
+    <section className="bg-[#F5F0E8] flex flex-col items-center gap-6 text-center py-20 px-4">
+      <p className="font-bold text-[#181a18]" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1.1 }}>
+        Like what you see? <span style={{ color: "#7EC8E3" }}>Let&apos;s talk.</span>
+      </p>
+      <div className="flex flex-wrap items-center justify-center gap-6">
+        <CtaButton href="/contact">Get in touch</CtaButton>
+        <Link href="/design" className="font-semibold text-[#181a18]/60 hover:text-[#181a18] transition-colors" style={{ fontSize: "0.9rem", letterSpacing: "0.05em" }}>
+          More design work
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 /** Fixed scroll-spy rail: highlights the section in view and hides over the footer. */
 export function SectionRail({ accent, sectionRefs, footerWrapRef }: {
   accent: string;
@@ -139,6 +158,11 @@ export function SectionRail({ accent, sectionRefs, footerWrapRef }: {
             className="absolute left-1/2 -translate-x-1/2"
             style={{ top: 14, bottom: 14, width: 5, backgroundColor: "#181a18", opacity: 0.25 }}
           />
+          {/* progress fill: the track fills up to the current section */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 transition-[height] duration-500"
+            style={{ top: 14, width: 5, height: `calc((100% - 28px) * ${active / (SECTIONS.length - 1)})`, backgroundColor: accent }}
+          />
           {SECTIONS.map((s, i) => (
             <button
               key={s.id}
@@ -175,7 +199,7 @@ export function SectionRail({ accent, sectionRefs, footerWrapRef }: {
                 style={{
                   width: active === i ? 30 : 18,
                   height: active === i ? 30 : 18,
-                  backgroundColor: active === i ? accent : "#B7B2A8",
+                  backgroundColor: i <= active ? accent : "#B7B2A8",
                   boxShadow: active === i ? `0 0 0 7px ${accent}40` : "0 0 0 4px #F5F0E8",
                 }}
               />

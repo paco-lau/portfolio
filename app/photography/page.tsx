@@ -7,7 +7,6 @@ import { useRef } from "react";
 import ThreeDoors from "../components/photography/ThreeDoors";
 import SelectedWork from "../components/photography/SelectedWork";
 import BeforeAfterSlider from "../components/photography/BeforeAfterSlider";
-import Arrow from "../components/Arrow";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -52,7 +51,6 @@ function PhotographyCTA() {
             }}
           >
             Book a Session
-            <Arrow />
           </Link>
         </motion.div>
       </motion.div>

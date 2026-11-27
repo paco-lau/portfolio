@@ -17,9 +17,10 @@ export default function ProjectGridCard({ num, title, sub, gradient, banner, cat
       transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease }}
       whileHover={{ y: -6 }}
     >
+      {/* radius 22 = badge pill radius (~10) + its 12px inset, so the corners nest */}
       <Link
         href={`/work/${num}`}
-        className="group block rounded-2xl overflow-hidden"
+        className="group block rounded-[22px] overflow-hidden"
         style={{ backgroundColor: "#e8e3db", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "box-shadow 0.3s ease" }}
         onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.2)")}
         onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)")}
@@ -40,7 +41,8 @@ export default function ProjectGridCard({ num, title, sub, gradient, banner, cat
             )}
           </div>
           <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-            {[...categories].sort().map(cat => (
+            {/* at most 3 tags, then "+N", so a card reads at a glance */}
+            {[...categories].sort().slice(0, 3).concat(categories.length > 3 ? [`+${categories.length - 3}`] : []).map(cat => (
               <span key={cat} className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
                 {cat}
               </span>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
-import { Card, Carousel, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
+import { Card, CaseStudyEnd, Carousel, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
 
 import globalBanner from "../../../assets/projects/design/global-inheritance/globalinheritance-banner.png";
 import wireframeCoachella from "../../../assets/projects/design/global-inheritance/wireframe-coachella.png";
@@ -426,6 +426,8 @@ export default function GlobalInheritanceCaseStudyPage() {
           </FadeIn>
         </section>
       </div>
+
+      <CaseStudyEnd />
 
       <div ref={footerWrapRef}>
         <Footer />

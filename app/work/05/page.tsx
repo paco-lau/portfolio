@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
-import { Card, Carousel, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
+import { Card, CaseStudyEnd, Carousel, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
 
 import firefoxBanner from "../../../assets/projects/both/mozilla-firefox/firefox-banner.png";
 import finalPopup from "../../../assets/projects/both/mozilla-firefox/final-deliverable.png";
@@ -437,6 +437,8 @@ export default function FirefoxCaseStudyPage() {
           </FadeIn>
         </section>
       </div>
+
+      <CaseStudyEnd />
 
       <div ref={footerWrapRef}>
         <Footer />

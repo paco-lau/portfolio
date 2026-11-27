@@ -102,13 +102,13 @@ export default function ProjectsCard() {
         style={{ fontSize: "clamp(1.25rem, 6.8vw, 9rem)", lineHeight: 1 }}
       >
         Some of my recent{" "}
-        <span className="relative inline-block text-sky-300">
+        <span className="relative inline-block text-[#7EC8E3]">
           wins
           <span
             className="absolute left-0 bottom-0 h-[clamp(3px,0.8vw,8px)] rounded-full"
             style={{
               width: underlined ? "100%" : "0%",
-              backgroundColor: "#7dd3fc",
+              backgroundColor: "#7EC8E3",
               transition: "width 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
               transitionDelay: "0.2s",
             }}
@@ -130,9 +130,10 @@ export default function ProjectsCard() {
             whileHover={{ y: -6 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
+            {/* radius 22 = badge pill radius (~10) + its 12px inset, so the corners nest */}
             <Link
               href={num === "photography" ? "/photography/graduation" : `/work/${num}`}
-              className="group block rounded-2xl overflow-hidden"
+              className="group block rounded-[22px] overflow-hidden"
               style={{ backgroundColor: "#363836", boxShadow: "0 2px 8px rgba(0,0,0,0.3)", transition: "box-shadow 0.3s ease" }}
               onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.5)")}
               onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.3)")}
@@ -155,7 +156,8 @@ export default function ProjectsCard() {
                 </div>
                 {categories.length > 0 && (
                   <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-                    {[...categories].sort().map(cat => (
+                    {/* at most 3 tags, then "+N", so a card reads at a glance */}
+                    {[...categories].sort().slice(0, 3).concat(categories.length > 3 ? [`+${categories.length - 3}`] : []).map(cat => (
                       <span key={cat} className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
                         {cat}
                       </span>

@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Arrow from "./Arrow";
 
-/** The blue "Get in touch" pill: springs up with a glow on hover, arrow slides right. */
+/** The blue "Get in touch" pill: springs up with a glow on hover. */
 export default function CtaButton({ href, children, newTab = false }: { href: string; children: React.ReactNode; newTab?: boolean }) {
   return (
     <motion.div
@@ -21,7 +20,6 @@ export default function CtaButton({ href, children, newTab = false }: { href: st
         style={{ backgroundColor: "#7EC8E3", padding: "14px 32px", fontSize: "0.9rem", letterSpacing: "0.05em" }}
       >
         {children}
-        <Arrow />
       </Link>
     </motion.div>
   );

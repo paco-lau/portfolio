@@ -83,28 +83,33 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex gap-16 font-sans" style={{ fontSize: "16px" }}>
-          {navLinks.map(({ href, label }, i) => (
+          {navLinks.map(({ href, label }, i) => {
+            const active = pathname.startsWith(href);
+            return (
             <motion.div
               key={href}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 + i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Link href={href} className="relative group block">
+              <Link href={href} aria-current={active ? "page" : undefined} className="relative group block">
                 {label}
+                {/* stays drawn under the current page */}
                 <span
-                  className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                  className={`absolute bottom-0 left-0 h-0.5 w-full origin-left ${active ? "scale-x-100" : "scale-x-0"} group-hover:scale-x-100 transition-transform duration-300 ease-out`}
                   style={{ backgroundColor: "#7EC8E3" }}
                 />
               </Link>
             </motion.div>
-          ))}
+            );
+          })}
         </nav>
 
         {/* Mobile hamburger */}
         <button
           className="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 cursor-pointer"
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
           onClick={() => setMenuOpen(o => !o)}
         >
           <span
@@ -151,7 +156,8 @@ export default function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className="block px-6 py-4 font-[family-name:var(--font-dm-sans)] text-base border-b last:border-b-0 transition-colors duration-200"
+                aria-current={pathname.startsWith(href) ? "page" : undefined}
+                className={`block px-6 py-4 font-[family-name:var(--font-dm-sans)] text-base border-b last:border-b-0 transition-colors duration-200 ${pathname.startsWith(href) ? "font-semibold" : ""}`}
                 style={{
                   color: textColor,
                   borderColor: "rgba(24,26,24,0.08)",
