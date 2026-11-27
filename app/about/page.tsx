@@ -46,10 +46,10 @@ const campus: Entry[] = [
 
 // Courses grouped by subject, so each kind of recruiter finds theirs fast.
 const coursework: [subject: string, courses: [code: string, name: string][]][] = [
-  ["Data & Statistics", [["Data C100", "Principles & Techniques of Data Science"], ["Stat 134", "Concepts of Probability"]]],
-  ["Computer Science", [["CS 61A", "Structure & Interpretation of Computer Programs"], ["CS 61B", "Data Structures"]]],
-  ["Mathematics", [["Math 54", "Linear Algebra & Differential Equations"], ["Math 53", "Multivariable Calculus"]]],
-  ["Economics & Business", [["Econ 140", "Econometrics"], ["Econ 101A", "Microeconomics (Quantitative)"], ["Econ 101B", "Macroeconomics (Quantitative)"], ["UGBA 10X", "Foundations of Business"]]],
+  ["Data & Statistics", [["DATA C100", "Principles & Techniques of Data Science"], ["STAT 134", "Concepts of Probability"]]],
+  ["Computer Science", [["COMPSCI 61A", "Structure & Interpretation of Computer Programs"], ["COMPSCI 61B", "Data Structures"]]],
+  ["Mathematics", [["MATH 54", "Linear Algebra & Differential Equations"], ["MATH 53", "Multivariable Calculus"]]],
+  ["Economics & Business", [["ECON 140", "Econometrics"], ["ECON 101A", "Microeconomics (Quantitative)"], ["ECON 101B", "Macroeconomics (Quantitative)"], ["UGBA 10X", "Foundations of Business"]]],
 ];
 
 const skills = [
