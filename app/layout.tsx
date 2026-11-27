@@ -3,6 +3,8 @@ import { DM_Sans, Cormorant_Garamond, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
+import BackToTop from "./components/BackToTop";
+import { Analytics } from "@vercel/analytics/next";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -40,6 +42,9 @@ export default function RootLayout({
         <ScrollToTop />
         <Navbar />
         {children}
+        <BackToTop />
+        {/* Cookieless page views; counts ?utm_source= etc. per link */}
+        <Analytics />
       </body>
     </html>
   );

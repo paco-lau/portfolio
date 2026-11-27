@@ -9,7 +9,7 @@ const LINKS = [
   {
     value: "pacolau@berkeley.edu",
     href: "mailto:pacolau@berkeley.edu",
-    description: "Best way to reach me",
+    description: "Click to copy",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -57,6 +57,13 @@ function LinkRow({ value, href, description, icon, isLast, delay = 0 }: {
   value: string; href: string; description: string; icon: React.ReactNode; isLast: boolean; delay?: number;
 }) {
   const [hovered, setHovered] = useState(false);
+  const [copied, setCopied] = useState(false);
+  // Email copies instead of opening a mail app
+  const copy = (e: React.MouseEvent) => {
+    if (!href.startsWith("mailto:")) return;
+    e.preventDefault();
+    navigator.clipboard?.writeText(value).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+  };
 
   return (
     <motion.a
@@ -64,6 +71,7 @@ function LinkRow({ value, href, description, icon, isLast, delay = 0 }: {
       className="group"
       target={href.startsWith("mailto:") ? undefined : "_blank"}
       rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+      onClick={copy}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       initial={{ opacity: 0, y: 20 }}
@@ -91,7 +99,7 @@ function LinkRow({ value, href, description, icon, isLast, delay = 0 }: {
         </span>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-        <span className="hidden sm:inline" style={{ color: "rgba(255,255,255,0.3)", fontSize: 14 }}>{description}</span>
+        <span className="hidden sm:inline" aria-live="polite" style={{ color: copied ? "#7EC8E3" : "rgba(255,255,255,0.3)", fontSize: 14 }}>{copied ? "Copied to clipboard" : description}</span>
         <Arrow size={22} className="text-white/25 group-hover:text-white/70" />
       </div>
       </div>
@@ -128,10 +136,6 @@ export default function ContactPage() {
         <div className="px-6 sm:px-10 md:px-16 pt-12 md:pt-16">
 
           <div style={{ marginBottom: 48 }}>
-            <motion.div {...anim(0.2)} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-              <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "#4ade80", display: "inline-block", animation: "pulse-dot 2s ease-in-out infinite", flexShrink: 0 }} />
-              <span style={{ color: "rgba(255,255,255,0.75)", fontSize: 14 }}>Available for internships &amp; freelance projects</span>
-            </motion.div>
             <motion.p {...anim(0.28)} style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(1rem, 1.5vw, 1.15rem)", margin: 0 }}>
               I&apos;m always open to new opportunities, collaborations, or just a good conversation.
             </motion.p>
