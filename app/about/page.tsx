@@ -114,7 +114,7 @@ export default function AboutPage() {
         </div>
 
         <div>
-          <h2 className={label}>Projects</h2>
+          <h2 className={label}>Experience</h2>
           <ul>{history.map(e => <Row key={e.title} {...e} />)}</ul>
         </div>
 
