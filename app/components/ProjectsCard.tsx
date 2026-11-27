@@ -156,8 +156,7 @@ export default function ProjectsCard() {
                 </div>
                 {categories.length > 0 && (
                   <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-                    {/* at most 3 tags, then "+N", so a card reads at a glance */}
-                    {[...categories].sort().slice(0, 3).concat(categories.length > 3 ? [`+${categories.length - 3}`] : []).map(cat => (
+                    {[...categories].sort().map(cat => (
                       <span key={cat} className="font-sans" style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500, padding: "3px 10px", borderRadius: "999px", backgroundColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)" }}>
                         {cat}
                       </span>

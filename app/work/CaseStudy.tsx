@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from "next/image";
 import { useEffect, useState, type RefObject } from "react";
 import { motion } from "framer-motion";
 import ProjectGridCard from "../components/ProjectGridCard";
-import { projects, type Project } from "../lib/projects";
+import { projects, DATA_FILTERS, DESIGN_CATEGORIES, type Project } from "../lib/projects";
 
 // Building blocks shared by the case-study pages under app/work/.
 
@@ -13,7 +13,7 @@ export const ease = [0.22, 1, 0.36, 1] as const;
 export const SECTIONS = [
   { id: "role", label: "My Role" },
   { id: "research", label: "Research" },
-  { id: "design", label: "Design & Iteration" },
+  { id: "design", label: "Design &\nIteration" },
   { id: "final", label: "Final\nProduct" },
 ];
 
@@ -26,16 +26,69 @@ export function Card({ children, style }: { children: React.ReactNode; style?: R
 }
 
 /** Role / Team lines under a case study's hero title. */
-export function HeroMeta({ role, team }: { role: string; team: string | string[] }) {
+export function HeroMeta({ role, team }: { role: string; team?: string | string[] }) {
   // each label is one value line tall (h-6 = 16px × 1.5), so it centres on the first line;
   // row spacing is padding, not gap, so the divider line between the columns stays unbroken
   return (
     <dl className="font-sans grid grid-cols-[auto_1fr] items-start gap-x-6 mt-8 text-[#181a18]">
       <dt className="h-6 my-1 flex items-center text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50">Role</dt>
       <dd className="border-l border-[#181a18]/20 pl-6 py-1">{role}</dd>
-      <dt className="h-6 my-1 flex items-center text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50">Team</dt>
-      <dd className="border-l border-[#181a18]/20 pl-6 py-1">{[team].flat().map(t => <span key={t} className="block">{t}</span>)}</dd>
+      {team && <>
+        <dt className="h-6 my-1 flex items-center text-xs uppercase tracking-[0.15em] font-medium text-[#181a18]/50">Team</dt>
+        <dd className="border-l border-[#181a18]/20 pl-6 py-1">{[team].flat().map(t => <span key={t} className="block">{t}</span>)}</dd>
+      </>}
     </dl>
+  );
+}
+
+/** Case-study hero: badge, title, role/team on the left; banner over a slow accent glow on the right. */
+export function CaseStudyHero({ badge, title, role, team, banner, accent, badgeText = "#F5F0E8" }: {
+  badge: string; title: string; role: string; team?: string | string[];
+  banner: StaticImageData; accent: string; badgeText?: string;
+}) {
+  return (
+    <section
+      className="relative w-full h-screen flex items-center overflow-hidden"
+      style={{
+        backgroundColor: "#F5F0E8",
+        backgroundImage: "radial-gradient(circle, rgba(24,26,24,0.20) 1.5px, transparent 1.5px)",
+        backgroundSize: "36px 36px",
+      }}
+    >
+      <div className="relative w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
+          <span
+            className="font-sans inline-block"
+            style={{ fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700, padding: "6px 16px", borderRadius: "999px", backgroundColor: accent, color: badgeText }}
+          >
+            {badge}
+          </span>
+          <h1 className="font-bold mt-6" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.08, color: "#181a18" }}>{title}</h1>
+          <HeroMeta role={role} team={team} />
+        </motion.div>
+
+        <div className="relative">
+          <motion.div
+            className="absolute pointer-events-none rounded-full"
+            style={{
+              width: 1040, height: 680, left: "50%", top: "50%", marginLeft: -520, marginTop: -340, zIndex: 0,
+              background: `radial-gradient(ellipse, ${accent}59 0%, ${accent}1a 45%, transparent 70%)`,
+            }}
+            animate={{ scale: [1, 1.08, 0.95, 1] }}
+            transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="relative rounded-2xl overflow-hidden shadow-2xl"
+            style={{ zIndex: 1 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease }}
+          >
+            <Image src={banner} alt={title} priority className="w-full h-auto" />
+          </motion.div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -52,7 +105,7 @@ export function FadeIn({ children, delay = 0 }: { children: React.ReactNode; del
   );
 }
 
-export function Carousel({ items, aspectRatio, accent }: { items: { src: StaticImageData; alt: string }[]; aspectRatio: string; accent: string }) {
+export function Carousel({ items, aspectRatio, accent }: { items: { src: StaticImageData | string; alt: string }[]; aspectRatio: string; accent: string }) {
   const [index, setIndex] = useState(0);
   const total = items.length;
   const go = (i: number) => setIndex((i + total) % total);
@@ -98,6 +151,8 @@ export function Carousel({ items, aspectRatio, accent }: { items: { src: StaticI
 /** "Check out my other projects": the 3 projects sharing the most tags with this one. */
 export function CaseStudyEnd({ num }: { num: string }) {
   const tags = projects.find(p => p.num === num)?.categories ?? [];
+  // Show the tags of the tab this project lives on (same rule as /work/[id]: design unless data-only).
+  const pageTags = tags.some(c => DESIGN_CATEGORIES.includes(c)) ? DESIGN_CATEGORIES : DATA_FILTERS;
   const shared = (p: Project) => p.categories.filter(c => tags.includes(c)).length;
   // sort is stable, so ties keep the list's newest-first order
   const similar = projects.filter(p => p.num !== num).sort((a, b) => shared(b) - shared(a)).slice(0, 3);
@@ -105,7 +160,7 @@ export function CaseStudyEnd({ num }: { num: string }) {
     <section className="bg-[#F5F0E8] pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 pt-10 pb-20">
       <h2 className="font-bold mb-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Check out my other projects:</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {similar.map((p, i) => <ProjectGridCard key={p.num} {...p} i={i} />)}
+        {similar.map((p, i) => <ProjectGridCard key={p.num} {...p} categories={p.categories.filter(c => pageTags.includes(c))} i={i} />)}
       </div>
     </section>
   );
@@ -175,14 +230,15 @@ export function SectionRail({ accent, sectionRefs, footerWrapRef, sections = SEC
               <span
                 className="absolute right-full mr-4 font-sans transition-all duration-300"
                 style={{
-                  fontSize: "13px",
+                  // the other sections stay readable as a small, dimmed table of contents
+                  // (hidden over the footer, where each label becomes a dark pill)
+                  fontSize: active === i ? "13px" : "11px",
                   letterSpacing: "0.15em",
                   textTransform: "uppercase",
-                  fontWeight: 800,
+                  fontWeight: active === i ? 800 : 600,
                   color: overFooter ? "#F5F0E8" : "#181a18",
-                  opacity: active === i ? 1 : 0,
-                  transform: active === i ? "translateX(0)" : "translateX(6px)",
-                  pointerEvents: active === i ? "auto" : "none",
+                  opacity: active === i ? 1 : overFooter ? 0 : 0.4,
+                  pointerEvents: active === i || !overFooter ? "auto" : "none",
                   textShadow: overFooter ? "none" : "0 1px 12px rgba(245,240,232,0.9), 0 1px 3px rgba(245,240,232,0.9)",
                   backgroundColor: overFooter ? "#181a18" : "transparent",
                   padding: overFooter ? "8px 16px" : 0,
@@ -190,7 +246,7 @@ export function SectionRail({ accent, sectionRefs, footerWrapRef, sections = SEC
                   boxShadow: overFooter ? "0 8px 24px rgba(0,0,0,0.3)" : "none",
                   width: "max-content",
                   maxWidth: "140px",
-                  whiteSpace: "pre-line", // honours the \n in "Final\nProduct"
+                  whiteSpace: "pre-line", // honours the \n in two-line labels
                   textAlign: "right",
                   lineHeight: 1.3,
                 }}

@@ -11,22 +11,22 @@ import datagoodBanner from "../../assets/projects/design/datagood-merch-design/d
 
 export const projects = [
   {
-    num: "09", title: "Zipline Split Risk Model & Simulator", sub: "Sep 2026 - Dec 2026",
+    num: "12", title: "Space Sciences Lab Auroral Classification", sub: "Sep 2026 - Current",
+    gradient: "linear-gradient(135deg, #1F4D3A 0%, #0B1C20 100%)",
+    banner: sslBanner,
+    categories: ["Data Science", "Machine Learning", "Modeling & Simulation", "Research"], pinned: false, current: false,
+  },
+  {
+    num: "09", title: "Zipline Split Risk Model & Simulator", sub: "Sep 2026 - Current",
     gradient: "linear-gradient(135deg, #1F3A4D 0%, #0B1620 100%)",
     banner: ziplineBanner,
     categories: ["Data Science", "Modeling & Simulation", "Product"], pinned: false, current: false,
   },
   {
-    num: "10", title: "Replate Dashboard Design", sub: "Sep 2026 - Dec 2026",
+    num: "10", title: "Replate Dashboard Design", sub: "Sep 2026 - Current",
     gradient: "linear-gradient(135deg, #3D4A2A 0%, #161C0E 100%)",
     banner: replateBanner,
     categories: ["Brand", "Lead", "UI/UX", "Web"], pinned: false, current: false,
-  },
-  {
-    num: "12", title: "Space Sciences Lab Auroral Classification", sub: "Sep 2026 - Current",
-    gradient: "linear-gradient(135deg, #1F4D3A 0%, #0B1C20 100%)",
-    banner: sslBanner,
-    categories: ["Data Science", "Machine Learning", "Modeling & Simulation", "Research"], pinned: false, current: false,
   },
   {
     num: "11", title: "Healthcare Fraud Detection", sub: "Feb 2026 - May 2026",

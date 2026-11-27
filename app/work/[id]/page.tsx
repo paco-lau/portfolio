@@ -1,35 +1,39 @@
-import Link from "next/link";
-import { projects, DESIGN_CATEGORIES } from "../../lib/projects";
+import { notFound } from "next/navigation";
+import Footer from "../../components/Footer";
+import { projects } from "../../lib/projects";
+import { CaseStudyHero } from "../CaseStudy";
+
+// Header details for projects whose full case study isn't written yet.
+// Accents are sampled from each banner; light accents get ink badge text.
+const headers: Record<string, { company: string; title: string; role: string; team?: string[]; accent: string; badgeText?: string }> = {
+  "09": { company: "Zipline", title: "Split Risk Model & Simulator", role: "Strategy Consultant", team: ["1 Mentor", "1 Lead", "6 Strategy Consultants"], accent: "#643AED" },
+  "10": { company: "Replate", title: "Donor Dashboard Design", role: "Project Manager Lead", team: ["2 Mentors", "1 Lead", "2 Advisors", "5 Designers"], accent: "#2BB081", badgeText: "#181a18" },
+  "11": { company: "Healthcare Fraud Detection", title: "Medicare Claims Risk Modeling", role: "Data Science Researcher", team: ["2 Leads", "4 Data Science Researchers"], accent: "#4A1E28" },
+  "04": { company: "DataGood at Berkeley", title: "Marketing & Merchandise", role: "Vice President of Marketing", accent: "#33151C" },
+  "07": { company: "Milpitas High Varsity Boys Tennis", title: "Team Merchandise", role: "Merchandise Designer", accent: "#172750" },
+};
 
 export default async function WorkPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-
-  // Data-only projects are listed on the Data tab, so send people back there.
   const project = projects.find(p => p.num === id);
-  const dataOnly = !!project && !project.categories.some(c => DESIGN_CATEGORIES.includes(c));
-  const back = dataOnly ? { href: "/data", label: "Data" } : { href: "/design", label: "Design" };
+  const header = headers[id];
+  if (!project || !header) notFound();
 
   return (
-    <main className="min-h-screen bg-[#F5F0E8] flex flex-col items-center justify-center px-12 text-center">
-      <p
-        className="font-sans text-[#181a18]"
-        style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 700, lineHeight: 1.1 }}
-      >
-        Oops...
-      </p>
-      <p
-        className="font-sans text-[#181a18]/60 mt-4"
-        style={{ fontSize: "clamp(1.25rem, 2.5vw, 2rem)", fontWeight: 400 }}
-      >
-        Site in progress, come back later!
-      </p>
-      <Link
-        href={back.href}
-        className="font-sans mt-10 transition-opacity hover:opacity-75"
-        style={{ fontSize: "13px", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 600, padding: "14px 32px", borderRadius: "999px", backgroundColor: "#181a18", color: "#F5F0E8" }}
-      >
-        ← Back to {back.label}
-      </Link>
-    </main>
+    <>
+      <CaseStudyHero
+        badge={`${header.company} · ${project.sub}`}
+        title={header.title}
+        role={header.role}
+        team={header.team}
+        banner={project.banner}
+        accent={header.accent}
+        badgeText={header.badgeText}
+      />
+      <section className="bg-[#F5F0E8] py-32 text-center">
+        <p className="font-bold text-[#181a18]" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Coming soon</p>
+      </section>
+      <Footer />
+    </>
   );
 }
