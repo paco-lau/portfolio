@@ -37,10 +37,10 @@ const history: Entry[] = projects
   .sort(newestFirst);
 
 const campus: Entry[] = [
-  { title: "DataGood at Berkeley", role: "VP of Marketing; prev. Research Associate", sub: "Feb 2026 - Current", href: "/work/04" },
-  { title: "Invention Corps of Berkeley", role: "Project Manager; prev. Design Associate", sub: "Sep 2025 - Current" },
-  { title: "imagiCal (AAF)", role: "Design Associate", sub: "Sep 2026 - Current" },
-  { title: "UX at Berkeley", role: "UX Engineering Associate; prev. UX Design Associate", sub: "Sep 2025 - May 2026" },
+  { title: "DataGood at Berkeley", role: "VP of Marketing; prev. Research Associate", sub: "Feb 2026 - Current", href: "https://datagood.studentorg.berkeley.edu" },
+  { title: "Invention Corps of Berkeley", role: "Project Manager; prev. Design Associate", sub: "Sep 2025 - Current", href: "https://inventioncorps.org" },
+  { title: "imagiCal (AAF)", role: "Design Associate", sub: "Sep 2026 - Current", href: "https://imagical.club" },
+  { title: "UX at Berkeley", role: "UX Engineering Associate; prev. UX Design Associate", sub: "Sep 2025 - May 2026", href: "https://uxab.org" },
   { title: "Hong Kong Student Association", role: "Media & Marketing Head; prev. Intern", sub: "Feb 2026 - Current" },
 ];
 
@@ -82,7 +82,7 @@ function Row({ title, role, sub, href }: Entry) {
     </>
   );
   const cls = "block py-2";
-  return <li>{href ? <Link href={href} className={`${cls} group`}>{body}</Link> : <div className={cls}>{body}</div>}</li>;
+  return <li>{href ? <Link href={href} className={`${cls} group`} {...(href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}>{body}</Link> : <div className={cls}>{body}</div>}</li>;
 }
 
 export default function AboutPage() {
