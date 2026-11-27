@@ -8,7 +8,7 @@ import Arrow from "./Arrow";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export default function ProjectGridCard({ num, title, sub, gradient, banner, categories, pinned, current, i }: Project & { i: number }) {
+export default function ProjectGridCard({ num, title, sub, gradient, banner, categories, pinned, current, i, featuredIn }: Project & { i: number; featuredIn?: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -31,7 +31,7 @@ export default function ProjectGridCard({ num, title, sub, gradient, banner, cat
           <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
             {pinned && (
               <span className="font-sans" style={{ fontSize: "12px", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
-                Featured
+                {featuredIn ? `Featured in ${featuredIn}` : "Featured"}
               </span>
             )}
             {current && (

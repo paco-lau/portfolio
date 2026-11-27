@@ -242,10 +242,12 @@ export function Carousel({ items, aspectRatio, accent, autoPlay }: {
 }
 
 /** "Check out my other projects": the 3 projects sharing the most tags with this one. */
-// Each card shows the tags of the tab it lives on: design unless data-only.
-const tabTags = (cats: string[]) => {
-  const tab = cats.some(c => DESIGN_CATEGORIES.includes(c)) ? DESIGN_CATEGORIES : DATA_FILTERS;
-  return cats.filter(c => tab.includes(c));
+// Each card shows the tags of the tab it lives on (design unless data-only),
+// and is marked featured if it's that tab's pinned pick (see /design and /data).
+const asOnTab = (p: Project) => {
+  const design = p.categories.some(c => DESIGN_CATEGORIES.includes(c));
+  const tab = design ? DESIGN_CATEGORIES : DATA_FILTERS;
+  return { categories: p.categories.filter(c => tab.includes(c)), pinned: p.num === (design ? "05" : "12"), featuredIn: design ? "Design" : "Data" };
 };
 
 export function CaseStudyEnd({ num }: { num: string }) {
@@ -257,7 +259,7 @@ export function CaseStudyEnd({ num }: { num: string }) {
     <section className="bg-[#F5F0E8] pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 pt-10 pb-20">
       <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Check out my other projects:</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {similar.map((p, i) => <ProjectGridCard key={p.num} {...p} categories={tabTags(p.categories)} i={i} />)}
+        {similar.map((p, i) => <ProjectGridCard key={p.num} {...p} {...asOnTab(p)} i={i} />)}
       </div>
     </section>
   );
