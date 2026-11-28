@@ -9,6 +9,8 @@ import portLing from "../../../assets/photography/portrait/port-ling.jpg";
 import portHksacny from "../../../assets/photography/portrait/port-hksacny.jpg";
 import portMahi from "../../../assets/photography/portrait/port-mahi.jpg";
 
+export const metadata = { title: "Portrait & Group Photography" };
+
 const columns = [
   [
     { id: 1, aspect: "portrait"  as const, gradient: "linear-gradient(160deg, #2a1f1a 0%, #5a3a2a 60%, #8a6050 100%)", image: portAndy },

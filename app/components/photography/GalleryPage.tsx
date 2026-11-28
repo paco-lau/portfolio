@@ -37,6 +37,7 @@ function Photo({ photo, delay, inView }: { photo: GalleryPhoto; delay: number; i
   return (
     <motion.div
       className={settings ? "group cursor-none" : undefined}
+      data-viewfinder={settings ? "" : undefined}
       style={{ aspectRatio: photo.aspect === "portrait" ? "3/4" : "4/3", overflow: "hidden", position: "relative" }}
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}

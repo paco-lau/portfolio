@@ -3,6 +3,8 @@ import AboutMe from "../components/AboutMe";
 import Footer from "../components/Footer";
 import { projects } from "../lib/projects";
 
+export const metadata = { title: "About" };
+
 type Entry = { title: string; role?: string; sub: string; href?: string };
 
 // Jobs shown under Employment; projects come from lib/projects.

@@ -5,6 +5,8 @@ import urbanTahoe from "../../../assets/photography/urban-landscape/urbanland-ta
 import urbanTokyoSkytree from "../../../assets/photography/urban-landscape/urbanland-tokyoskytree.jpg";
 import urbanZhangjiajie from "../../../assets/photography/urban-landscape/urbanland-zhangjiajie.jpg";
 
+export const metadata = { title: "Urban & Landscape Photography" };
+
 const columns = [
   [
     { id: 1, aspect: "portrait"  as const, gradient: "linear-gradient(160deg, #0d1f2d 0%, #1a3a4a 50%, #2d6080 100%)", image: urbanLandscapeMain },

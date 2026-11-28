@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Footer from "../../components/Footer";
-import { projects } from "../../lib/projects";
-import { CaseStudyHero } from "../CaseStudy";
+import { projects, workMetadata } from "../../lib/projects";
+import { CaseStudyEnd, CaseStudyHero } from "../CaseStudy";
 
 // Header details for projects whose full case study isn't written yet.
 // Accents are sampled from each banner; light accents get ink badge text.
@@ -11,6 +11,10 @@ const headers: Record<string, { company: string; title: string; role: string; te
   "04": { company: "DataGood at Berkeley", title: "Marketing & Merchandise", role: "Vice President of Marketing", accent: "#33151C" },
   "07": { company: "Milpitas High Varsity Boys Tennis", title: "Team Merchandise", role: "Merchandise Designer", accent: "#172750" },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  return workMetadata((await params).id);
+}
 
 export default async function WorkPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -29,9 +33,7 @@ export default async function WorkPage({ params }: { params: Promise<{ id: strin
         accent={header.accent}
         badgeText={header.badgeText}
       />
-      <section className="bg-[#F5F0E8] py-32 text-center">
-        <p className="font-bold text-[#181a18]" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Coming soon</p>
-      </section>
+      <CaseStudyEnd num={id} sameTab title="Case study coming soon" intro="In the meantime, check out my other work:" />
       <Footer />
     </>
   );

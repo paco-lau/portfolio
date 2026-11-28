@@ -1,10 +1,10 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useEffect, useState, type RefObject } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { motion, useInView } from "framer-motion";
 import ProjectGridCard from "../components/ProjectGridCard";
-import { projects, DATA_FILTERS, DESIGN_CATEGORIES, type Project } from "../lib/projects";
+import { projects, DATA_CATEGORY, DATA_FILTERS, DESIGN_CATEGORIES, type Project } from "../lib/projects";
 
 // Building blocks shared by the case-study pages under app/work/.
 
@@ -108,17 +108,27 @@ export function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** [ref, seen]: seen turns true once the element scrolls into view, so charts can assemble then. */
+export function useSeen<T extends Element>() {
+  const ref = useRef<T>(null);
+  return [ref, useInView(ref, { once: true, margin: "-80px" })] as const;
+}
+
+// Charts animate with CSS transitions; reduced-motion visitors get the finished chart.
+const grow = "transition-[width,background-color,transform,opacity] ease-out motion-reduce:transition-none";
+
 /** Bar comparison; the first bar is the highlighted one. `flush` drops the top margin inside a gapped card. */
 export function MiniBars({ bars, max, accent, flush = false }: { bars: { label: string; value: number; text: string }[]; max: number; accent: string; flush?: boolean }) {
+  const [ref, seen] = useSeen<HTMLUListElement>();
   return (
-    <ul className={`space-y-2.5 ${flush ? "" : "mt-5"}`}>
+    <ul ref={ref} className={`space-y-2.5 ${flush ? "" : "mt-5"}`}>
       {bars.map((b, i) => (
         <li key={b.label}>
           <div className="font-sans flex justify-between mb-1" style={{ fontSize: "13px", color: "rgba(24,26,24,0.6)" }}>
             <span>{b.label}</span><span className="font-semibold" style={{ color: "#181a18" }}>{b.text}</span>
           </div>
           <div className="h-2 rounded-full" style={{ backgroundColor: "#d9d3c8" }}>
-            <div className="h-2 rounded-full" style={{ width: `${(b.value / max) * 100}%`, backgroundColor: i === 0 ? accent : "#B7B2A8" }} />
+            <div className={`h-2 rounded-full duration-1000 ${grow}`} style={{ width: seen ? `${(b.value / max) * 100}%` : 0, transitionDelay: `${i * 150}ms`, backgroundColor: i === 0 ? accent : "#B7B2A8" }} />
           </div>
         </li>
       ))}
@@ -126,12 +136,13 @@ export function MiniBars({ bars, max, accent, flush = false }: { bars: { label: 
   );
 }
 
-/** 10×10 grid: `filled` of 100 squares in `on`, the rest in `off`. */
+/** 10×10 grid: `filled` of 100 squares in `on`, the rest in `off`. The filled squares light up one by one. */
 export function Waffle({ filled, label, on, off }: { filled: number; label: string; on: string; off: string }) {
+  const [ref, seen] = useSeen<HTMLDivElement>();
   return (
-    <div className="grid grid-cols-10 gap-1.5 w-full max-w-[300px] shrink-0" role="img" aria-label={label}>
+    <div ref={ref} className="grid grid-cols-10 gap-1.5 w-full max-w-[300px] shrink-0" role="img" aria-label={label}>
       {Array.from({ length: 100 }, (_, i) => (
-        <span key={i} className="aspect-square rounded-[3px]" style={{ backgroundColor: i < filled ? on : off }} />
+        <span key={i} className={`aspect-square rounded-[3px] duration-300 ${grow}`} style={{ backgroundColor: seen && i < filled ? on : off, transitionDelay: `${i * 45}ms` }} />
       ))}
     </div>
   );
@@ -244,20 +255,27 @@ export function Carousel({ items, aspectRatio, accent, autoPlay }: {
 /** "Check out my other projects": the 3 projects sharing the most tags with this one. */
 // Each card shows the tags of the tab it lives on (design unless data-only),
 // and is marked featured if it's that tab's pinned pick (see /design and /data).
+const isDesign = (p: Project) => p.categories.some(c => DESIGN_CATEGORIES.includes(c));
 const asOnTab = (p: Project) => {
-  const design = p.categories.some(c => DESIGN_CATEGORIES.includes(c));
+  const design = isDesign(p);
   const tab = design ? DESIGN_CATEGORIES : DATA_FILTERS;
   return { categories: p.categories.filter(c => tab.includes(c)), pinned: p.num === (design ? "05" : "12"), featuredIn: design ? "Design" : "Data" };
 };
 
-export function CaseStudyEnd({ num }: { num: string }) {
-  const tags = projects.find(p => p.num === num)?.categories ?? [];
+/** `sameTab` keeps the picks to this project's own tab (design or data); `title`/`intro` replace the heading. */
+export function CaseStudyEnd({ num, sameTab = false, title = "Check out my other projects:", intro }: { num: string; sameTab?: boolean; title?: string; intro?: string }) {
+  const self = projects.find(p => p.num === num);
+  const tags = self?.categories ?? [];
   const shared = (p: Project) => p.categories.filter(c => tags.includes(c)).length;
   // sort is stable, so ties keep the list's newest-first order
-  const similar = projects.filter(p => p.num !== num).sort((a, b) => shared(b) - shared(a)).slice(0, 3);
+  const similar = projects
+    // same tab = what the Design or Data page lists (Data lists anything tagged Data Science)
+    .filter(p => p.num !== num && (!sameTab || !self || (isDesign(self) ? isDesign(p) : p.categories.includes(DATA_CATEGORY))))
+    .sort((a, b) => shared(b) - shared(a)).slice(0, 3);
   return (
     <section className="bg-[#F5F0E8] pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-4 sm:pr-8 md:pr-32 lg:pr-48 pt-10 pb-20">
-      <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>Check out my other projects:</h2>
+      <h2 className="flex items-center gap-6 after:content-[''] after:flex-1 after:h-px after:bg-[#181a18]/20 font-bold mb-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>{title}</h2>
+      {intro && <p className="-mt-5 mb-8 text-[#181a18]/60" style={{ fontSize: "clamp(1rem, 1.6vw, 1.25rem)" }}>{intro}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {similar.map((p, i) => <ProjectGridCard key={p.num} {...p} {...asOnTab(p)} i={i} />)}
       </div>

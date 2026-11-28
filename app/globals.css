@@ -11,6 +11,12 @@ body {
   scrollbar-gutter: stable;
 }
 
+/* Selected text in the site's light blue, readable on cream and dark sections */
+::selection {
+  background: #7EC8E3;
+  color: #181a18;
+}
+
 /* Jumps to a section (rail buttons, #anchors) stop below the fixed navbar */
 html {
   scroll-padding-top: 60px;
@@ -43,4 +49,27 @@ html {
   .about-images-mobile {
     width: 65% !important;
   }
+}
+
+/* Custom cursor: spinning octahedron (components/Cursor.tsx) */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none !important;
+}
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  transition: opacity 0.2s, width 0.25s, height 0.25s, margin 0.25s;
+}
+.cursor-ring[data-hover] {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
 }

@@ -1,6 +1,8 @@
 import WorkIndex from "../components/WorkIndex";
 import { dataProjects, DATA_FILTERS } from "../lib/projects";
 
+export const metadata = { title: "Data" };
+
 export default function DataPage() {
   return (
     <WorkIndex

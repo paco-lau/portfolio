@@ -80,3 +80,18 @@ export const DATA_FILTERS = ["Machine Learning", "Modeling & Simulation", "Resea
 
 /** Projects shown on the Data tab. */
 export const dataProjects = projects.filter(p => !p.current && p.categories.includes(DATA_CATEGORY));
+
+// Short names for browser tabs, which cut long titles off
+const SHORT: Record<string, string> = {
+  "12": "Space Sciences Lab", "09": "Zipline", "10": "Replate", "11": "Healthcare Fraud Detection",
+  "02": "Global Inheritance", "03": "GoTourGlobal", "04": "DataGood", "05": "Mozilla Firefox",
+  "06": "Mill Pond Research", "07": "Milpitas Tennis",
+};
+
+/** Case study titles: "Paco Lau: <short name>" in the tab, the full project title in link previews. */
+export const workMetadata = (num: string) => {
+  const full = `Paco Lau: ${projects.find(p => p.num === num)?.title}`;
+  // Setting these replaces the site defaults, so the shared preview image is listed again
+  const images = ["/opengraph-image.png"];
+  return { title: SHORT[num], openGraph: { title: full, images }, twitter: { card: "summary_large_image" as const, title: full, images } };
+};

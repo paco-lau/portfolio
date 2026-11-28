@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import Footer from "../../components/Footer";
-import { Card, CaseStudyEnd, CaseStudyHero, FadeIn, FlowArrow, Key as KeyBase, Labeled as LabeledBase, MiniBars as MiniBarsBase, Numbered as NumberedBase, SectionRail, SectionTitle, Waffle, lead, pad, small } from "../CaseStudy";
+import { Card, CaseStudyEnd, CaseStudyHero, FadeIn, FlowArrow, Key as KeyBase, Labeled as LabeledBase, MiniBars as MiniBarsBase, Numbered as NumberedBase, SectionRail, SectionTitle, Waffle, lead, pad, small, useSeen } from "../CaseStudy";
 
 import sslBanner from "../../../assets/projects/data-science/ssl-aurora/ssl-banner.png";
 import sslPoster from "../../../assets/projects/data-science/ssl-aurora/ssl-poster.webp";
@@ -35,6 +35,7 @@ const results = [
 export default function SSLCaseStudyPage() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const footerWrapRef = useRef<HTMLDivElement | null>(null);
+  const [ciRef, ciSeen] = useSeen<HTMLDivElement>();
 
   return (
     <>
@@ -189,11 +190,12 @@ export default function SSLCaseStudyPage() {
                     <p className="font-sans" style={{ fontSize: "20px", lineHeight: 1.45 }}>points of macro-F1 from adding history, which is not significant</p>
                   </div>
                   {/* 95% CI drawn on a -2..+8 scale; the bar crossing the zero line is the point */}
-                  <div role="img" aria-label="95% confidence interval from -0.7 to +6.7, estimate +1.8, crossing zero">
+                  <div ref={ciRef} role="img" aria-label="95% confidence interval from -0.7 to +6.7, estimate +1.8, crossing zero">
                     <div className="relative h-8">
                       <span className="absolute top-0 bottom-0 w-px" style={{ left: "20%", backgroundColor: "rgba(245,240,232,0.5)" }} />
-                      <span className="absolute top-1/2 -translate-y-1/2 h-1.5 rounded-full" style={{ left: "13%", width: "74%", backgroundColor: "rgba(245,240,232,0.35)" }} />
-                      <span className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full" style={{ left: "38%", backgroundColor: "#F5F0E8" }} />
+                      {/* the estimate lands first, then the interval spreads out from it (origin = +1.8's spot on the bar) */}
+                      <span className="absolute top-1/2 -translate-y-1/2 h-1.5 rounded-full transition-transform duration-1000 ease-out delay-500 motion-reduce:transition-none" style={{ left: "13%", width: "74%", backgroundColor: "rgba(245,240,232,0.35)", transformOrigin: "33.8% 50%", scale: ciSeen ? "1 1" : "0 1" }} />
+                      <span className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full transition-[scale] duration-500 ease-out motion-reduce:transition-none" style={{ left: "38%", backgroundColor: "#F5F0E8", scale: ciSeen ? 1 : 0 }} />
                     </div>
                     <div className="relative h-5 font-sans" style={{ fontSize: "13px", color: "rgba(245,240,232,0.7)" }}>
                       <span className="absolute -translate-x-1/2" style={{ left: "13%" }}>&minus;0.7</span>

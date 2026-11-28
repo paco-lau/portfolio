@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Cormorant_Garamond, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
 import BackToTop from "./components/BackToTop";
+import Cursor from "./components/Cursor";
+import ConsoleHello from "./components/ConsoleHello";
 import { Analytics } from "@vercel/analytics/next";
 
 const dmSans = DM_Sans({
@@ -26,10 +28,13 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.pacolau.com"),
-  title: "Paco Lau",
+  title: { default: "Paco Lau", template: "Paco Lau: %s" },
   description: "Paco Lau is a UC Berkeley Data Science & Economics student working across data science, design and photography.",
   twitter: { card: "summary_large_image" },
 };
+
+// Phone browsers tint their toolbar to match the cream page
+export const viewport: Viewport = { themeColor: "#F5F0E8" };
 
 export default function RootLayout({
   children,
@@ -43,6 +48,8 @@ export default function RootLayout({
         <Navbar />
         {children}
         <BackToTop />
+        <Cursor />
+        <ConsoleHello />
         {/* Cookieless page views; counts ?utm_source= etc. per link */}
         <Analytics />
       </body>

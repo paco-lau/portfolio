@@ -1,6 +1,8 @@
 import WorkIndex from "../components/WorkIndex";
 import { projects, DESIGN_CATEGORIES } from "../lib/projects";
 
+export const metadata = { title: "Design" };
+
 // Data-only projects live on the Data tab; cross-disciplinary ones appear in both.
 const visible = projects.filter(p => !p.current && p.categories.some(c => DESIGN_CATEGORIES.includes(c)));
 

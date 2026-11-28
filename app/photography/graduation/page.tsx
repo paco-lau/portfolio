@@ -9,6 +9,8 @@ import gradChampineIndv from "../../../assets/photography/graduate/grad-icb-cham
 import gradChampine from "../../../assets/photography/graduate/grad-icb-champine.jpg";
 import gradGroupSather from "../../../assets/photography/graduate/grad-icb-group2026sather.jpg";
 
+export const metadata = { title: "Graduation Photography" };
+
 const columns = [
   [
     { id: 1, aspect: "portrait"  as const, gradient: "linear-gradient(160deg, #1a140a 0%, #3a2a10 50%, #6a4a20 100%)", image: graduateIcbMain },
