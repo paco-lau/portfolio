@@ -8,6 +8,13 @@ import type { Project } from "../lib/projects";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+// Hover tint spreads from where the cursor enters a filter (and drains to where it leaves), like the CTA buttons
+const inkFrom = (e: React.MouseEvent<HTMLElement>) => {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--ink-x", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--ink-y", `${e.clientY - r.top}px`);
+};
+
 /** Title + category filters + project grid, shared by the Design and Data pages. */
 export default function WorkIndex({ title, items, categories, emptyText, pinned }: {
   title: string;
@@ -58,16 +65,14 @@ export default function WorkIndex({ title, items, categories, emptyText, pinned 
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className="font-sans cursor-pointer transition-all duration-200"
-              style={{
-                fontSize: "14px", fontWeight: 500,
-                padding: "7px 18px", borderRadius: "999px",
-                border: active === cat ? "1px solid #7EC8E3" : "1px solid rgba(24,26,24,0.2)",
-                backgroundColor: active === cat ? "#7EC8E3" : "transparent",
-                color: "#181a18",
-              }}
+              onMouseEnter={inkFrom}
+              onMouseLeave={inkFrom}
+              aria-pressed={active === cat}
+              className={`filter-pill font-sans cursor-pointer relative overflow-hidden rounded-full border transition-[background-color,border-color,transform] duration-200 ${active === cat ? "bg-[#7EC8E3] border-[#7EC8E3]" : "border-[#181a18]/20 hover:border-[#7EC8E3]"}`}
+              style={{ fontSize: "14px", fontWeight: 500, padding: "7px 18px", color: "#181a18" }}
             >
-              {cat}
+              <span aria-hidden="true" className="filter-ink" />
+              <span className="relative">{cat}</span>
             </button>
           ))}
         </motion.div>

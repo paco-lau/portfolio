@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { Project } from "../lib/projects";
 import Arrow from "./Arrow";
+import HoverCard from "./HoverCard";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -15,8 +16,8 @@ export default function ProjectGridCard({ num, title, sub, gradient, banner, cat
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.08 }}
       transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease }}
-      whileHover={{ y: -6 }}
     >
+      <HoverCard>
       {/* radius 24 = badge pill radius (~12) + its 12px inset, so the corners nest */}
       <Link
         href={`/work/${num}`}
@@ -26,8 +27,11 @@ export default function ProjectGridCard({ num, title, sub, gradient, banner, cat
         onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)")}
       >
         <div className="h-72 relative" style={{ background: gradient }}>
-          {banner && <Image src={banner} alt={title} fill className="object-cover object-center" />}
-          <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
+          <div className="card-img">
+            {banner && <Image src={banner} alt={title} fill className="object-cover object-center" />}
+            {/* inside the moving layer, so the shade drifts with the banner */}
+            <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
+          </div>
           <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
             {pinned && (
               <span className="font-sans" style={{ fontSize: "12px", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
@@ -56,6 +60,7 @@ export default function ProjectGridCard({ num, title, sub, gradient, banner, cat
           <Arrow head size={28} className="relative right-1 text-[#181a18]/25 group-hover:text-[#181a18]/70" />
         </div>
       </Link>
+      </HoverCard>
     </motion.div>
   );
 }

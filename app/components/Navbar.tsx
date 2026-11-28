@@ -14,10 +14,12 @@ export default function Navbar() {
   const [prevPath, setPrevPath] = useState(pathname);
   if (pathname !== prevPath) {
     setPrevPath(pathname);
-    setNavOpacity(0);
     setMenuOpen(false);
   }
 
+  // Shade follows the real scroll position. It's re-read after each navigation (once the new page
+  // has been scrolled to the top) rather than assumed to be 0: a stale scroll event from the old,
+  // longer page could otherwise land after a reset and leave the bar dark.
   useEffect(() => {
     const onScroll = () => {
       const currentY = window.scrollY;
@@ -26,9 +28,11 @@ export default function Navbar() {
       setNavOpacity(Math.min(Math.max((currentY - start) / (end - start), 0), 1));
     };
 
+    onScroll();
+    const frame = requestAnimationFrame(onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", onScroll); };
+  }, [pathname]);
 
   const textColor = `rgb(${Math.round(24 + 231 * navOpacity)}, ${Math.round(26 + 229 * navOpacity)}, ${Math.round(24 + 231 * navOpacity)})`;
 

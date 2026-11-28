@@ -57,6 +57,7 @@ export default function FirefoxCaseStudyPage() {
       <SectionRail accent={ACCENT} sectionRefs={sectionRefs} footerWrapRef={footerWrapRef} sections={SECTIONS} />
 
       <CaseStudyHero
+        github="https://github.com/cjmc7e/firefox-adaptive-performance"
         badge={"Mozilla | Sep 2025 - Feb 2026"}
         title="Adaptive Performance Extension"
         role="Designer & Back-End Engineer"

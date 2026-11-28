@@ -42,6 +42,7 @@ export default function SSLCaseStudyPage() {
       <SectionRail accent={ACCENT} sectionRefs={sectionRefs} footerWrapRef={footerWrapRef} sections={SECTIONS} />
 
       <CaseStudyHero
+        github="https://github.com/ML-for-AGO-All-Sky-Imager"
         badge={"Space Sciences Lab | Sep 2026 - Current"}
         title="Auroral Image Classification"
         role="Data Science Researcher, Temporal Models"

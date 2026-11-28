@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
 import CtaButton from "../../components/CtaButton";
-import { Card, CaseStudyEnd, Carousel, FadeIn, HeroMeta, SectionRail, ease } from "../CaseStudy";
+import { Card, CaseStudyEnd, Carousel, FadeIn, GithubLink, HeroMeta, SectionRail, ease } from "../CaseStudy";
 
 import millpondBanner from "../../../assets/projects/design/millpond-research/millpond-banner.png";
 
@@ -59,6 +59,7 @@ export default function MillPondCaseStudyPage() {
               Brand &amp; Website Re-Design
             </h1>
             <HeroMeta role="UX Designer & Engineer" team={["2 Mentors", "1 Lead", "4 UX Designers", "2 UX Engineers"]} />
+            <GithubLink href="https://github.com/design-millpondresearch/millpond-uxab-frontend" />
           </motion.div>
 
           <div className="relative">

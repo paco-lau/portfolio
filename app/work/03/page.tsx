@@ -58,6 +58,7 @@ export default function GoTourGlobalCaseStudyPage() {
       <SectionRail accent={ACCENT} sectionRefs={sectionRefs} footerWrapRef={footerWrapRef} />
 
       <CaseStudyHero
+        github="https://github.com/paco-lau/gotourglobal_mobile"
         badge={"GoTourGlobal\u2002|\u2002Feb 2026 - May 2026"}
         title="Mobile App"
         role="UX Engineer"

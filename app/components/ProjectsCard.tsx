@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import grad26Banner from "../../assets/photography/grad-26-banner.jpg";
 import { projects as allProjects, DATA_FILTERS, DESIGN_CATEGORIES } from "../lib/projects";
 import Arrow from "./Arrow";
+import HoverCard from "./HoverCard";
 import CtaButton from "./CtaButton";
 
 // The projects pinned on the Data and Design pages, pulled from the shared list so dates
@@ -128,10 +129,7 @@ export default function ProjectsCard() {
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 1.1, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] }}
           >
-          <motion.div
-            whileHover={{ y: -6 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <HoverCard>
             {/* radius 24 = badge pill radius (~12) + its 12px inset, so the corners nest */}
             <Link
               href={num === "photography" ? "/photography/graduation" : `/work/${num}`}
@@ -142,8 +140,11 @@ export default function ProjectsCard() {
             >
               {/* Image area */}
               <div className="h-72 relative" style={{ background: gradient }}>
-                {banner && <Image src={banner} alt={title} fill className="object-cover" />}
-                <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
+                <div className="card-img">
+                  {banner && <Image src={banner} alt={title} fill className="object-cover" />}
+                  {/* inside the moving layer, so the shade drifts with the banner */}
+                  <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }} />
+                </div>
                 <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
                   <span className="font-sans" style={{ fontSize: "12px", fontWeight: 600, padding: "3px 10px", borderRadius: "999px", backgroundColor: "#F5F0E8", color: "#181a18" }}>
                     Featured in {discipline}
@@ -174,7 +175,7 @@ export default function ProjectsCard() {
                 <Arrow head size={28} className="relative right-1 text-white/25 group-hover:text-white/70" />
               </div>
             </Link>
-          </motion.div>
+          </HoverCard>
           <Link href={more.href} className="group flex w-fit ml-auto mr-1 items-center gap-2 mt-4 text-sm text-[#7EC8E3] hover:text-white transition-colors">
             {more.label} <Arrow />
           </Link>
